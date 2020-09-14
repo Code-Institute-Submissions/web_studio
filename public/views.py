@@ -8,5 +8,5 @@ def index(request):
     context = {
         "orders":orders
     }
-    return render(request,'public/index.html',context)
+    return render(request, 'public/index.html', context)
 
