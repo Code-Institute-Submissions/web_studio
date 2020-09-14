@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
-         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
     {% block extra_css %}
@@ -41,10 +41,11 @@
     <title>marcelli's {% block extra_title %}{% endblock %}</title>
 </head>
 <body>
-<header class="container-fluid p-0  fixed-top">
+<header class="container-fluid p-0 sticky-top ">
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'home' %}">marcelli's</a>
+        <a class="navbar-brand font-weight-bold   text-info" href="{% url 'home' %}">
+            <h1 class="font-weight-bold   text-info">marcelli's</h1></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#site-navbar" aria-controls="site-navbar" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -53,22 +54,30 @@
 
         <div class="collapse navbar-collapse" id="site-navbar">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Examples</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Testimonials</a>
+                    <a class="nav-link" href="{% url 'testimonials' %}" tabindex="-1" aria-disabled="true">Testimonials</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown03">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="products" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Products</a>
+                    <div class="dropdown-menu" aria-labelledby="products">
+                        <a class="dropdown-item" href="{% url 'blog' %}">blog</a>
+                        <a class="dropdown-item" href="{% url 'website' %}">website</a>
+                        <a class="dropdown-item" href="{% url 'online_store' %}">online store</a>
+                        <a class="dropdown-item" href="{% url 'get_in_touch' %}">get in touch</a>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="examples" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Examples</a>
+                    <div class="dropdown-menu" aria-labelledby="examples">
+                        <a target="_blank" class="dropdown-item" href="https://kasia-sosna.herokuapp.com/">Example blog</a>
+                        <a target="_blank" class="dropdown-item" href="https://marcelkolarcik.github.io/wake-up-happy/index.html">Example website</a>
+                        <a target="_blank" class="dropdown-item" href="https://how-do-you-do.herokuapp.com/">Example online store</a>
+                        <a target="_blank" class="dropdown-item" href="https://www.globtopus.com/">Example worldwide forum</a>
+
                     </div>
                 </li>
             </ul>
@@ -78,6 +87,7 @@
         </div>
     </nav>
 </header>
+
 
 {% if messages %}
     <div class="message-container"></div>

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="card col-lg-12 border-0">
+
+        <div class="card-header bg-transparent border-0">
+            <h1 class="font-weight-bold display-3  text-info">testimonials</h1>
+        </div>
+        <div class="card-body border-secondary border">
+            <h3 class="font-weight-bold text-info float-right"></h3>
+        </div>
+    </div>
+    <div class="col-12 mt-3"></div>
+    <div class="container">
+        <div class="row index">
+
+            <div class="card col-lg-12 border-0">
+
+
+                <div class="card-body border-0 border-secondary">
+                    <h1 class=" display-4">
+                        These are some of our satisfied customers...
+                    </h1>
+                </div>
+            </div>
+            <div class="my-5 col-12 ">&nbsp;
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/4.png" %}" alt="happy customer">
+            </div>
+            <div class="col-lg-7">
+                <p class="testimonial float-right">I made my first online money with blog created by marcelli's
+                    5 years ago, now I have 6 more blogs and I travel the world, doing what I love.
+                <p>
+                <p class="float-right"><em>Mark Stuborn</em></p>
+
+
+            </div>
+            <div class="my-5 col-12 ">
+                <hr>
+            </div>
+            <div class="col-lg-5">
+                <p class="testimonial float-right">Do you want to promote your product, service or business?
+                    Look no further, marcelli's highly professional service helped me and my business
+                    reach audience around the world, and with Google Analytics ( with small help from Marcel ) I know
+                    exactly, what to
+                    focus on the most.</p>
+                <p class="float-left"><em>Steve Wozniak</em></p>
+
+
+            </div>
+            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/5.png" %}" alt="happy customer">
+            </div>
+            <div class="col-lg-7">
+
+            </div>
+            <div class="my-5 col-12 ">
+                <hr>
+            </div>
+            <div class="col-lg-5">
+
+                <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                    <img class="img-thumbnail" src="{% static "public/images/12.png" %}" alt="happy customer">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <p class="testimonial float-right">Do you want to sell your products online? My own Online store created
+                    by marcelli's team
+                    that helps me greatly to sell my range of homemade cosmetics is not only easy to manage,
+                    but I employed both of my daughters in it as well. Real family bussiness!
+                </p>
+                <p class="float-right"><em>Emma Steel</em></p>
+
+            </div>
+
+
+
+            <div class="col-lg-12 mt-5 d-flex justify-content-around">
+
+
+                <a class="lead  btn btn-lg btn-outline-info" href="{% url 'blog' %}">Blog <span>299</span> &euro;</a>
+                <a class="lead  btn btn-lg btn-outline-info" href="{% url 'website' %}">Website <span>699</span> &euro;</a>
+                <a class="lead  btn btn-lg btn-outline-info" href="{% url 'online_store' %}">Online store <span>1299</span> &euro;</a>
+
+            </div>
+            <div class="col-lg-12 my-5"></div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

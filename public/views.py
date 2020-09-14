@@ -22,5 +22,8 @@ def online_store(request):
 def get_in_touch(request):
 
     return render(request, 'public/get_in_touch.html')
+def testimonials(request):
+
+    return render(request, 'public/testimonials.html')
 
 
