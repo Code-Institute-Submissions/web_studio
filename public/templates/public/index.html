@@ -1,5 +1,79 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
 {% block  content %}
-    <h1 class="display-4 text-success"> It works!</h1>
+
+    <div class="col-12 mt-5"></div>
+    <div class="container">
+        <div class="row index">
+
+            <div class="card col-lg-12 border-0">
+
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info">marcelli's</h1>
+                </div>
+                <div class="card-body border-0 bg-secondary">
+                    <p class="my-5"></p>
+                </div>
+            </div>
+            <div class="my-5 col-12 ">&nbsp;
+               </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <h1 class="display-1"><i class="fas fa-blog fa-2x text-info"></i></h1>
+            </div>
+            <div class="col-lg-7">
+                <h1 class="display-4 float-right">Do you want to make money from your own blog?</h1>
+
+                <a href="{% url 'blog' %}" class="lead float-right btn btn-lg btn-outline-info">Prices start from 299 EUR</a>
+            </div>
+            <div class="my-5 col-12 "> <hr></div>
+            <div class="col-lg-5">
+                <h1 class="display-4 float-right">Do you want to promote your product, service or business?</h1>
+
+                 <a href="{% url 'website' %}" class="lead float-right btn btn-lg btn-outline-info ">Prices start from 699 EUR</a>
+            </div>
+            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+                <h1 class="display-1"><i class="fas fa-user-tie fa-2x  text-info"></i></h1>
+            </div>
+            <div class="col-lg-7">
+
+            </div>
+            <div class="my-5 col-12 "> <hr></div>
+            <div class="col-lg-5">
+
+                <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                    <h1 class="display-1"><i class="fas fa-euro-sign fa-2x  text-info"></i></h1>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h1 class="display-4 float-right">Do you want to sell your products online?</h1>
+                <a href="{% url 'online_store' %}" class="lead float-right btn btn-lg btn-outline-info">Prices start from 1299 EUR</a>
+            </div>
+            <div class="my-5 col-12 "> <hr></div>
+            <div class="col-lg-5">
+
+                <h1 class="display-4 float-right"> Do you have something else in mind?</h1>
+                <a href="{% url 'get_in_touch' %}" class="lead float-right btn btn-lg btn-outline-info">Get in touch</a>
+            </div>
+
+
+            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+                <h1 class="display-1"><i class="fas fa-question  fa-2x  text-info"></i></h1>
+            </div>
+
+
+            <div class="my-5 col-12 "> <hr></div>
+        </div>
+
+    </div>
+
 {% endblock %}
