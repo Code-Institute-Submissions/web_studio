@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block  content %}
+
+
+
+
+    <div class="col-12 mt-5"></div>
+    <div class="container">
+        <div class="row index">
+
+            <div class="card col-lg-12 border-0">
+
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info">checkout : {{ type }}</h1>
+                </div>
+                <div class="card-body border-secondary border">
+                    <h3 class="font-weight-bold text-info float-right">
+                        <span id="total">
+                        {% if type == 'blog' %}
+                            299
+                        {% elif type == 'website' %}
+                            699
+                        {% else %}
+                            1 299
+                        {% endif %}</span>
+
+
+                        &euro;</h3>
+                </div>
+            </div>
+
+
+                {% comment %}extras{% endcomment %}
+                <div class="card col-lg-12 border-0">
+
+
+                    <div class="card-header bg-transparent border-0">
+                        <h1 class="font-weight-bold display-5  text-info">add extras:</h1>
+                    </div>
+                    <div class="card-body border-0">
+                        <p class="my-3"></p>
+                        <div class="col-md-8 offset-md-4">
+                            <ul class="list-group">
+                                <li class="list-group-item bottom_border">
+                                    Privacy Policy, Cookie Policy, Terms of use
+                                    <span class="float-right">
+                                    <span class="text-info">99 &euro;</span>
+                                <input title="policies" type="checkbox" name="policies" id="policies">
+
+                                </span>
+
+                                </li>
+                                {% if type == 'website' %}
+                                    <li class="list-group-item bottom_border">
+                                        Extra pages
+                                        <span id="extra_pages" class="text-success">0</span>
+                                        <span class="float-right">
+                                            <span class="text-info">99 &euro; / page</span>
+                                        </span>
+                                        <input title="extra pages" type="range" id="more_pages" value="0" name="vol"
+                                               min="0" max="10">
+                                        <span id="extra_pages_cost" > 0</span>&euro;
+                                    </li>
+
+
+                                {% endif %}
+                                <li class="list-group-item bottom_border">
+                                    Web-hosting ( We can advise you on several options, where to host your blog )
+
+                                </li>
+
+                                <li class="list-group-item bottom_border">
+                                <span class="float-right">
+                                     Grand total : <span id="grand_total"> {% if type == 'blog' %}
+                                    299
+                                {% elif type == 'website' %}
+                                    699
+                                {% else %}
+                                    1299
+                                {% endif %}</span> &euro;
+                                </span>
+
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            <div class="col-12 mt-5"></div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+{% block postloadjs %}
+
+    <script src="{% static 'checkout/js/checkout.js' %}"></script>
+
+{% endblock %}

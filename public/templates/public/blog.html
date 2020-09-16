@@ -18,10 +18,12 @@
 
             <div class="card col-lg-12 border-0">
 
-                <div class="card-header bg-transparent border-0">
+                <div class="card-header bg-transparent border-0 ">
+
                     <h1 class="font-weight-bold display-3  text-info">blog</h1>
                 </div>
-                <div class="card-body border-secondary border">
+                <div class="card-body border-secondary border ">
+
                     <h3 class="font-weight-bold text-info float-right">from 299 &euro;</h3>
                 </div>
             </div>
@@ -65,6 +67,18 @@
                                     &check;
                                    </span>
                             </li>
+                             <li class="list-group-item bottom_border">
+                                Content management system
+                                <span class="float-right">
+                                    <span class="text-info">59 &euro; ( included )
+                                        <span class="pl-2 float-right text-success included">
+                                    &check;
+                                   </span></span>
+
+
+                                </span>
+
+                            </li>
                             <li class="list-group-item bottom_border">
                                 SEO ( Web Search Friendly )
                                  <span class="float-right text-success included">
@@ -72,7 +86,7 @@
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
-                                We will help you set-up Google Adsense account, so that you can
+                                We will help you set-up Google Adsense account, or any other provider of your choice, so that you can
                                 monetize content of your blog.
                                  <span class="float-right text-success included">
                                     &check;
@@ -101,20 +115,12 @@
                                 Privacy Policy, Cookie Policy, Terms of use
                                 <span class="float-right">
                                     <span class="text-info">99 &euro;</span>
-                                <input title="policies" type="checkbox" name="policies" id="policies">
+
 
                                 </span>
 
                             </li>
-                             <li class="list-group-item bottom_border">
-                                Content management system
-                                <span class="float-right">
-                                    <span class="text-info">59 &euro;</span>
-                                <input title="cms" type="checkbox" name="cms" id="cms">
 
-                                </span>
-
-                            </li>
                             <li class="list-group-item bottom_border">
                                 Web-hosting ( We can advise you on several options, where to host your blog )
                                 <span class="float-right text-info">from as little as 3 &euro; a month</span>
@@ -128,7 +134,7 @@
             </div>
 
             <div class="col-lg-12 text-center">
-                <a href="" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
+                <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
             </div>
 
             {% comment %} benefits {% endcomment %}
@@ -210,8 +216,8 @@
 
             </div>
 
-              <div class="col-lg-12 text-center">
-                <a href="" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
+             <div class="col-lg-12 text-center">
+                <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
             </div>
              <div class="col-12 mt-5"></div>
         </div>

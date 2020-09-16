@@ -74,8 +74,9 @@
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
-                                We will help you set-up Google Adsense account, so that you can
-                                monetize content of your website.
+                                We will help you set-up Google Adsense account, or any other provider of your choice, so
+                                that you can
+                                monetize content of your blog.
                                 <span class="float-right text-success included">
                                     &check;
                                    </span>
@@ -92,9 +93,13 @@
                             <li class="list-group-item bottom_border">
                                 Content management system ( You will be able to update your website from
                                 comfort of your home )
-                                <span class="float-right text-success included">
+                                <span class="float-right">
+                                    <span class="text-info">59 &euro; ( included )
+                                       </span>
+                                 <span class="float-right text-success included">
                                     &check;
                                    </span>
+                                     </span>
 
                             </li>
                             <li class="list-group-item bottom_border">
@@ -112,16 +117,7 @@
 
                             </li>
 
-                            <li class="list-group-item bottom_border">
-                                Privacy Policy, Cookie Policy, Terms of use
-                                <span class="float-right">
-                                    <span class="text-info">99 &euro;</span>  <span class=" text-success included">
-                                    &check;
-                                   </span>
 
-                                </span>
-
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -138,7 +134,17 @@
                     <p class="my-3"></p>
                     <div class="col-md-8 offset-md-4">
                         <ul class="list-group">
+                            <li class="list-group-item bottom_border">
+                                Privacy Policy, Cookie Policy, Terms of use
 
+
+                                <span class="float-right">
+                                    <span class="text-info">99 &euro;
+                                       </span>
+
+                                     </span>
+
+                            </li>
 
                             <li class="list-group-item bottom_border">
                                 Web-hosting ( We can advise you on several options, where to host your website )
@@ -153,7 +159,9 @@
             </div>
 
             <div class="col-lg-12 text-center">
-                <a href="" class="lead  btn btn-lg btn-outline-info">Buy now! <span>1299</span> &euro;</a>
+
+                <a href="{% url 'checkout' 'online_store' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>1299</span>
+                    &euro;</a>
             </div>
 
             {% comment %} benefits {% endcomment %}
@@ -218,7 +226,8 @@
             </div>
 
             <div class="col-lg-12 text-center">
-                <a href="" class="lead  btn btn-lg btn-outline-info">Buy now! <span>1299</span> &euro;</a>
+                <a href="{% url 'checkout' 'online_store' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>1299</span>
+                    &euro;</a>
             </div>
             <div class="col-12 mt-5"></div>
         </div>

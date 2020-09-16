@@ -13,7 +13,7 @@
 {% block  content %}
 
 
-     <div class="col-12 mt-5"></div>
+    <div class="col-12 mt-5"></div>
     <div class="container">
         <div class="row index">
 
@@ -37,46 +37,47 @@
                         <ul class="list-group">
                             <li class="list-group-item bottom_border">
                                 Initial consultation ( Strategy & Advice )
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
                                 Assistance with choosing the right domain name
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
                                 Wireframe design ( Draft of your website )
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
 
                                 Responsive design for mobile, tablet and desktop devices
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
                                 Live preview and updates during build
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
                                 SEO. We will create Robots.txt, Sitemap.xml files so that search engine crawlers
                                 know what to index and what not to index
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
                             </li>
                             <li class="list-group-item bottom_border">
-                                We will help you set-up Google Adsense account, so that you can
-                                monetize content of your website.
-                                 <span class="float-right text-success included">
+                                We will help you set-up Google Adsense account, or any other provider of your choice, so
+                                that you can
+                                monetize content of your blog.
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
 
@@ -84,7 +85,7 @@
                             <li class="list-group-item bottom_border">
                                 We will help you set-up Google Analytics account, so that you can
                                 see where are your visitors coming from, how they interact with your site and more.
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
 
@@ -92,14 +93,18 @@
                             <li class="list-group-item bottom_border">
                                 Content management system ( You will be able to update your website from
                                 comfort of your home )
+                                <span class="float-right">
+                                    <span class="text-info">59 &euro; ( included )
+                                       </span>
                                  <span class="float-right text-success included">
                                     &check;
                                    </span>
+                                     </span>
 
                             </li>
-                             <li class="list-group-item bottom_border">
+                            <li class="list-group-item bottom_border">
                                 5 web pages included
-                                 <span class="float-right text-success included">
+                                <span class="float-right text-success included">
                                     &check;
                                    </span>
 
@@ -126,19 +131,17 @@
                                 Privacy Policy, Cookie Policy, Terms of use
                                 <span class="float-right">
                                     <span class="text-info">99 &euro;</span>
-                                <input title="policies" type="checkbox" name="policies" id="policies">
+{#                                <input title="policies" type="checkbox" name="policies" id="policies">#}
 
                                 </span>
 
                             </li>
-                             <li class="list-group-item bottom_border">
-                                Additional wep pages
+                            <li class="list-group-item bottom_border">
+                                Additional web pages
                                 <span class="float-right">
-                                    <span class="text-info">99 &euro;</span>
-                                    <hr>
+                                    <span class="text-info">99 &euro; /page</span>
 
-                                     <label for="vol">Extra pages:</label>
-                                    <input type="range" id="vol" value="0" name="vol" min="0" max="10">
+{#                                    <input type="range" id="vol" value="0" name="vol" min="0" max="10">#}
 
                                 </span>
 
@@ -156,7 +159,9 @@
             </div>
 
             <div class="col-lg-12 text-center">
-                <a href="" class="lead  btn btn-lg btn-outline-info">Buy now! <span>699</span> &euro;</a>
+
+                <a href="{% url 'checkout' 'website' %}" class="lead  btn btn-lg btn-outline-info">Buy now!
+                    <span>699</span> &euro;</a>
             </div>
 
             {% comment %} benefits {% endcomment %}
@@ -220,10 +225,11 @@
 
             </div>
 
-              <div class="col-lg-12 text-center">
-                <a href="" class="lead  btn btn-lg btn-outline-info">Buy now! <span>699</span> &euro;</a>
+            <div class="col-lg-12 text-center">
+                <a href="{% url 'checkout' 'website' %}" class="lead  btn btn-lg btn-outline-info">Buy now!
+                    <span>699</span> &euro;</a>
             </div>
-             <div class="col-12 mt-5"></div>
+            <div class="col-12 mt-5"></div>
         </div>
 
     </div>
