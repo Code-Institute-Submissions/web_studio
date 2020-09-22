@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="col-12 mt-5"></div>
+
+
+    <div class="container">
+        <div class="row index">
+            <div class="card col-lg-12 border-0">
+
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info"> Hi {{ user }}
+                    </h1>
+
+
+                </div>
+                <p>Yoy can update your consultation here</p>
+
+            </div>
+
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <h1 class="display-1"><i class="far fa-user fa-2x text-info"></i></h1>
+            </div>
+            <div class="col-lg-7">
+
+
+                <form action="{% url 'edit_consultation' %}" method="POST" id="book_consultation">
+                    {% csrf_token %}
+                     <label for="name">Your name</label>
+                    <input type="text" name="name" id="name" required class="form-control" autofocus value="{{ consultation.name }}">
+                    <hr>
+                    <label for="email">Your email</label>
+                    <input type="email" name="email" id="email" required class="form-control" value="{{ consultation.email }}">
+
+                    <hr>
+
+                    <label for="time_slot">Best time to contact you</label>
+                    <select name="time_slot" id="time_slot" required class="form-control">
+                       {% if consultation.time_slot == 1 %}
+                            <option value="1" selected>8 am - 12 am</option>
+                        <option value="2">12 am - 16 am</option>
+                        <option value="3">16 am - 20 am</option>
+                        {% elif  consultation.time_slot == 2%}
+                            <option value="1">8 am - 12 am</option>
+                        <option value="2" selected>12 am - 16 am</option>
+                        <option value="3">16 am - 20 am</option>
+                        {% else %}
+                            <option value="1">8 am - 12 am</option>
+                        <option value="2" selected>12 am - 16 am</option>
+                        <option value="3">16 am - 20 am</option>
+                        {% endif %}
+
+                    </select>
+                    <hr>
+
+                    <label for="site_type">Site type you are interested</label>
+                    <select name="site_type" id="site_type" required class="form-control">
+
+
+
+                         {% if consultation.site_type == 1 %}
+                           <option value="1" selected>blog</option>
+                        <option value="2" >website</option>
+                        <option value="3">online store</option>
+                        {% elif  consultation.site_type == 2%}
+                           <option value="1">blog</option>
+                        <option value="2" selected>website</option>
+                        <option value="3">online store</option>
+                        {% else %}
+                            <option value="1">blog</option>
+                        <option value="2">website</option>
+                        <option value="3" selected>online store</option>
+                        {% endif %}
+                    </select>
+                    <hr>
+                    <label for="project">Describe your project ( max 500 characters )</label>
+                    <textarea name="project" id=project""
+                              maxlength="500"
+                              cols="30" rows="10" class="form-control">{{ consultation.project }}</textarea>
+                    <hr>
+                    <input type="submit" value="edit" class="form-control bg-info text-light">
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

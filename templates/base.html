@@ -41,6 +41,11 @@
     <title>marcelli's {% block extra_title %}{% endblock %}</title>
 </head>
 <body>
+
+
+
+
+
 <header class="container-fluid p-0 sticky-top ">
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -57,6 +62,9 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'testimonials' %}" tabindex="-1" aria-disabled="true">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'portfolio' %}"  aria-disabled="true">Portfolio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="products" data-toggle="dropdown"
@@ -97,6 +105,8 @@
 {% endblock %}
 
 {% block content %}
+
+
 {% endblock %}
 
 {% block postloadjs %}

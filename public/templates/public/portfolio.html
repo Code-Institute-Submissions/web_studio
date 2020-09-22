@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="col-12 mt-5"></div>
+
+
+    <div class="container">
+        <div class="row index">
+            <div class="card col-lg-12 border-0">
+
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info portfolio">portfolio</h1>
+
+                </div>
+
+                <div class="card-body border-secondary border">
+                    <h3 class="font-weight-bold text-info float-right">work in progress...</h3>
+                </div>
+            </div>
+            <div class="col-12 mt-3"></div>
+            <div class="card col-lg-12 border-0">
+
+
+                <div class="card-body border-0 border-secondary">
+                    <h1 class=" display-4 portfolio">
+                        Some of my work...
+                    </h1>
+                </div>
+            </div>
+            {% comment %}HOW DO YOU DO 1{% endcomment %}
+            <div class="my-5 col-12 ">&nbsp;
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/how-do-you-do-1.gif" %}"
+                     alt="how-do-you-do-1 website">
+            </div>
+            <div class="col-lg-7">
+                <h3 class="portfolio">How-do-yo-do</h3>
+                <p class="portfolio  mt-3 lead">
+                    First milestone project at Code Institute.</p>
+                <br>
+                <h5 class="portfolio">
+                    A website that will help you to find more job opportunities, become better educated, easily
+                    travel anywhere in the world, know the global language, improve confidence and date more
+                    people ... 😉 ... by teaching you English online. </h5>
+                <p class="portfolio">
+                    User can purchase the course after selecting his desired package and completing
+                    order form. After purchase, he is logged in to his dashboard where he can start
+                    to learn English Online.
+                </p>
+                <p class="portfolio">
+                    Potential teacher can fill short form to sign-up to become one of our teachers.
+                </p>
+                <hr>
+                <p class="roboto_500">To test it as student:</p>
+
+                1. Purchase the course with any dummy input. You will be logged in to your dashboard,
+                where you will see your modules and lessons.
+                <br>
+                2. Log in with any dummy data as student by clicking on user icon in the top navigation and selecting
+                student.You will be logged in to your dashboard,
+                where you will see your modules and lessons.
+                <hr>
+
+                <p class="roboto_500">To test it as potential teacher:</p>
+
+                1. Fill in the short form, after you clicked on word TEACHER? in the top nav.
+
+
+                <p class="float-right mt-5 roboto_500">
+                    <a href="https://marcelkolarcik.github.io/how-do-you-do/">Visit website</a>
+                    <br>
+
+                    <em>Languages used HTML5, CSS3 </em></p>
+
+
+            </div>
+            {% comment %}WAKE-UP-HAPPY{% endcomment %}
+            <div class="my-5 col-12 ">
+                <hr>
+            </div>
+
+            <div class="col-lg-7">
+                <h3 class="portfolio">wake-up-happy</h3>
+                <p class="portfolio  mt-3 lead">
+                    Second milestone project at Code Institute.</p>
+                <br>
+                <h5>I was inspired to create this application to help thousands of families to create additional
+                    income for themselves, by renting out a room in their home.</h5>
+                <h5 class="portfolio">
+                    It is a booking site, where customers can find rooms with the view... <br>
+                    and room owners can :</h5>
+
+
+                <p>1. add their rooms onto the site, using our 5 step method, with visual and written guides for every
+                    step of the journey.</p>
+                <p>2. log in anytime to see total income and occupancy for the room, and any bookings with customer
+                    details.</p>
+                <p>3. edit room details or add another room</p>
+                </p>
+
+                <hr>
+                <p class="roboto_500">To test it as customer:</p>
+
+                1. Search for the room in your desired location in the seach form or on the map
+                <br>
+                2. Make a purchase with dummy data.
+                <br>
+                3. You should see succes confirmation pop-up or alert if some of the fields are missing
+                <hr>
+
+                <p class="roboto_500">To test it as an owner of the room:</p>
+
+                1. After you clicked on word OWNER? in the top nav follow the guide to add your property to our site.
+                <br>
+                you can always click on <span
+                    style="background-color: red; color: whitesmoke;padding: 2px">how-to</span>
+                guide button to assist you to complete the form.
+                <br>
+                On the payment page, fill in form with dummy data, but remember email and password, so that you will
+                be able to log-in and logout of your property.
+                <br>
+                You can add multiple properties.
+                <br>
+                You can edit or delete your properties.
+                <hr>
+                If you book your property, you will see the booking in your dashboard,
+                with customer details: name, email, weeks booked, board type, any requests and date of the booking.
+                We will also show you your occupancy %, and total income.
+
+                <br>
+
+
+                <p class="float-right mt-5 roboto_500">
+                    <a href="https://marcelkolarcik.github.io/wake-up-happy/index.html">Visit website</a>
+                    <br>
+
+                    <em>Languages used HTML5, CSS3, javascript-jQuery </em></p>
+
+
+            </div>
+
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/wake-up-happy.png" %}"
+                     alt="wake up happy website">
+            </div>
+ {% comment %}JAK-SIE-MASZ{% endcomment %}
+            <div class="my-5 col-12 ">
+                <hr>
+            </div>
+            <div class="col-lg-7">
+                <h3 class="portfolio">jaksiemasz</h3>
+                <p class="portfolio  mt-3 lead">
+                   Personal blog</p>
+
+                <br>
+                <h5 class="portfolio">
+                    Personal blog</h5>
+                <p class="portfolio">
+                    Personal blog for keen bloggers.... <br>
+                    Owner of the blog can log-in into his dashboard where he can create articles, add new categories, delete articles.
+                    <br>
+                    Articles can be searched by categories. Every article has it's own page and can be commented on with Facebook comments.
+                </p>
+
+                <hr>
+
+                <p class="float-right mt-5 roboto_500">
+                    <a href="http://www.jaksiemasz.me">Visit website</a>
+                    <br>
+                    <em>Languages used HTML5, CSS3, javascript-jQuery, Python(Flask) </em></p>
+
+
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/blog.png" %}" alt="jaksiemasz website">
+            </div>
+            {% comment %}HOW-DO-YOU-DO-2{% endcomment %}
+            <div class="my-5 col-12 ">&nbsp;
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/how-do-you-do-2.png" %}"
+                     alt="how-do-you-do-2 website">
+            </div>
+            <div class="col-lg-7">
+                <h3 class="portfolio">How-do-you-do 2</h3>
+                <p class="portfolio  mt-3">
+                    Redone First milestone project ( soon to be released to public )</p>
+                <br>
+                <h5 class="portfolio">
+                    A website that will help you to find more job opportunities, become better educated, easily
+                    travel anywhere in the world, know the global language, improve confidence and date more
+                    people ... 😉 ... by teaching you English online. </h5>
+                <p class="portfolio">
+                    User can purchase the course after selecting his desired package and completing
+                    order form. After purchase, he is logged in to his dashboard where he can start
+                    to learn English Online.
+                </p>
+                <p class="portfolio">
+                    Potential teacher can fill short form to sign-up to become one of our teachers.
+                </p>
+                <hr>
+                <p class="roboto_500">To test it as student:</p>
+
+                1. Purchase the course with test credit card number. Remember name and password to be able to login.
+                <br>
+                2. You will see introductions and lessons to start learning English.
+                <hr>
+
+
+                <p class="float-right mt-5 roboto_500">
+                    <a href="https://how-do-you-do.herokuapp.com/">Visit website</a>
+                    <br>
+
+                    <em>Languages used HTML5, CSS3, javascript-jQuery, Python(Django) </em></p>
+
+
+            </div>
+
+            {% comment %}GLOBTOPUS{% endcomment %}
+            <div class="my-5 col-12 ">
+                <hr>
+            </div>
+            <div class="col-lg-7">
+                <h3 class="portfolio">globtopus</h3>
+                <p class="portfolio  mt-3 lead">
+                    Third milestone project at Code Institute. ( released to public )</p>
+                <p>During my studies I founded globtopus.com</p>
+                <br>
+                <h5 class="portfolio">
+                    I'd like to find out how does the world feel like and what people around the world do, to feel good.
+                    Will you join me on my mission?</h5>
+                <p class="portfolio">
+                    Sign-in with Google or Facebook and join us!
+                </p>
+
+                <hr>
+
+                <p class="float-right mt-5 roboto_500">
+                    <a href="https://www.globtopus.com">Visit website</a>
+                    <br>
+                    <em>Languages used HTML5, CSS3, javascript-jQuery, Python(Flask) </em></p>
+
+
+            </div>
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <img class="img-thumbnail" src="{% static "public/images/globtopus_img.png" %}" alt="globtopus website">
+            </div>
+
+            <hr class="bg_blue">
+
+            <div class="col-lg-12 mt-5 text-center">
+
+
+                <a class="lead  btn btn-lg btn-outline-info mt-2" href="https://marcelkolarcik.github.io/how-do-you-do/">how-do-you-do-1</a>
+
+                <a class="lead  btn btn-lg btn-outline-info mt-2" href="https://marcelkolarcik.github.io/wake-up-happy/index.html">wake-up-happy</a>
+                  <a class="lead  btn btn-lg btn-outline-info  mt-2" href="http://jaksiemasz.me">jaksiemasz.me</a>
+
+                 <a class="lead  btn btn-lg btn-outline-info  mt-2" href="https://how-do-you-do.herokuapp.com/">how-do-you-do-2</a>
+                  <a class="lead  btn btn-lg btn-outline-info  mt-2" href="https://www.globtopus.com">globtopus.com</a>
+
+            </div>
+            <div class="col-lg-12 my-5">
+                <h5 class="text-center">Thank you for visiting my portfolio. <br> <small>Marcel Kolarcik</small></h5>
+                <div class="d-flex justify-content-center">
+                    <a href="https://www.linkedin.com/in/marcel-kolarcik-81184a19b">LinkedIn</a>&nbsp;|&nbsp;
+                     <a href="https://github.com/marcelkolarcik">Github</a>&nbsp;|&nbsp;
+                    <a href="https://www.globtopus.com/user/5f621ae0a5a2db5b43a66392">Globtopus</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

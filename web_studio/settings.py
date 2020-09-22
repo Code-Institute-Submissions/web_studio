@@ -24,7 +24,7 @@ SECRET_KEY = '^074-d3qx!xz-(mfx)5w&)pcam&x-!09!oj@p!9kbc1g#2w_t^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['marcelli.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['marcelli.herokuapp.com', '127.0.0.1','marcelli-shopify.herokuapp.com']
 
 # Application definition
 
@@ -87,13 +87,14 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
+
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile'
 
 WSGI_APPLICATION = 'web_studio.wsgi.application'
 
