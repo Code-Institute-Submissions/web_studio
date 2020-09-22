@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <link rel="stylesheet"  type="text/css" href="{% static '/public/css/index.css' %}">
     <!--FONT AWESOME CSS FILES-->
     <link
             crossorigin="anonymous"
@@ -38,5 +38,5 @@
 {% endblock %}
 
 {% block postloadjs %}
-     <script src="{% static 'public/js/consultation.js' %}"></script>
+     <script src="{% static '/public/js/consultation.js' %}"></script>
 {% endblock %}
