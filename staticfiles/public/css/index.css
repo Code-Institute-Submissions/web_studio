@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,900;1,300;1,500;1,900&display=swap');
+
+body{
+   font-family: "Roboto", sans-serif;
+}
+p.portfolio{
+ font-weight: 300;
+
+}
+.roboto_500{
+    font-weight: 500;
+}
+
+.bg_blue{
+    background-color: lightgray;
+}
+a.lead{
+    color:#17a2b8;
+}
+a.lead:hover{
+    color: whitesmoke;
+}
+
+/*DIFFERENT SIZES ON DIFFERENT SCREENS*/
+@media screen and ( max-width: 1200px ) {
+
+}
+
+@media screen and ( max-width: 990px ) {
+
+}
+
+@media screen and ( max-width: 767px ) {
+   .index h1 {
+    font-size: 2rem;
+}
+    .index p {
+        font-size: 0.9rem;
+    }
+}
+
+/*SMALLER SIZES FOR PROGRESS STEPS */
+@media screen and ( max-width: 540px ) {
+
+
+}
