@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+
+    <div class="col-12 mt-3"></div>
+    <div class="container">
+        <div class="row index">
+
+            <div class="card col-lg-12 border-0">
+
+
+                <div class="card-body border-0 border-secondary">
+                    <h1 class=" display-4 text-center">
+                       You have no consultation
+                    </h1>
+                </div>
+            </div>
+             <div class="card-body border-secondary border ">
+
+                     <a  href="{% url 'consultations'  %}"
+                         class="consultation lead  btn btn-lg btn-outline-info float-left">You can Book Free Initial consultation here. </a>
+
+
+                </div>
+        </div>
+
+    </div>
+
+{% endblock %}
