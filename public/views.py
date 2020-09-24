@@ -7,8 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from flask import jsonify
 
-from .models import Consultation
-from .forms import ConsultationForm
+from .models import Appointment
+from .forms import AppointmentForm
 
 
 
@@ -43,7 +43,7 @@ def portfolio(request):
 def profile(request):
     template = 'public/profile.html'
     try:
-        consultation_detail = Consultation.objects.get(email=request.user.email)
+        consultation_detail = Appointment.objects.get(email=request.user.email)
     except:
         return render(request, 'public/no_consultation.html')
 
@@ -101,7 +101,7 @@ def consultations(request):
             'done':  'done' in request.POST,
         }
 
-        consultation_form = ConsultationForm(form_data)
+        consultation_form = AppointmentForm(form_data)
         context = {
             'form':consultation_form
         }
@@ -139,11 +139,11 @@ def consultations(request):
 
     return render(request, template,context)
 def edit_item(request, item_id):
-    item = get_object_or_404(Consultation, id=item_id)
+    item = get_object_or_404(Appointment, id=item_id)
     if item.email != request.user.email:
         return 'not yours'
     if request.method == 'POST':
-        form = ConsultationForm(request.POST, instance=item)
+        form = AppointmentForm(request.POST, instance=item)
 
         if form.is_valid():
             form.save()
@@ -151,7 +151,7 @@ def edit_item(request, item_id):
         else:
             return render(request, 'public/index.html')
 
-    form = ConsultationForm(instance=item)
+    form = AppointmentForm(instance=item)
     context = {
         'form': form,
         'item_id':item_id,
@@ -159,7 +159,7 @@ def edit_item(request, item_id):
     }
     return render(request, 'public/edit_consultation.html', context)
 def delete_item(request, item_id):
-    item = get_object_or_404(Consultation, id=item_id)
+    item = get_object_or_404(Appointment, id=item_id)
     item.delete()
     try:
         u = User.objects.get(email=request.user.email)
@@ -196,7 +196,7 @@ def edit_consultation(request):
 
         }
 
-        consultation_form = ConsultationForm(form_data)
+        consultation_form = AppointmentForm(form_data)
 
         if consultation_form.is_valid():
             try:

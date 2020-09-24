@@ -1,9 +1,11 @@
 from django import forms
-from .models import Consultation
+from .models import Appointment
 
-class ConsultationForm(forms.ModelForm):
+
+
+class AppointmentForm(forms.ModelForm):
     class Meta:
-        model = Consultation
+        model = Appointment
         fields = ('name','email', 'time_slot', 'site_type','project','password','done' ,'phone_num')
         password = forms.CharField(widget=forms.PasswordInput)
 

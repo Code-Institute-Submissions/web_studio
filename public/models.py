@@ -6,7 +6,9 @@ from django.db import models
 # Create your models here.
 
 
-class Consultation(models.Model):
+
+
+class Appointment(models.Model):
     email = models.CharField(max_length=50, blank=False, null=False)
     phone_num = models.CharField(max_length=50, blank=False, null=False,default=0)
     name = models.CharField(max_length=50, blank=False, null=False)
