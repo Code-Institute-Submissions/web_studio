@@ -103,24 +103,24 @@ WSGI_APPLICATION = 'web_studio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default':
-dj_database_url.parse(
-        'postgres://xjwvgrwcvdvork:172003545a4cfffa6e65c784c0390c5ae51c39b526d806d7c838b67f1fcb374f@ec2-54-246-87-132.eu-west-1.compute.amazonaws.com:5432/ddbgv4j187tilo'
-)
-        }
-# if 'DATABASE_URL' in os.environ:
-#
-#     DATABASES = {
-#         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# DATABASES = {
+#     'default':
+# dj_database_url.parse(
+#         'postgres://xjwvgrwcvdvork:172003545a4cfffa6e65c784c0390c5ae51c39b526d806d7c838b67f1fcb374f@ec2-54-246-87-132.eu-west-1.compute.amazonaws.com:5432/ddbgv4j187tilo'
+# )
 #         }
-#     }
+if 'DATABASE_URL' in os.environ:
+
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -168,3 +168,16 @@ STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 BLOG_PRICE = os.getenv('BLOG_PRICE', 299)
 WEBSITE_PRICE = os.getenv('WEBSITE_PRICE', 999)
 STORE_PRICE = os.getenv('STORE_PRICE', 1999)
+
+
+if 'DEVELOPMENT' in os.environ:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'marcellidesigns@example.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
