@@ -146,3 +146,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Stripe
+STRIPE_CURRENCY = 'eur'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+BLOG_PRICE = os.getenv('BLOG_PRICE', 299)
+WEBSITE_PRICE = os.getenv('WEBSITE_PRICE', 999)
+STORE_PRICE = os.getenv('STORE_PRICE', 1999)
