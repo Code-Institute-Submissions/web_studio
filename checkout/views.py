@@ -81,7 +81,7 @@ def checkout(request,type):
         order_form = OrderForm(form_data)
         if order_form.is_valid():
 
-            # try:
+            try:
 
 
 
@@ -100,17 +100,17 @@ def checkout(request,type):
 
 
 
-            # except:
-            #     messages.error(request, 'There was an error with your form order form. \
-            #                                    Please double check your information.')
-            #     context['order_form'] = order_form
+            except:
+                messages.error(request, 'There was an error with your form order form. \
+                                               Please double check your information.')
+                context['order_form'] = order_form
 
 
 
 
 
         else:
-            messages.error(request, 'There was an error with your form.else \
+            messages.error(request, 'There was an error with your form \
                         Please double check your information.')
             context['order_form'] = order_form
 
