@@ -149,8 +149,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Stripe
 STRIPE_CURRENCY = 'eur'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY_MD', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY_MD', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 BLOG_PRICE = os.getenv('BLOG_PRICE', 299)
 WEBSITE_PRICE = os.getenv('WEBSITE_PRICE', 999)

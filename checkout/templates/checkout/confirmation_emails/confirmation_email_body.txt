@@ -1,0 +1,3 @@
+Hello {{ order.name  }}
+
+This is confirmation of your order!

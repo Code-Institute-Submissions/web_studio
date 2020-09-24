@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, Consultation
+from .models import  Consultation
 # Register your models here.
-admin.site.register(Order)
+
 admin.site.register(Consultation)

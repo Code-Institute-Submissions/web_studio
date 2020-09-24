@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from flask import jsonify
 
-from .models import Order, Consultation
+from .models import Consultation
 from .forms import ConsultationForm
 
 
