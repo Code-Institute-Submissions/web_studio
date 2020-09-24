@@ -1,1 +1,1 @@
-how-do-you-do.com confirmation for order number {{ order.order_number }}
+marcellidesigns confirmation for order number {{ order.order_number }}

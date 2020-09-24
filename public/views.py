@@ -93,6 +93,7 @@ def consultations(request):
         form_data = {
             'name': request.POST['name'],
             'email': request.POST['email'],
+            'phone_num': request.POST['phone_num'],
             'password': 'user_password',
             'site_type':  request.POST['site_type'],
             'time_slot': request.POST['time_slot'],
@@ -184,6 +185,7 @@ def edit_consultation(request):
         form_data = {
             'name': request.POST['name'],
             'email': request.POST['email'],
+            'phone_num': request.POST['phone_num'],
             'password': 'user_password',
             'site_type':  request.POST['site_type'],
             'time_slot': request.POST['time_slot'],

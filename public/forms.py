@@ -4,7 +4,7 @@ from .models import Consultation
 class ConsultationForm(forms.ModelForm):
     class Meta:
         model = Consultation
-        fields = ('name','email', 'time_slot', 'site_type','project','password','done' )
+        fields = ('name','email', 'time_slot', 'site_type','project','password','done' ,'phone_num')
         password = forms.CharField(widget=forms.PasswordInput)
 
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet"  type="text/css" href="{% static 'public/css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'public/css/index.css' %}">
     <!--FONT AWESOME CSS FILES-->
     <link
             crossorigin="anonymous"
@@ -34,16 +34,22 @@
             <div class="col-lg-7">
 
 
-
                 <form action="{% url 'edit_item' item_id %}" method="POST" id="book_consultation">
                     {% csrf_token %}
-                     <label for="name">Your name</label>
-                    <input type="text" name="name" id="name" required class="form-control"  autofocus value=" {{ form.name.value }}">
+                    <label for="name">Your name</label>
+                    <input type="text" name="name" id="name" required class="form-control" autofocus
+                           value=" {{ form.name.value }}">
                     <hr>
                     <label for="email">Your email</label>
-                    <input type="email" name="email" id="email" required class="form-control" value=" {{ form.email.value }}">
-                   <input type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
-                    <input type="password" name="password" id="password" hidden  value="dummy_password">
+                    <input type="email" name="email" id="email" required class="form-control"
+                           value=" {{ form.email.value }}">
+
+                    <label for="email">Your phone number</label>
+                    <input type="text" name="phone_num" id="phone_num" required class="form-control"
+                           value="{{ form.phone_num.value }}">
+
+                    <input type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
+                    <input type="password" name="password" id="password" hidden value="dummy_password">
 
 
                     <hr>
@@ -51,18 +57,18 @@
                     <label for="time_slot">Best time to contact you</label>
 
                     <select name="time_slot" id="time_slot" required class="form-control">
-                       {% if form.time_slot.value == "1" %}
+                        {% if form.time_slot.value == "1" %}
                             <option value="1" selected>8 am - 12 am</option>
-                        <option value="2">12 am - 16 am</option>
-                        <option value="3">16 am - 20 am</option>
-                        {% elif  form.time_slot.value == "2"%}
+                            <option value="2">12 am - 16 am</option>
+                            <option value="3">16 am - 20 am</option>
+                        {% elif  form.time_slot.value == "2" %}
                             <option value="1">8 am - 12 am</option>
-                        <option value="2" selected>12 am - 16 am</option>
-                        <option value="3">16 am - 20 am</option>
+                            <option value="2" selected>12 am - 16 am</option>
+                            <option value="3">16 am - 20 am</option>
                         {% else %}
                             <option value="1">8 am - 12 am</option>
-                        <option value="2" >12 am - 16 am</option>
-                        <option value="3" selected>16 am - 20 am</option>
+                            <option value="2">12 am - 16 am</option>
+                            <option value="3" selected>16 am - 20 am</option>
                         {% endif %}
 
                     </select>
@@ -73,19 +79,18 @@
                     <select name="site_type" id="site_type" required class="form-control">
 
 
-
-                         {% if form.site_type.value == "1" %}
-                           <option value="1" selected>blog</option>
-                        <option value="2" >website</option>
-                        <option value="3">online store</option>
+                        {% if form.site_type.value == "1" %}
+                            <option value="1" selected>blog</option>
+                            <option value="2">website</option>
+                            <option value="3">online store</option>
                         {% elif  form.site_type.value == "2" %}
-                           <option value="1">blog</option>
-                        <option value="2" selected>website</option>
-                        <option value="3">online store</option>
+                            <option value="1">blog</option>
+                            <option value="2" selected>website</option>
+                            <option value="3">online store</option>
                         {% else %}
                             <option value="1">blog</option>
-                        <option value="2">website</option>
-                        <option value="3" selected>online store</option>
+                            <option value="2">website</option>
+                            <option value="3" selected>online store</option>
                         {% endif %}
                     </select>
                     <hr>
@@ -98,10 +103,9 @@
                     <br>
 
 
-
                 </form>
                 <form action="{% url 'delete_item' item_id %}">
-                     <input type="submit" value="delete consultation" class="form-control bg-danger text-light">
+                    <input type="submit" value="delete consultation" class="form-control bg-danger text-light">
 
                 </form>
 
