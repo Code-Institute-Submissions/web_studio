@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'DEVELOPMENT' in os.environ
 
-ALLOWED_HOSTS = ['marcelli.herokuapp.com', '127.0.0.1','marcelli-shopify.herokuapp.com']
+ALLOWED_HOSTS = ['boutique1.herokuapp.com','marcelli.herokuapp.com', '127.0.0.1','marcelli-shopify.herokuapp.com']
 
 # Application definition
 
@@ -94,7 +94,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
-
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/profile'
 
@@ -146,7 +145,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = True
 

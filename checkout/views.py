@@ -54,7 +54,7 @@ def checkout(request,type):
         'order_form': order_form,
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
-        'user': request.user.username.split('__order__')[0],
+        'user': request.user.username,
         'type': type,
         'grand_total': total,
 
