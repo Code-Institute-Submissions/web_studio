@@ -71,14 +71,22 @@
                            <option value="1" selected>blog</option>
                         <option value="2" >website</option>
                         <option value="3">online store</option>
+                             <option value="4">something else</option>
                         {% elif  form.site_type.value == "2" %}
                            <option value="1">blog</option>
                         <option value="2" selected>website</option>
                         <option value="3">online store</option>
-                        {% else %}
+                             <option value="4">something else</option>
+                        {% elif   form.site_type.value == "3" %}
                             <option value="1">blog</option>
                         <option value="2">website</option>
                         <option value="3" selected>online store</option>
+                             <option value="4">something else</option>
+                            {% else %}
+                             <option value="1">blog</option>
+                        <option value="2">website</option>
+                        <option value="3" >online store</option>
+                             <option value="4" selected>something else</option>
                         {% endif %}
                     </select>
                     <hr>
