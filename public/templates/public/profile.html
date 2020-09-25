@@ -20,22 +20,13 @@
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0">
-                    <h1 class="font-weight-bold display-3  text-info"> Hi {{ user }}
+                    <h1 class="font-weight-bold display-5  text-info"> Hi {{ user }}
                     </h1>
 
 
                 </div>
-                <p>Yoy can update your consultation here</p>
-
-            </div>
-
-            <div class="col-lg-5 d-flex justify-content-center align-items-center">
-                <h1 class="display-1"><i class="far fa-user fa-2x text-info"></i></h1>
-            </div>
-            <div class="col-lg-7">
-
-                {{ consultations.id }}
-                <p class="lead">Your consultations</p>
+                <div class="card-body">
+                     <p class="lead">Your consultations</p>
                 {% if consultations.site_type == "1" %}
                     <p>blog</p>
                 {% elif  consultations.site_type == "2" %}
@@ -53,10 +44,21 @@
 
                         {% endif %}
              <p>{{ consultations.project}}</p>
+                {% if consultations.done %}
 
-                <a href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
+                     <span class="lead float-right btn btn-lg btn-outline-info"
+                          >consultation done <span class="text-success">&check;</span></span>
+                {% else %}
+                     <a class="lead float-right btn btn-lg btn-outline-info" href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
+                {% endif %}
+
+
+                </div>
 
             </div>
+
+
+
 
         </div>
 

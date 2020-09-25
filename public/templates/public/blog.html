@@ -28,9 +28,10 @@
                 </div>
                 {% comment %} BUTTON TO BOOK INITIAL COUNSULTATION {% endcomment %}
                 <div class="card-body border-secondary border ">
+                     {% if not request.user.is_authenticated %}
 
                      <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left">Book Free Initial consultation. </a>
-
+                    {% endif %}
                     <h3 class="font-weight-bold text-info float-right">from 299 &euro;</h3>
                 </div>
             </div>
