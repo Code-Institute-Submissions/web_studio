@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from flask import jsonify
+
 
 from .models import Appointment
 from .forms import AppointmentForm

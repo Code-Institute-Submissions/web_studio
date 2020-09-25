@@ -86,9 +86,9 @@
                                      Grand total : <span id="grand_total"> {% if type == 'blog' %}
                                     299
                                 {% elif type == 'website' %}
-                                    699
+                                    999
                                 {% else %}
-                                    1299
+                                    1999
                                 {% endif %}</span> &euro;
                                 </span>
 
@@ -99,7 +99,7 @@
 
                         <div class="col-md-6" id="payment_details">
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
-{#                                  {% csrf_token %}#}
+                                  {% csrf_token %}
                                 <h1 class="font-weight-bold display-5  text-info">payment details</h1>
                                 <label for="name">Your name</label>
                                 <input type="text" name="name" id="name" required class="form-control border border-info"
