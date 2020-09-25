@@ -13,7 +13,7 @@
 {% block  content %}
     <div class="col-12 mt-5"></div>
 
-
+    {% comment %}new consultation form{% endcomment %}
     <div class="container">
         <div class="row index">
             <div class="card col-lg-12 border-0">
@@ -33,64 +33,43 @@
 
                 <form action="{% url 'consultations' %}" method="POST" id="book_consultation">
                     {% csrf_token %}
-                     <label for="name">Your name</label>
-                    <input type="text" name="name" id="name" required class="form-control" value="{{ form.name.value }}" autofocus>
+                    <label for="name">Your name</label>
+                    <input type="text" name="name" id="name" required class="form-control" value="{{ form.name.value }}"
+                           autofocus>
                     <hr>
                     <label for="email">Your email</label>
-                    <input type="email" name="email" id="email" required class="form-control" value="{{ form.email.value }}">
-                 <label for="email">Your phone number</label>
-                    <input type="text" name="phone_num" id="phone_num" required class="form-control" value="{{ form.phone_num.value }}">
+                    <input type="email" name="email" id="email" required class="form-control"
+                           value="{{ form.email.value }}">
+                    <label for="email">Your phone number</label>
+                    <input type="text" name="phone_num" id="phone_num" required class="form-control"
+                           value="{{ form.phone_num.value }}">
 
                     <hr>
-                     <label for="password">Your password</label>
-                    <input type="password" name="password" id="password"  class="form-control" required>
+                    <label for="password">Your password</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
                     <hr>
                     <label for="time_slot">Best time to contact you</label>
-                    <select name="time_slot" id="time_slot"  class="form-control" required>
+                    {% comment %} best time to contact {% endcomment %}
+                    <select name="time_slot" id="time_slot" class="form-control" required>
 
-                        {% if form.time_slot.value == "1" %}
-                            <option value="1" selected>8 am - 12 am</option>
+                        <option value="1">8 am - 12 am</option>
                         <option value="2">12 am - 16 am</option>
                         <option value="3">16 am - 20 am</option>
-                        {% elif  form.time_slot.value == "2"%}
-                            <option value="1">8 am - 12 am</option>
-                        <option value="2" selected>12 am - 16 am</option>
-                        <option value="3">16 am - 20 am</option>
-                        {% else %}
-                            <option value="1">8 am - 12 am</option>
-                        <option value="2" >12 am - 16 am</option>
-                        <option value="3" selected>16 am - 20 am</option>
-                        {% endif %}
                     </select>
                     <hr>
 
                     <label for="site_type">Site type you are interested</label>
-                    <select name="site_type" id="site_type"  class="form-control" required>
+                    {% comment %} type of site  {% endcomment %}
+                    <select name="site_type" id="site_type" class="form-control" required>
 
-                        {% if form.site_type.value == "1" %}
-                           <option value="1" selected>blog</option>
-                        <option value="2" >website</option>
-                        <option value="3">online store</option>
-                             <option value="4">something else</option>
-                        {% elif  form.site_type.value == "2" %}
-                           <option value="1">blog</option>
-                        <option value="2" selected>website</option>
-                        <option value="3">online store</option>
-                             <option value="4">something else</option>
-                        {% elif   form.site_type.value == "3" %}
-                            <option value="1">blog</option>
+                        <option value="1">blog</option>
                         <option value="2">website</option>
-                        <option value="3" selected>online store</option>
-                             <option value="4">something else</option>
-                            {% else %}
-                             <option value="1">blog</option>
-                        <option value="2">website</option>
-                        <option value="3" >online store</option>
-                             <option value="4" selected>something else</option>
-                        {% endif %}
+                        <option value="3">online store</option>
+                        <option value="4">something else</option>
                     </select>
                     <hr>
                     <label for="project">Describe your project ( max 500 characters )</label>
+                    {% comment %} description of the project {% endcomment %}
                     <textarea name="project" id="project" required
                               maxlength="500"
                               cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
@@ -105,5 +84,6 @@
         </div>
 
     </div>
+     <div class="col-12 mt-5"></div>
 
 {% endblock %}

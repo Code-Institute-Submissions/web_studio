@@ -12,7 +12,7 @@
 {% endblock %}
 
 
-
+{# BLOG PAGE #}
 {% block  content %}
 
 
@@ -20,13 +20,13 @@
     <div class="container">
 
         <div class="row index">
-{% comment %}modern-shark-jczv7gpif3zg4fxlgimxnbso.herokudns.com{% endcomment %}
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0 ">
 
                     <h1 class="font-weight-bold display-3  text-info">blog</h1>
                 </div>
+                {% comment %} BUTTON TO BOOK INITIAL COUNSULTATION {% endcomment %}
                 <div class="card-body border-secondary border ">
 
                      <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left">Book Free Initial consultation. </a>
@@ -34,6 +34,7 @@
                     <h3 class="font-weight-bold text-info float-right">from 299 &euro;</h3>
                 </div>
             </div>
+            {% comment %} WHAT'S INCLUDED IN THE PRICE {% endcomment %}
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0">
@@ -102,6 +103,12 @@
                                    </span>
 
                             </li>
+                            <li class="list-group-item bottom_border">
+                                Cookie Policy
+                                 <span class="float-right text-success included">
+                                    &check;
+                                   </span>
+                            </li>
 
 
                         </ul>
@@ -110,7 +117,7 @@
 
             </div>
 
-            {% comment %}extras{% endcomment %}
+            {% comment %} extras {% endcomment %}
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0">
@@ -121,12 +128,8 @@
                     <div class="col-md-8 offset-md-4">
                         <ul class="list-group">
                             <li class="list-group-item bottom_border">
-                                Privacy Policy, Cookie Policy, Terms of use
-                                <span class="float-right">
-                                    <span class="text-info">99 &euro;</span>
-
-
-                                </span>
+                                You will need to provide : <br>
+                                Privacy Policy, Terms of use
 
                             </li>
 
@@ -141,12 +144,12 @@
                 </div>
 
             </div>
-
+ {% comment %} BUY BUTTON {% endcomment %}
             <div class="col-lg-12 text-center">
                 <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
             </div>
 
-            {% comment %} benefits {% endcomment %}
+            {% comment %} benefits   of having own blog{% endcomment %}
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0">
@@ -224,7 +227,7 @@
                 </div>
 
             </div>
-
+{% comment %} BUY BUTTON {% endcomment %}
              <div class="col-lg-12 text-center">
                 <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
             </div>
@@ -235,5 +238,5 @@
 
 {% endblock %}
 {% block postloadjs %}
-     <script src="{% static 'public/js/consultation.js' %}"></script>
+
 {% endblock %}

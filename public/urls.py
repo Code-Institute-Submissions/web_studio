@@ -1,8 +1,8 @@
 
 from django.contrib import admin
 from django.urls import path
-from public.views import index,blog,get_in_touch,website,online_store,testimonials,edit_consultation,booking_success\
-    ,consultations,profile,portfolio,edit_item,delete_item
+from public.views import index,blog,website,online_store,testimonials\
+    ,consultations,profile,portfolio,edit_consultation,delete_consultation
 
 urlpatterns = [
 
@@ -13,9 +13,9 @@ urlpatterns = [
     path('testimonials', testimonials, name='testimonials'),
     path('portfolio', portfolio, name='portfolio'),
     path('consultations', consultations, name='consultations'),
-    path('edit/consultation/<item_id>', edit_item, name='edit_item'),
-    path('delete/consultation/<item_id>', delete_item, name='delete_item'),
-    path('booking_success', booking_success, name='booking_success'),
+    path('edit/consultation/<item_id>', edit_consultation, name='edit_consultation'),
+    path('delete/consultation/<item_id>', delete_consultation, name='delete_consultation'),
+
     path('profile', profile, name='profile'),
 
 

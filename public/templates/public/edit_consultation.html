@@ -33,8 +33,8 @@
             </div>
             <div class="col-lg-7">
 
-
-                <form action="{% url 'edit_item' item_id %}" method="POST" id="book_consultation">
+                {% comment %} form to update consultation {% endcomment %}
+                <form action="{% url 'edit_consultation' item_id %}" method="POST" id="book_consultation">
                     {% csrf_token %}
                     <label for="name">Your name</label>
                     <input type="text" name="name" id="name" required class="form-control" autofocus
@@ -44,7 +44,7 @@
                     <input type="email" name="email" id="email" required class="form-control"
                            value=" {{ form.email.value }}">
 
-                    <label for="email">Your phone number</label>
+                    <label for="phone_num">Your phone number</label>
                     <input type="text" name="phone_num" id="phone_num" required class="form-control"
                            value="{{ form.phone_num.value }}">
 
@@ -79,41 +79,46 @@
                     <select name="site_type" id="site_type" required class="form-control">
 
 
-
                         {% if form.site_type.value == "1" %}
-                           <option value="1" selected>blog</option>
-                        <option value="2" >website</option>
-                        <option value="3">online store</option>
-                             <option value="4">something else</option>
+                            {% comment %} blog {% endcomment %}
+                            <option value="1" selected>blog</option>
+                            <option value="2">website</option>
+                            <option value="3">online store</option>
+                            <option value="4">something else</option>
                         {% elif  form.site_type.value == "2" %}
-                           <option value="1">blog</option>
-                        <option value="2" selected>website</option>
-                        <option value="3">online store</option>
-                             <option value="4">something else</option>
-                        {% elif   form.site_type.value == "3" %}
+                            {% comment %} website {% endcomment %}
                             <option value="1">blog</option>
-                        <option value="2">website</option>
-                        <option value="3" selected>online store</option>
-                             <option value="4">something else</option>
-                            {% else %}
-                             <option value="1">blog</option>
-                        <option value="2">website</option>
-                        <option value="3" >online store</option>
-                             <option value="4" selected>something else</option>
+                            <option value="2" selected>website</option>
+                            <option value="3">online store</option>
+                            <option value="4">something else</option>
+                        {% elif   form.site_type.value == "3" %}
+                            {% comment %} online store {% endcomment %}
+                            <option value="1">blog</option>
+                            <option value="2">website</option>
+                            <option value="3" selected>online store</option>
+                            <option value="4">something else</option>
+                        {% else %}
+                            {% comment %} something else {% endcomment %}
+                            <option value="1">blog</option>
+                            <option value="2">website</option>
+                            <option value="3">online store</option>
+                            <option value="4" selected>something else</option>
                         {% endif %}
                     </select>
                     <hr>
                     <label for="project">Describe your project ( max 500 characters )</label>
-                    <textarea name="project" id=project""
+                    <textarea name="project" id="project"
                               maxlength="500"
                               cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
                     <hr>
+                    {% comment %} button to update consultation{% endcomment %}
                     <input type="submit" value="edit" class="form-control bg-info text-light">
                     <br>
 
 
                 </form>
-                <form action="{% url 'delete_item' item_id %}">
+                {% comment %} user can delete consultation {% endcomment %}
+                <form action="{% url 'delete_consultation' item_id %}">
                     <input type="submit" value="delete consultation" class="form-control bg-danger text-light">
 
                 </form>

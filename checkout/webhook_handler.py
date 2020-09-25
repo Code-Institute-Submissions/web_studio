@@ -49,23 +49,12 @@ class StripeWH_Handler:
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
-        # order_done = Order.objects.filter(stripe_pid=pid).exists()
-        #
-        #
-        # not_really = order_done == True
-        #
-        # self._send_confirmation_email(billing_details.email, pid)
-        # return HttpResponse(
-        #     content=f'Webhook received: {event["type"]} | SUCCESS: getting webhook {pid} order done really {really} not really {not_really}',
-        #     status=200)
+
         order_done = False
         attempt = 1
         while attempt <= 5:
             order_done = Order.objects.filter(stripe_pid=pid).exists()
             if order_done:
-
-                # self._send_confirmation_email(billing_details.email, pid)
-
                 break
             else:
 

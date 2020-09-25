@@ -21,6 +21,9 @@ a.lead:hover{
     color: whitesmoke;
 }
 
+.bg_light_grey{
+    border-top:3px solid #6c757d;
+}
 /*DIFFERENT SIZES ON DIFFERENT SCREENS*/
 @media screen and ( max-width: 1200px ) {
 

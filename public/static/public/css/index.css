@@ -20,7 +20,9 @@ a.lead{
 a.lead:hover{
     color: whitesmoke;
 }
-
+.sales_speech{
+    color: red;
+}
 /*DIFFERENT SIZES ON DIFFERENT SCREENS*/
 @media screen and ( max-width: 1200px ) {
 

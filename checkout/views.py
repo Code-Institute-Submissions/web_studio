@@ -3,19 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 import stripe
 from django.conf import settings
-# Create your views here.
 from django.views.decorators.http import require_POST
 from .forms import OrderForm
 from .models import Order
 
-
-def checkout3(request,type):
-
-    context={
-        'type':type
-    }
-
-    return render(request, 'checkout/checkout.html',context)
 
 
 @require_POST
@@ -39,20 +30,20 @@ def checkout(request,type):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     template = 'checkout/checkout.html'
+    # setting total to 1999 in case user is messing with urls
     total = 1999
     if type == 'blog':
-
         total = int(settings.BLOG_PRICE)
-
     elif type == 'website':
         total = int(settings.WEBSITE_PRICE)
     elif type == 'store':
         total = int(settings.STORE_PRICE)
 
-
+    # stripe amount in cents
     stripe_total = total * 100
 
     stripe.api_key = stripe_secret_key
+    # create intent
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY
@@ -74,18 +65,13 @@ def checkout(request,type):
             'email': request.POST.get('email'),
             'product_type':type,
             'grand_total': total,
-
-
         }
 
         order_form = OrderForm(form_data)
         if order_form.is_valid():
+            # if order form is valid try to add order to DB
 
             try:
-
-
-
-
                 order = order_form.save(commit=False)
                 pid = request.POST.get('client_secret').split('_secret')[0]
                 order.stripe_pid = pid
@@ -93,14 +79,12 @@ def checkout(request,type):
                 order.product_type = type
                 order.save()
 
-
                 messages.success(request, 'Your order was created successfully ')
 
                 return redirect(reverse('checkout_success', args=[order.order_number]))
 
-
-
             except:
+                # else send notification to user, that something is wrong
                 messages.error(request, 'There was an error with your form order form. \
                                                Please double check your information.')
                 context['order_form'] = order_form
@@ -110,6 +94,7 @@ def checkout(request,type):
 
 
         else:
+            # if form is not valid, send notification to user, that something is wrong
             messages.error(request, 'There was an error with your form \
                         Please double check your information.')
             context['order_form'] = order_form
@@ -126,10 +111,7 @@ def checkout_success(request, order_number):
     """
 
     order = get_object_or_404(Order, order_number=order_number)
-
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
+    # if order was processed successfully
 
     template = 'checkout/checkout_success.html'
     context = {
@@ -139,10 +121,4 @@ def checkout_success(request, order_number):
 
     return render(request, template, context)
 
-def checkout_success2(request,order_number):
 
-    context={
-      'order_number':order_number
-    }
-
-    return render(request, 'checkout/checkout_success.html',context)

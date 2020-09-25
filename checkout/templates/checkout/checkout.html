@@ -21,7 +21,14 @@
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0">
-                    <h1 class="font-weight-bold display-3  text-info">checkout : {{ type }}</h1>
+                    <h1 class="font-weight-bold display-5  text-info">checkout :
+                        {% if type == 'online_store' %}
+                            online store
+                         {% else %}
+                        {{ type }}
+                        {% endif %}
+
+                    </h1>
                 </div>
                 <div class="card-body border-secondary border">
                     <h3 class="font-weight-bold text-info float-right">
@@ -50,54 +57,9 @@
                 <div class="card-body border-0">
                     <p class="my-3"></p>
                     <div class="row">
-                        <div class="col-md-6 ">
-                            <h1 class="font-weight-bold display-5  text-info">add extras:</h1>
-                            <ul class="list-group">
-                                <li class="list-group-item bottom_border">
-                                    Privacy Policy, Cookie Policy, Terms of use
-                                    <span class="float-right">
-                                    <span class="text-info">99 &euro;</span>
-                                <input title="policies" type="checkbox" name="policies" id="policies">
-
-                                </span>
-
-                                </li>
-                                {% if type == 'website' %}
-                                    <li class="list-group-item bottom_border">
-                                        Extra pages
-                                        <span id="extra_pages" class="text-success">0</span>
-                                        <span class="float-right">
-                                            <span class="text-info">99 &euro; / page</span>
-                                        </span>
-                                        <input title="extra pages" type="range" id="more_pages" value="0" name="vol"
-                                               min="0" max="10">
-                                        <span id="extra_pages_cost"> 0</span>&euro;
-                                    </li>
 
 
-                                {% endif %}
-                                <li class="list-group-item bottom_border">
-                                    Web-hosting ( We can advise you on several options, where to host your blog )
-
-                                </li>
-
-                                <li class="list-group-item bottom_border">
-                                <span class="float-right">
-                                     Grand total : <span id="grand_total"> {% if type == 'blog' %}
-                                    299
-                                {% elif type == 'website' %}
-                                    999
-                                {% else %}
-                                    1999
-                                {% endif %}</span> &euro;
-                                </span>
-
-
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-md-6" id="payment_details">
+                        <div class="col-md-6 offset-md-6" id="payment_details">
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
                                   {% csrf_token %}
                                 <h1 class="font-weight-bold display-5  text-info">payment details</h1>

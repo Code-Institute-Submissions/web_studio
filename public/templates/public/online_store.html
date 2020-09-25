@@ -23,7 +23,9 @@
                     <h1 class="font-weight-bold display-3  text-info">online store</h1>
                 </div>
                 <div class="card-body border-secondary border">
-                     <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left">Book Free Initial consultation. </a>
+                    <a href="{% url 'consultations' %}"
+                       class="consultation lead  btn btn-lg btn-outline-info float-left">Book Free Initial
+                        consultation. </a>
                     <h3 class="font-weight-bold text-info float-right">from 1999 &euro;</h3>
                 </div>
             </div>
@@ -118,6 +120,12 @@
 
                             </li>
 
+                            <li class="list-group-item bottom_border">
+                                Cookie Policy
+                                <span class="float-right text-success included">
+                                    &check;
+                                   </span>
+                            </li>
 
                         </ul>
                     </div>
@@ -136,14 +144,12 @@
                     <div class="col-md-8 offset-md-4">
                         <ul class="list-group">
                             <li class="list-group-item bottom_border">
-                                Privacy Policy, Cookie Policy, Terms of use
+                            <li class="list-group-item bottom_border">
+                                You will need to provide : <br>
+                                Privacy Policy, Terms of use
 
 
-                                <span class="float-right">
-                                    <span class="text-info">99 &euro;
-                                       </span>
-
-                                     </span>
+                            </li>
 
                             </li>
 
@@ -238,5 +244,5 @@
 {% endblock %}
 
 {% block postloadjs %}
-     <script src="{% static 'public/js/consultation.js' %}"></script>
+    <script src="{% static 'public/js/consultation.js' %}"></script>
 {% endblock %}
