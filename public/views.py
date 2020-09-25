@@ -117,10 +117,14 @@ def consultations(request):
 
                 messages.success(request, 'Your account was created successfully. Please login with your '
                                           'credentials.')
-                return redirect(reverse('profile'))
-            except:
+                """
+                user can sign in with his credentials
+                """
+                return redirect(reverse('account_login'))
+
+            except :
                 messages.error(request, 'There was an error with your form. \
-                                                              Please double check your information.')
+                                                              Please double check your information')
         context['consultation_form'] = consultation_form
 
     return render(request, template, context)
@@ -135,6 +139,7 @@ def edit_consultation(request, item_id):
         if form.is_valid():
             form.save()
             return redirect('profile')
+
         else:
             return render(request, 'public/index.html')
 

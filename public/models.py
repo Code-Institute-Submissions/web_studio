@@ -20,5 +20,5 @@ class Appointment(models.Model):
     done = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
-        return self.email
+        return self.name
 
