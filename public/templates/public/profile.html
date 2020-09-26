@@ -48,6 +48,11 @@
 
                      <span class="lead float-right btn btn-lg btn-outline-info"
                           >consultation done <span class="text-success">&check;</span></span>
+                     {% comment %} user can delete consultation {% endcomment %}
+                <form action="{% url 'delete_consultation' consultations.id %}">
+                    <input type="submit" value="delete consultation" class="bg-danger text-light col-md-4 offset-mb-8 mb-3">
+
+                </form>
                 {% else %}
                      <a class="lead float-right btn btn-lg btn-outline-info" href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
                 {% endif %}

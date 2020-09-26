@@ -26,9 +26,10 @@
                 <div class="card-body border-secondary border">
                     {% if not request.user.is_authenticated %}
 
-                     <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left">Book Free Initial consultation. </a>
+                     <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left mt-2">Book Free Initial consultation. </a>
                     {% endif %}
-                    <h3 class="font-weight-bold text-info float-right">from 999 &euro;</h3>
+
+                 <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info float-right mt-2">Buy now! <span>999</span> &euro;</a>
                 </div>
             </div>
             <div class="card col-lg-12 border-0">

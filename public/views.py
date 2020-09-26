@@ -96,8 +96,9 @@ def consultations(request):
 
         if user_email_present(request.POST['email']):
             messages.error(request,
-                           'We have user with this email registered already! You can login to see your appointment '
-                           ' or use different email to create new appointment.')
+                           'It appears that you already have appointment.Please login with'
+                           ' your credentials to manage your appointment. Thank you! '
+                           )
 
             return render(request, template, context)
 
@@ -163,7 +164,7 @@ def delete_consultation(request, item_id):
     try:
         u = User.objects.get(email=request.user.email)
         u.delete()
-        messages.success(request, "Your account and consultation were deleted succesfully")
+        messages.success(request, "Your appointment was deleted successfully!")
 
     except User.DoesNotExist:
         messages.error(request, "User does not exist")

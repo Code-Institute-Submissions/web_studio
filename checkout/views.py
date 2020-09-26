@@ -80,6 +80,7 @@ def checkout(request,type):
                 pid = request.POST.get('client_secret').split('_secret')[0]
                 order.stripe_pid = pid
                 order.grand_total = total
+                order.total = total
                 order.product_type = type
                 order.save()
 
