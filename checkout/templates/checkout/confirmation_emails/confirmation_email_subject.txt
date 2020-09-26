@@ -1,1 +1,1 @@
-marcellidesigns confirmation for order number {{ order.order_number }}
+marcellidesigns confirmation of your order  {{ order_id }}

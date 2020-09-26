@@ -14,15 +14,15 @@ class StripeWH_Handler:
     def __init__(self, request):
         self.request = request
 
-    def _send_confirmation_email(self, email, order_id):
+    def _send_confirmation_email(self, email, order_id,receipt_url,name):
         """Send the user a confirmation email"""
         cust_email = email
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
-            {'order': order_id})
+            {'order_id': order_id})
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
-            {'order': order_id, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+            {'order_id': order_id, 'contact_email': settings.DEFAULT_FROM_EMAIL ,'receipt_url':receipt_url,'name':name})
 
         send_mail(
             subject,
@@ -48,7 +48,7 @@ class StripeWH_Handler:
         pid = intent.id
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
-
+        receipt_url = intent.charges.data[0].receipt_url
 
         order_done = False
         attempt = 1
@@ -61,7 +61,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_done:
-            self._send_confirmation_email(billing_details.email, pid)
+            self._send_confirmation_email(billing_details.email, pid,receipt_url,billing_details.name)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -69,7 +69,7 @@ class StripeWH_Handler:
             order = None
             try:
                 order = Order.objects.create(
-                    full_name=billing_details.name,
+                    name=billing_details.name,
 
                     email=billing_details.email,
 
@@ -84,7 +84,7 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
 
-        self._send_confirmation_email(billing_details.email, pid)
+        self._send_confirmation_email(billing_details.email, pid,receipt_url,billing_details.name)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
@@ -96,3 +96,6 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
+
+
+

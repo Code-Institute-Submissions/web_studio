@@ -1,3 +1,5 @@
-Hello {{ order.name  }}
+Hello {{ name  }}
 
 This is confirmation of your order!
+
+You can see receipt here {{ receipt_url }}
