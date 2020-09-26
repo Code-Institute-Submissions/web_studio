@@ -62,6 +62,10 @@ def checkout(request,type):
     if request.method == 'POST':
         form_data = {
             'name': request.POST.get('name'),
+            'street1': request.POST.get('street1'),
+            'city': request.POST.get('city'),
+            'post_code': request.POST.get('post_code'),
+            'country': request.POST.get('country'),
             'email': request.POST.get('email'),
             'product_type':type,
             'grand_total': total,
