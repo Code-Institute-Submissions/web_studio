@@ -63,9 +63,21 @@
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
                                   {% csrf_token %}
                                 <h1 class="font-weight-bold display-5  text-info">payment details</h1>
-                                <label for="name">Your name</label>
+                                <label for="name" class="fieldset-label">Your name</label>
                                 <input type="text" name="name" id="name" required class="form-control border border-info"
                                        value="{{ form.name.value }}" autofocus>
+                                 <label for="street1">Street address 1</label>
+                                <input type="text" name="street1" id="street1" required class="form-control border border-info"
+                                       value="{{ form.name.street1 }}" >
+                                <label for="street2">Street address 2</label>
+                                <input type="text" name="street2" id="street2"  class="form-control border border-info"
+                                       value="{{ form.name.street2 }}" >
+                                 <label for="city">City</label>
+                                <input type="text" name="city" id="city" required class="form-control border border-info"
+                                       value="{{ form.name.city }}" >
+                                 <label for="country">Country</label>
+                                 <input type="text" name="country" id="country" required class="form-control border border-info"
+                                       value="{{ form.name.country }}" >
                                 <hr>
                                 <label for="email">Your email</label>
                                 <input type="email" name="email" id="email" required class="form-control border border-info"
