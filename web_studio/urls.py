@@ -24,4 +24,4 @@ urlpatterns = [
 
     path('checkout/', include('checkout.urls')),
     path('', include('public.urls')),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
