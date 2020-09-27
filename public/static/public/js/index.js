@@ -39,7 +39,7 @@
     function fadeInText(time) {
 
         $('#text').fadeIn((time + 5) * 500)
-        $('.text').fadeIn((time * 2) * 500)
+        $('.text').fadeIn((time * 3) * 500)
     }
 
     function fadeOutElement(element, time) {
