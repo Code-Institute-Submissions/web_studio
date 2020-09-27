@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = 'DEVELOPMENT' in os.environ
-DEBUG = True
+DEBUG = 'DEVELOPMENT' in os.environ
+#DEBUG = True
 
 ALLOWED_HOSTS = ['marcelli.herokuapp.com', '127.0.0.1','marcelli-shopify.herokuapp.com']
 
@@ -187,8 +187,8 @@ if 'USE_AWS' in os.environ:
 
 # Stripe
 STRIPE_CURRENCY = 'eur'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY_MD', '')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY_MD', '')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 BLOG_PRICE = os.getenv('BLOG_PRICE', 299)
 WEBSITE_PRICE = os.getenv('WEBSITE_PRICE', 999)
