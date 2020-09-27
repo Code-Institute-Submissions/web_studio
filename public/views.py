@@ -1,3 +1,7 @@
+import json
+import os
+
+import requests
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -121,9 +125,63 @@ def consultations(request):
                 """
                 user can sign in with his credentials
                 """
+
+                """
+                sending email to owner of the website, informing him about new appointment
+                using MAILGUN service as it's already running for globtopus.com
+                """
+                site_types = {
+                    '1': 'blog', '2': 'website', '3': 'online store', '4': 'something else'
+                }
+                times = {
+                    '1': '8am-12am', '2': '12am-16pm', '3': '16pm-20pm',
+                }
+
+                request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+                key = os.getenv('MAILGUN_API_KEY')
+                recipient = 'marcelkolarcik@gmail.com'
+                requests.post(request_url, auth=('api', key), data={
+                    'from': 'marcellidesigns marcelkolarcik@gmail.com',
+                    'to': recipient,
+                    'subject': 'New appointment',
+                    "template": "marcellidesigns_appointment",
+                    "h:X-Mailgun-Variables":
+                        json.dumps(
+                            {'welcome': 'New appointment : ' + site_types[request.POST['site_type']],
+                             'body_1': request.POST['email'] + ' - ' + request.POST['phone_num'] + ' - ' + request.POST[
+                                 'name'],
+                             'body_2': request.POST['project'],
+                             'question': times[request.POST['time_slot']],
+                             'sign-in': 'Site',
+                             'welcome_team': 'Marcelli Designs', })
+                })
+
+                """
+                               sending email to customer, informing him about new appointment
+                               using MAILGUN service as it's already running for globtopus.com
+                """
+                request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+                key = os.getenv('MAILGUN_API_KEY')
+                recipient = request.POST['email']
+                requests.post(request_url, auth=('api', key), data={
+                    'from': 'marcellidesigns marcelkolarcik@gmail.com',
+                    'to': recipient,
+                    'subject': 'Your appointment',
+                    "template": "marcellidesigns_customer_appointment",
+                    "h:X-Mailgun-Variables":
+                        json.dumps(
+                            {'welcome': 'Your appointment',
+                             'customer_name': request.POST['name'],
+                             'time': times[request.POST['time_slot']],
+                             'phone': request.POST['phone_num'],
+                             'project': request.POST['project'],
+                             'site_type': site_types[request.POST['site_type']],
+
+                             'welcome_team': 'Marcelli Designs', })
+                })
                 return redirect(reverse('account_login'))
 
-            except :
+            except:
                 messages.error(request, 'There was an error with your form. \
                                                               Please double check your information')
         context['consultation_form'] = consultation_form
