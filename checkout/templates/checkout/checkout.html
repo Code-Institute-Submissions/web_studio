@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
- {% block extra_css %}
- <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
-      <link
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+    <link
             crossorigin="anonymous"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
             integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
             rel="stylesheet"
     />
-    {% endblock %}
+{% endblock %}
 {% block  content %}
 
 
@@ -24,8 +24,8 @@
                     <h1 class="font-weight-bold display-5  text-info">checkout :
                         {% if type == 'online_store' %}
                             online store
-                         {% else %}
-                        {{ type }}
+                        {% else %}
+                            {{ type }}
                         {% endif %}
 
                     </h1>
@@ -33,13 +33,7 @@
                 <div class="card-body border-secondary border">
                     <h3 class="font-weight-bold text-info float-right">
                         <span id="total">
-                        {% if type == 'blog' %}
-                            299
-                        {% elif type == 'website' %}
-                            999
-                        {% else %}
-                            1 999
-                        {% endif %}</span>
+                       {{ grand_total }}</span>
 
 
                         &euro;</h3>
@@ -61,33 +55,89 @@
 
                         <div class="col-md-6 offset-md-6" id="payment_details">
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
-                                  {% csrf_token %}
+                                {% csrf_token %}
+
+
                                 <label for="product_type" class="sr-only">Site type</label>
-                                <input  type="text" hidden value="{{ type }}" name="product_type" id="product_type">
+                                <input type="text" hidden value="{{ type }}" name="product_type" id="product_type">
+
                                 <h1 class="font-weight-bold display-5  text-info">payment details</h1>
-                                <label for="name" >Your name</label>
-                                <input type="text" name="name" id="name" required class="form-control border border-info"
-                                       value="{{ form.name.value }}" autofocus>
-                                 <label for="street1">Street address 1</label>
-                                <input type="text" name="street1" id="street1" required class="form-control border border-info"
-                                       value="{{ form.name.street1 }}" >
 
-                                 <label for="city">City</label>
-                                <input type="text" name="city" id="city" required class="form-control border border-info"
-                                       value="{{ form.name.city }}" >
-                                 <label for="post_code">Post code</label>
-                                <input type="text" name="post_code" id="post_code" required class="form-control border border-info"
-                                       value="{{ form.name.post_code }}" >
-                                 <label for="country">Country</label>
-                                 <input type="text" name="country" id="country" required class="form-control border border-info"
-                                       value="{{ form.name.country }}" >
-                                <hr>
+                                <label for="name">Your name</label>
+                                <input type="text" name="name" id="name" required
+                                         {% if  request.user.is_authenticated %}readonly{% endif %}
+                                       class="form-control border border-info"
+                                       value="{% if user %}{{ user }}{% else %} {{ form.name.value }}{% endif %}"
+                                       autofocus>
+
                                 <label for="email">Your email</label>
-                                <input type="email" name="email" id="email" required class="form-control border border-info"
-                                       value="{{ form.email.value }}">
+                                <input type="email" name="email" id="email" required
+                                        {% if  request.user.is_authenticated %}readonly{% endif %}
+                                       class="form-control border border-info"
+                                       value="
+                                            {% if request.user.email %}
+                                                {{ request.user.email }}
+                                            {% else %} {{ form.email.value }}{% endif %}">
+
+                              {% if type == 'consultation' %}
+                                    <label for="phone_num">Your phone number</label>
+                                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required
+                                           class="form-control border border-info"
+                                           value="{{ form.phone_num.value }}">
 
 
-                                <span class="___ muted"  >Credit card</span>
+                                    <label for="time_slot">Best time to contact you</label>
+                                    {% comment %} best time to contact {% endcomment %}
+                                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info"
+                                            required>
+                                        <option value="">please select time</option>
+                                        <option value="1">8 am - 12 am</option>
+                                        <option value="2">12 am - 16 pm</option>
+                                        <option value="3">16 pm - 20 pm</option>
+                                    </select>
+                                    <hr>
+
+                                    <label for="site_type">Site type you are interested</label>
+                                    {% comment %} type of site  {% endcomment %}
+                                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info"
+                                            required>
+                                        <option value="">please select site type</option>
+                                        <option value="1">blog</option>
+                                        <option value="2">website</option>
+                                        <option value="3">online store</option>
+                                        <option value="4">something else</option>
+                                    </select>
+                                    <hr>
+                                    <label for="project">Describe your project ( max 500 characters )</label>
+                                    {% comment %} description of the project {% endcomment %}
+                                    <textarea data-cy="project" name="project" id="project" required
+                                              maxlength="500"
+                                              cols="30" rows="10"
+                                              class="form-control border border-info">{{ form.project.value }}</textarea>
+                                {% endif %}
+
+                                <label for="street1">Street address 1</label>
+                                <input type="text" name="street1" id="street1" required
+                                       class="form-control border border-info"
+                                       value="{{ form.name.street1 }}">
+
+                                <label for="city">City</label>
+                                <input type="text" name="city" id="city" required
+                                       class="form-control border border-info"
+                                       value="{{ form.name.city }}">
+
+                                <label for="post_code">Post code</label>
+                                <input type="text" name="post_code" id="post_code" required
+                                       class="form-control border border-info"
+                                       value="{{ form.name.post_code }}">
+
+                                <label for="country">Country</label>
+                                <input type="text" name="country" id="country" required
+                                       class="form-control border border-info"
+                                       value="{{ form.name.country }}">
+
+
+                                <span class="___ muted">Credit card</span>
                                 <!-- A Stripe card element will go here -->
                                 <div class="mb-3 border border-info " id="card-element"></div>
                                 <!-- Used to display form errors -->
@@ -127,7 +177,7 @@
 
     </div>
 
-<div id="loading-overlay">
+    <div id="loading-overlay">
         <span class="display-1 text-light logo-font loading-spinner">
             <span class="icon">
                 <i class="fas fa-3x fa-sync-alt fa-spin"></i>

@@ -25,47 +25,72 @@
 
 
                 </div>
-                <div class="card-body">
-                     <p class="lead">Your consultations</p>
-                {% if consultations.site_type == "1" %}
-                    <p>blog</p>
-                {% elif  consultations.site_type == "2" %}
-                    <p>website</p>
+                {% if consultations %}
+                    <div class="card-body">
+                    <p class="lead">Your consultations</p>
+                    {% if consultations.site_type == "1" %}
+                        <p>blog</p>
+                    {% elif  consultations.site_type == "2" %}
+                        <p>website</p>
+                    {% else %}
+                        <p>online store</p>
+                    {% endif %}
+
+                    {% if consultations.time_slot == "1" %}
+                        <p>8 am - 12 am</p>
+                    {% elif  consultations.time_slot == "2 " %}
+                        <p>12 am - 16 am</p>
+                    {% else %}
+                        <p>16 am - 20 am</p>
+
+                    {% endif %}
+                    <p>{{ consultations.project }}</p>
+                    {% if consultations.done %}
+
+                        <span class="lead float-right btn btn-lg btn-outline-info"
+                        >consultation done <span class="text-success">&check;</span></span>
+                        {% comment %} user can delete consultation {% endcomment %}
+                        <form action="{% url 'delete_consultation' consultations.id %}">
+                            <input type="submit" value="delete consultation"
+                                   class="bg-danger text-light col-md-4 offset-mb-8 mb-3">
+
+                        </form>
+                    {% else %}
+                        <a
+                                data-cy="edit_consultation"
+                                class="lead float-right btn btn-lg btn-outline-info"
+                                href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
+                    {% endif %}
+
+
+
                 {% else %}
-                    <p>online store</p>
+                    <div class="card col-lg-4 col-md-6">
+                    <div class="card-header bg-transparent">
+                         <p class="lead">You have used your free consultation already.</p>
+                    </div>
+                    <div class="card-body">
+                         <p class="card-title">
+                             If you would like another consultation,
+                        please book new one at 99&euro; <br>
+                             Thank you for your interest!</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                         <a href="{% url 'checkout' 'consultation' %}"
+                       class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">
+                        Book Extra consultation. 99 &euro;</a>
+                    </div>
+                    </div>
+
+
+
+
+
+
                 {% endif %}
-
-             {% if consultations.time_slot == "1" %}
-                  <p>8 am - 12 am</p>
-                        {% elif  consultations.time_slot == "2 " %}
-                            <p>12 am - 16 am</p>
-                        {% else %}
-                            <p>16 am - 20 am</p>
-
-                        {% endif %}
-             <p>{{ consultations.project}}</p>
-                {% if consultations.done %}
-
-                     <span class="lead float-right btn btn-lg btn-outline-info"
-                          >consultation done <span class="text-success">&check;</span></span>
-                     {% comment %} user can delete consultation {% endcomment %}
-                <form action="{% url 'delete_consultation' consultations.id %}">
-                    <input type="submit" value="delete consultation" class="bg-danger text-light col-md-4 offset-mb-8 mb-3">
-
-                </form>
-                {% else %}
-                     <a
-                             data-cy="edit_consultation"
-                             class="lead float-right btn btn-lg btn-outline-info"
-                             href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
-                {% endif %}
-
-
                 </div>
 
             </div>
-
-
 
 
         </div>

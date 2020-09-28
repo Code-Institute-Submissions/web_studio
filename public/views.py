@@ -43,12 +43,15 @@ def profile(request):
     """
 
     template = 'public/profile.html'
-
-    consultation_detail = Appointment.objects.get(email=request.user.email)
+    try:
+        consultation_detail = Appointment.objects.get(email=request.user.email)
+    except:
+        consultation_detail=False
 
     context = {
         'user': request.user.username,
-        'consultations': consultation_detail
+        'consultations': consultation_detail,
+        'email':request.user.email
 
     }
 
@@ -93,16 +96,18 @@ def consultations(request):
         context = {
             'form': consultation_form
         }
-        if user_name_present(request.POST['name']):
-            messages.error(request, 'Please use different user name !')
 
-            return render(request, template, context)
 
         if user_email_present(request.POST['email']):
             messages.error(request,
-                           'It appears that you already have appointment.Please login with'
+                           'It appears that you already registered.Please login with '
                            ' your credentials to manage your appointment. Thank you! '
                            )
+
+            return render(request, template, context)
+
+        if user_name_present(request.POST['name']):
+            messages.error(request, 'Please use different user name !')
 
             return render(request, template, context)
 
@@ -217,14 +222,13 @@ WHEN USER IS DELETING APPOINTMENT, WE WILL DELETE HIS ACCOUNT AS WELL
 
 
 def delete_consultation(request, item_id):
-    item = get_object_or_404(Appointment, id=item_id)
-    item.delete()
+
     try:
-        u = User.objects.get(email=request.user.email)
-        u.delete()
+        item = get_object_or_404(Appointment, id=item_id)
+        item.delete()
         messages.success(request, "Your appointment was deleted successfully!")
 
     except User.DoesNotExist:
-        messages.error(request, "User does not exist")
+        messages.error(request, "Appointment does not exist")
 
-    return redirect('home')
+    return redirect('profile')
