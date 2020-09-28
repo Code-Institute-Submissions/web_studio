@@ -148,7 +148,7 @@
 
 									                <div class = "d-flex justify-content-around align-items-end" >
 
-									                <img src="/static/public/images/avatars/${ img_id[ c ] }.png" class="avatar" alt="avatar image">
+									                <img src="https://marcellidesigns.s3.amazonaws.com/static/public/images/avatars/${ img_id[ c ] }.png" class="avatar" alt="avatar image">
 
 										                <div>
 											               ${ stars[ getRandom ( 0, 2 ) ] }
