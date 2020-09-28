@@ -34,23 +34,23 @@
                 <form action="{% url 'consultations' %}" method="POST" id="book_consultation">
                     {% csrf_token %}
                     <label for="name">Your name</label>
-                    <input type="text" name="name" id="name" required class="form-control" value="{{ form.name.value }}"
+                    <input data-cy="name" type="text" name="name" id="name" required class="form-control" value="{{ form.name.value }}"
                            autofocus>
                     <hr>
                     <label for="email">Your email</label>
-                    <input type="email" name="email" id="email" required class="form-control"
+                    <input data-cy="email"  type="email" name="email" id="email" required class="form-control"
                            value="{{ form.email.value }}">
                     <label for="email">Your phone number</label>
-                    <input type="text" name="phone_num" id="phone_num" required class="form-control"
+                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required class="form-control"
                            value="{{ form.phone_num.value }}">
 
                     <hr>
                     <label for="password">Your password</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
+                    <input data-cy="password" type="password" name="password" id="password" class="form-control" required>
                     <hr>
                     <label for="time_slot">Best time to contact you</label>
                     {% comment %} best time to contact {% endcomment %}
-                    <select name="time_slot" id="time_slot" class="form-control" required>
+                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control" required>
                         <option value="">please select time</option>
                         <option value="1">8 am - 12 am</option>
                         <option value="2">12 am - 16 pm</option>
@@ -60,7 +60,7 @@
 
                     <label for="site_type">Site type you are interested</label>
                     {% comment %} type of site  {% endcomment %}
-                    <select name="site_type" id="site_type" class="form-control" required>
+                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control" required>
                         <option value="">please select site type</option>
                         <option value="1">blog</option>
                         <option value="2">website</option>
@@ -70,11 +70,11 @@
                     <hr>
                     <label for="project">Describe your project ( max 500 characters )</label>
                     {% comment %} description of the project {% endcomment %}
-                    <textarea name="project" id="project" required
+                    <textarea data-cy="project" name="project" id="project" required
                               maxlength="500"
                               cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
                     <hr>
-                    <input type="submit" value="book" class="form-control bg-info text-light">
+                    <input data-cy="submit" type="submit" value="book" class="form-control bg-info text-light">
 
 
                 </form>

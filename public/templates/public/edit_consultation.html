@@ -35,7 +35,7 @@
                 <form action="{% url 'edit_consultation' item_id %}" method="POST" id="book_consultation">
                     {% csrf_token %}
                     <label for="name">Your name</label>
-                    <input type="text" name="name" id="name" required class="form-control" autofocus
+                    <input data-cy="name" type="text" name="name" id="name" required class="form-control" autofocus
                            value=" {{ form.name.value }}">
                     <hr>
                     <label for="email">Your email</label>
@@ -74,7 +74,7 @@
 
                     <label for="site_type">Site type you are interested</label>
 
-                    <select name="site_type" id="site_type" required class="form-control">
+                    <select data-cy="site_type" name="site_type" id="site_type" required class="form-control">
 
 
                         {% if form.site_type.value == "1" %}
@@ -105,19 +105,19 @@
                     </select>
                     <hr>
                     <label for="project">Describe your project ( max 500 characters )</label>
-                    <textarea name="project" id="project"
+                    <textarea data-cy="project" name="project" id="project"
                               maxlength="500"
                               cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
                     <hr>
                     {% comment %} button to update consultation{% endcomment %}
-                    <input type="submit" value="update" class="form-control bg-info text-light">
+                    <input data-cy="update_appointment" type="submit" value="update" class="form-control bg-info text-light">
                     <br>
 
 
                 </form>
                 {% comment %} user can delete consultation {% endcomment %}
                 <form action="{% url 'delete_consultation' item_id %}">
-                    <input type="submit" value="delete consultation" class="form-control bg-danger text-light">
+                    <input data-cy="delete_appointment" type="submit" value="delete consultation" class="form-control bg-danger text-light">
 
                 </form>
 

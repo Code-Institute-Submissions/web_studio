@@ -54,7 +54,10 @@
 
                 </form>
                 {% else %}
-                     <a class="lead float-right btn btn-lg btn-outline-info" href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
+                     <a
+                             data-cy="edit_consultation"
+                             class="lead float-right btn btn-lg btn-outline-info"
+                             href="/edit/consultation/{{ consultations.id }}"> edit consultation</a>
                 {% endif %}
 
 
