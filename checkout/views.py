@@ -17,12 +17,9 @@ def cache_checkout_data(request):
         stripe.PaymentIntent.modify(pid, metadata={
 
             'name': request.POST.get('name'),
-            'street1': request.POST.get('street1'),
-            'city': request.POST.get('city'),
-            'post_code': request.POST.get('post_code'),
-            'country': request.POST.get('country'),
+
             'email': request.POST.get('email'),
-            'product_type': request.POST.get('product_type')
+
 
         })
         return HttpResponse(status=200)
