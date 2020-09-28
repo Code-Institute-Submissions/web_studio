@@ -14,22 +14,10 @@ class StripeWH_Handler:
     def __init__(self, request):
         self.request = request
 
-    def _send_confirmation_email(self, email, order_id, receipt_url, name):
+    def _send_confirmation_email(self, billing_details, order_id, receipt_url):
         """Send the user a confirmation email"""
-        cust_email = email
-        # subject = render_to_string(
-        #     'checkout/confirmation_emails/confirmation_email_subject.txt',
-        #     {'order_id': order_id})
-        # body = render_to_string(
-        #     'checkout/confirmation_emails/confirmation_email_body.txt',
-        #     {'order_id': order_id, 'contact_email': settings.DEFAULT_FROM_EMAIL ,'receipt_url':receipt_url,'name':name})
-        #
-        # send_mail(
-        #     subject,
-        #     body,
-        #     settings.DEFAULT_FROM_EMAIL,
-        #     [cust_email]
-        # )
+        cust_email = billing_details.email
+        product_type = billing_details.product_type
         """
         email to customer
         """
@@ -44,7 +32,8 @@ class StripeWH_Handler:
             "h:X-Mailgun-Variables":
                 json.dumps(
                     {'welcome': 'Thank you for your order',
-                     'customer_name': name,
+                     'product_type': product_type,
+                     'customer_name': billing_details.name,
                      'receipt_url': receipt_url,
                      'order_id': order_id,
 
@@ -64,6 +53,7 @@ class StripeWH_Handler:
             "h:X-Mailgun-Variables":
                 json.dumps(
                     {'welcome': 'New purchase',
+                     'product_type': product_type,
                      'customer_email': cust_email,
                      'receipt_url': receipt_url,
                      'order_id': order_id,
@@ -100,7 +90,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_done:
-            self._send_confirmation_email(billing_details.email, pid, receipt_url, billing_details.name)
+            self._send_confirmation_email(billing_details, pid, receipt_url, )
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -109,10 +99,13 @@ class StripeWH_Handler:
             try:
                 order = Order.objects.create(
                     name=billing_details.name,
-
                     email=billing_details.email,
-
+                    street1=billing_details.street1,
+                    city=billing_details.city,
+                    country=billing_details.country,
+                    product_type=billing_details.product_type,
                     grand_total=grand_total,
+                    total=grand_total,
                     stripe_pid=pid,
                 )
 
@@ -123,7 +116,7 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
 
-        self._send_confirmation_email(billing_details.email, pid, receipt_url, billing_details.name)
+        self._send_confirmation_email(billing_details, pid, receipt_url)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
@@ -132,6 +125,45 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.payment_failed webhook from Stripe
         """
+        intent = event.data.object
+
+        billing_details = intent.charges.data[0].billing_details
+        request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+        key = os.getenv('MAILGUN_API_KEY')
+        """
+        IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO OWNER OF THE SITE
+        """
+        requests.post(request_url, auth=('api', key), data={
+            'from': 'marcellidesigns marcelkolarcik@gmail.com',
+            'to': 'marcelkolarcik@gmail.com',
+            'subject': 'Error with your order',
+            "template": "marcellidesign_error_purchase_owner",
+            "h:X-Mailgun-Variables":
+                json.dumps(
+                    {'welcome': 'Error while purchasing',
+                     'body':'There was an error while customer was trying to buy one of your products.',
+                     'product_type': billing_details.product_type,
+                     'customer_email': billing_details.email,
+                     'customer_name': billing_details.name,
+                     'welcome_team': 'Marcelli Designs', })
+        })
+        """
+                IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO CUSTOMER
+        """
+        requests.post(request_url, auth=('api', key), data={
+            'from': 'marcellidesigns marcelkolarcik@gmail.com',
+            'to': billing_details.email,
+            'subject': 'Error with your order',
+            "template": "marcellidesigns_error_purchasing",
+            "h:X-Mailgun-Variables":
+                json.dumps(
+                    {'welcome': 'Error while purchasing',
+                     'body': 'There was an error during the purchase, your card was not charged',
+                     'product_type': billing_details.product_type,
+                     'customer_email': billing_details.email,
+                     'customer_name': billing_details.name,
+                     'welcome_team': 'Marcelli Designs', })
+        })
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)

@@ -60,7 +60,6 @@ form.addEventListener('submit', function (ev) {
     $.post(url, postData).done(function () {
 
 
-
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
 
@@ -68,6 +67,11 @@ form.addEventListener('submit', function (ev) {
                 billing_details: {
                     name: $.trim(form.name.value),
                     email: $.trim(form.email.value),
+                    product_type: $.trim(form.product_type.value),
+                    street1: $.trim(form.street1.value),
+                    city: $.trim(form.city.value),
+                    country: $.trim(form.country.value),
+                    post_code: $.trim(form.post_code.value),
 
 
                 }
