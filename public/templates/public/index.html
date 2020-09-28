@@ -391,8 +391,24 @@
 
         </div>
     </div>
+    {% comment %}TESTIMONIALS{% endcomment %}
+     <div
+          class="carousel slide carousel-fade"
+          data-ride="carousel"
+          id="testimonials_div"
+        >
+          <div
+            class="carousel-inner"
+            id="testi_holder"
+          >
+
+
+          </div>
+
+        </div>
 
 {% endblock %}
 {% block postloadjs %}
     <script src="{% static 'public/js/index.js' %}"></script>
+     <script src="{% static 'public/js/testimonials.js' %}"></script>
 {% endblock %}

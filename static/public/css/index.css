@@ -24,6 +24,20 @@ a.lead:hover{
 .bg_light_grey{
     border-top:3px solid #6c757d;
 }
+.green {
+	color: rgba(0, 195, 209, 1);
+	font-weight: bold;
+	}
+.avatar {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border-top: 0 solid white;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-bottom: 1px solid #99969f;
+	padding: 10px;
+	}
 /*DIFFERENT SIZES ON DIFFERENT SCREENS*/
 @media screen and ( max-width: 1200px ) {
 
