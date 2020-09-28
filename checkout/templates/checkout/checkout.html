@@ -85,7 +85,7 @@
                                        value="{{ form.email.value }}">
 
 
-                                <label class="___ muted" for="credit_card" >Credit card</label>
+                                <label class="___ muted" for="card-element" >Credit card</label>
                                 <!-- A Stripe card element will go here -->
                                 <div class="mb-3 border border-info " id="card-element"></div>
                                 <!-- Used to display form errors -->
@@ -126,11 +126,11 @@
     </div>
 
 <div id="loading-overlay">
-        <h1 class="text-light logo-font loading-spinner">
+        <span class="display-1 text-light logo-font loading-spinner">
             <span class="icon">
                 <i class="fas fa-3x fa-sync-alt fa-spin"></i>
             </span>
-        </h1>
+        </span>
     </div>
 {% endblock %}
 {% block postloadjs %}

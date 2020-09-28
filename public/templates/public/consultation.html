@@ -26,7 +26,7 @@
             </div>
 
             <div class="col-lg-5 d-flex justify-content-center align-items-center">
-                <h1 class="display-1"><i class="far fa-comment-dots fa-2x text-info"></i></h1>
+                <span class="display-1"><i class="far fa-comment-dots fa-2x text-info"></i></span>
             </div>
             <div class="col-lg-7">
 
@@ -51,7 +51,7 @@
                     <label for="time_slot">Best time to contact you</label>
                     {% comment %} best time to contact {% endcomment %}
                     <select name="time_slot" id="time_slot" class="form-control" required>
-
+                        <option value="">please select time</option>
                         <option value="1">8 am - 12 am</option>
                         <option value="2">12 am - 16 pm</option>
                         <option value="3">16 pm - 20 pm</option>
@@ -61,7 +61,7 @@
                     <label for="site_type">Site type you are interested</label>
                     {% comment %} type of site  {% endcomment %}
                     <select name="site_type" id="site_type" class="form-control" required>
-
+                        <option value="">please select site type</option>
                         <option value="1">blog</option>
                         <option value="2">website</option>
                         <option value="3">online store</option>
