@@ -73,7 +73,7 @@ def checkout(request,type):
 
     }
     if request.method == 'POST':
-        request.session['product_type'] = type
+
         form_data = {
             'name': request.POST.get('name'),
             'street1': request.POST.get('street1'),
