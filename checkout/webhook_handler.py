@@ -110,7 +110,7 @@ class StripeWH_Handler:
                     post_code=billing_details.address.line2,
                     city=billing_details.address.city,
                     country=billing_details.address.country,
-                    product_type=types[str(grand_total)],
+
                     grand_total=grand_total,
                     total=grand_total,
                     stripe_pid=pid,
