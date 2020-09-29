@@ -3,7 +3,6 @@ import os
 import time
 
 import requests
-
 from django.http import HttpResponse
 
 from .models import Order
@@ -15,10 +14,10 @@ class StripeWH_Handler:
     def __init__(self, request):
         self.request = request
 
-    def _send_confirmation_email(self, billing_details, order_id, receipt_url):
+    def _send_confirmation_email(self, billing_details, order_id, receipt_url,product_type):
         """Send the user a confirmation email"""
         cust_email = billing_details.email
-        product_type =  self.request.session.get('product_type')
+
         """
         email to customer
         """
@@ -79,7 +78,7 @@ class StripeWH_Handler:
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         receipt_url = intent.charges.data[0].receipt_url
-
+        product_type = self.request.session.get('product_type')
 
         order_done = False
         attempt = 1
@@ -92,7 +91,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_done:
-            self._send_confirmation_email(billing_details, pid, receipt_url, )
+            self._send_confirmation_email(billing_details, pid, receipt_url,product_type )
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -119,7 +118,7 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
 
-        self._send_confirmation_email(billing_details, pid, receipt_url)
+        self._send_confirmation_email(billing_details, pid, receipt_url,product_type)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
@@ -129,7 +128,7 @@ class StripeWH_Handler:
         Handle the payment_intent.payment_failed webhook from Stripe
         """
         intent = event.data.object
-
+        product_type = self.request.session.get('product_type')
         billing_details = intent.charges.data[0].billing_details
         request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
         key = os.getenv('MAILGUN_API_KEY')
@@ -145,7 +144,7 @@ class StripeWH_Handler:
                 json.dumps(
                     {'welcome': 'Error while purchasing',
                      'body': 'There was an error while customer was trying to buy one of your products.',
-
+                     'product_type': product_type,
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
                      'welcome_team': 'Marcelli Designs', })
@@ -162,7 +161,7 @@ class StripeWH_Handler:
                 json.dumps(
                     {'welcome': 'Error while purchasing',
                      'body': 'There was an error during the purchase, your card was not charged',
-
+                     'product_type': product_type,
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
                      'welcome_team': 'Marcelli Designs', })
