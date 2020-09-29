@@ -78,7 +78,12 @@ class StripeWH_Handler:
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         receipt_url = intent.charges.data[0].receipt_url
-        product_type = intent.metadata.product_type
+        types = {
+            '99': 'consultation',
+            '299': 'blog',
+            '999': 'website',
+            '1999': 'online_store'
+        }
 
         order_done = False
         attempt = 1
@@ -105,7 +110,7 @@ class StripeWH_Handler:
                     post_code=billing_details.address.line2,
                     city=billing_details.address.city,
                     country=billing_details.address.country,
-                    product_type=product_type,
+                    product_type=types[str(grand_total)],
                     grand_total=grand_total,
                     total=grand_total,
                     stripe_pid=pid,

@@ -24,7 +24,7 @@ def cache_checkout_data(request):
 
             'name': request.POST.get('name'),
             'email': request.POST.get('email'),
-            'product_type': request.POST.get('product_type'),
+
 
 
         })
