@@ -66,12 +66,20 @@ form.addEventListener('submit', function (ev) {
                 card: card,
                 billing_details: {
                     name: $.trim(form.name.value),
+                    phone: $.trim(form.phone_num.value),
                     email: $.trim(form.email.value),
+                    address: {
+                        line1: $.trim(form.street1.value),
+                        line2: $.trim(form.post_code.value),
+                        city: $.trim(form.city.value),
+                        country: $.trim(form.country.value),
 
 
+                    },
 
-                }
 
+                },
+                product_type: $.trim(form.product_type.value)
             }
 
 
