@@ -3,6 +3,7 @@ import os
 import time
 
 import requests
+
 from django.http import HttpResponse
 
 from .models import Order
@@ -17,7 +18,7 @@ class StripeWH_Handler:
     def _send_confirmation_email(self, billing_details, order_id, receipt_url):
         """Send the user a confirmation email"""
         cust_email = billing_details.email
-        product_type = billing_details.product_type
+        product_type =  self.request.session.get('product_type')
         """
         email to customer
         """
@@ -78,12 +79,7 @@ class StripeWH_Handler:
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         receipt_url = intent.charges.data[0].receipt_url
-        types = {
-            '99': 'consultation',
-            '299': 'blog',
-            '999': 'website',
-            '1999': 'online_store'
-        }
+
 
         order_done = False
         attempt = 1
@@ -149,7 +145,7 @@ class StripeWH_Handler:
                 json.dumps(
                     {'welcome': 'Error while purchasing',
                      'body': 'There was an error while customer was trying to buy one of your products.',
-                     'product_type': billing_details.product_type,
+
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
                      'welcome_team': 'Marcelli Designs', })
@@ -166,7 +162,7 @@ class StripeWH_Handler:
                 json.dumps(
                     {'welcome': 'Error while purchasing',
                      'body': 'There was an error during the purchase, your card was not charged',
-                     'product_type': billing_details.product_type,
+
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
                      'welcome_team': 'Marcelli Designs', })
