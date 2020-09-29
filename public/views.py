@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
+from checkout.models import Order
 from .forms import AppointmentForm
 from .models import Appointment
 
@@ -40,17 +41,26 @@ def portfolio(request):
 def profile(request):
     """
     user can log in to his account to update or delete appointment
+    or to see his orders if any
     """
 
     template = 'public/profile.html'
     try:
-        consultation_detail = Appointment.objects.get(email=request.user.email)
+        consultation_detail = Appointment.objects.filter(email=request.user.email)
     except:
         consultation_detail=False
+
+    try:
+        orders = Order.objects.filter(email=request.user.email)
+
+
+    except:
+        orders = False
 
     context = {
         'user': request.user.username,
         'consultations': consultation_detail,
+        'orders':orders,
         'email':request.user.email
 
     }

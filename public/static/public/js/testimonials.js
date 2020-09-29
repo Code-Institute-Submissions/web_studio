@@ -82,7 +82,7 @@
 				,
 				'Easy to add the articles, easy to see customers, and easy to earn money ! Recommending very much!'
 				,
-				'Great way to make additional income, especially in Ireland, 14 000 EUR tax free ? Yes, please!'
+				'Great way to make additional income, especially in Ireland, 8 000 EUR ? Yes, please!'
 				,
 				'Thinking of getting another blog, as one we already have is really popular!'
 				,
