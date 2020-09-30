@@ -37,6 +37,10 @@ def portfolio(request):
     return render(request, 'public/portfolio.html')
 
 
+def howitworks(request):
+    return render(request, 'public/howitworks.html')
+
+
 @login_required
 def profile(request):
     """
@@ -46,12 +50,12 @@ def profile(request):
 
     template = 'public/profile.html'
     try:
-        consultation_detail = Appointment.objects.filter(email=request.user.email)
+        consultation_detail = Appointment.objects.filter(email=request.user.email).order_by('-date')
     except:
-        consultation_detail=False
+        consultation_detail = False
 
     try:
-        orders = Order.objects.filter(email=request.user.email)
+        orders = Order.objects.filter(email=request.user.email).order_by('-date')
 
 
     except:
@@ -60,8 +64,8 @@ def profile(request):
     context = {
         'user': request.user.username,
         'consultations': consultation_detail,
-        'orders':orders,
-        'email':request.user.email
+        'orders': orders,
+        'email': request.user.email
 
     }
 
@@ -106,7 +110,6 @@ def consultations(request):
         context = {
             'form': consultation_form
         }
-
 
         if user_email_present(request.POST['email']):
             messages.error(request,
@@ -232,7 +235,6 @@ WHEN USER IS DELETING APPOINTMENT, WE WILL DELETE HIS ACCOUNT AS WELL
 
 
 def delete_consultation(request, item_id):
-
     try:
         item = get_object_or_404(Appointment, id=item_id)
         item.delete()

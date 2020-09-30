@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="col-12 mt-5"></div>
+{% comment %} some of my work to show {% endcomment %}
+
+    <div class="container">
+        <div class="row index">
+            <div class="card col-lg-12 border-0">
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info portfolio">how it works</h1>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">1.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+                We will have initial consultation, where we find out more about your project and your requirements.
+                We will discuss images, colors, your audience, SEO, Google Adsense, Google Analytics...
+                We will advise on how to create your Privacy Policy,Terms of Use,
+                 where to host your new website and where to purchase your domain name.
+             </div>
+
+             <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">2.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+               When you have all the information you need, you can purchase product you are interested in, and we
+                 will start creating your site.
+             </div>
+
+             <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">3.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+                We will start working on your project by initially drawing wireframes, and sending it to you for
+                 your approval.
+                 <hr>
+                  <img class="img-thumbnail wireframe_small wireframe" src="{% static "public/images/wireframes/index.jpg" %}"
+                     alt="index page wireframe">
+                  <img class="img-thumbnail wireframe_small wireframe" src="{% static "public/images/wireframes/consultation.jpg" %}"
+                     alt="consultation page wireframe">
+                  <img class="img-thumbnail wireframe_small wireframe" src="{% static "public/images/wireframes/dashboard.jpg" %}"
+                     alt="dashboard page wireframe">
+                  <img class="img-thumbnail wireframe_small wireframe" src="{% static "public/images/wireframes/product.jpg" %}"
+                     alt="product page wireframe">
+                  <img class="img-thumbnail wireframe_small wireframe" src="{% static "public/images/wireframes/checkout.jpg" %}"
+                     alt="checkout page wireframe">
+                 <hr>
+                 <p class="text-center">click on any image to enlarge it</p>
+             </div>
+
+             <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">4.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+                We will then apply changes you want.
+             </div>
+
+             <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">5.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+                We start creating your site.
+             </div>
+
+             <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">6.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+                You will have live link to development site, so you can see as your site is being developed.
+             </div>
+
+            <div class="col-lg-3">
+                 <h1 class="font-weight-bold display-1  text-info">7.</h1>
+
+            </div>
+             <div class="col-lg-9 bottom_border list-group-item mb-3">
+                When the site is ready, after your approval, we will transfer your domain name
+                 to your site, and you can start using your site the way you want!
+             </div>
+
+
+
+
+            <div class="col-lg-12 my-5">
+                <h5 class="text-center"><small>Marcel Kolarcik</small></h5>
+                <div class="d-flex justify-content-center">
+                    <a href="https://www.linkedin.com/in/marcel-kolarcik-81184a19b">LinkedIn</a>&nbsp;|&nbsp;
+                    <a href="https://github.com/marcelkolarcik">Github</a>&nbsp;|&nbsp;
+                    <a href="https://www.globtopus.com/user/5f621ae0a5a2db5b43a66392">Globtopus</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block postloadjs %}
+
+    <script src="{% static 'public/js/wireframes.js' %}"></script>
+
+
+
+{% endblock %}

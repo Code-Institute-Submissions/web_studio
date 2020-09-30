@@ -38,6 +38,18 @@ a.lead:hover{
 	border-bottom: 1px solid #99969f;
 	padding: 10px;
 	}
+.wireframe_small{
+    width: 60px;
+    height: 90px;
+    cursor: pointer;
+}
+.wireframe_small:hover{
+    border: 1px solid #99969f;
+}
+.wireframe_medium{
+    width: 360px;
+    height: 540px;
+}
 /*DIFFERENT SIZES ON DIFFERENT SCREENS*/
 @media screen and ( max-width: 1200px ) {
 
