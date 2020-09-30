@@ -67,20 +67,24 @@
                                 <input type="text" name="name" id="name" required
                                        {% if  request.user.is_authenticated %}readonly{% endif %}
                                        class="form-control border border-info"
-                                       value="{% if request.user.is_authenticated %}{{ user }}{% else %}{{ order_form.name.value }}{% endif %}"
-                                       >
+                                       value="{% if request.user.is_authenticated %}{{ user }}
+                                       {% elif order_form.name.value is not None %}{{ order_form.name.value }}
+                                                 {% endif %}"
+                                >
 
 
                                 <label for="email">Your email</label>
                                 <input type="email" name="email" id="email" required
-                                        {% if  request.user.is_authenticated %}readonly{% endif %}
+                                       {% if  request.user.is_authenticated %}readonly{% endif %}
                                        class="form-control border border-info"
                                        value="
                                             {% if request.user.email %}
                                                 {{ request.user.email }}
-                                            {% else %} {{ order_form.email.value }}{% endif %}">
 
-                              {% if type == 'consultation' %}
+                                           {% elif order_form.email.value is not None %}{{ order_form.email.value }}
+                                             {% endif %}">
+
+                                {% if type == 'consultation' %}
                                     <label for="phone_num">Your phone number</label>
                                     <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required
                                            class="form-control border border-info"
@@ -89,7 +93,8 @@
 
                                     <label for="time_slot">Best time to contact you</label>
                                     {% comment %} best time to contact {% endcomment %}
-                                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info"
+                                    <select data-cy="time_slot" name="time_slot" id="time_slot"
+                                            class="form-control border border-info"
                                             required>
                                         <option value="">please select time</option>
                                         <option value="1">8 am - 12 am</option>
@@ -100,7 +105,8 @@
 
                                     <label for="site_type">Site type you are interested</label>
                                     {% comment %} type of site  {% endcomment %}
-                                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info"
+                                    <select data-cy="site_type" name="site_type" id="site_type"
+                                            class="form-control border border-info"
                                             required>
                                         <option value="">please select site type</option>
                                         <option value="1">blog</option>
