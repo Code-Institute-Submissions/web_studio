@@ -69,9 +69,9 @@
 
                         <p><span class="font-weight-bold text-info">Time to contact you:</span> <strong>
                             {% if consult.time_slot == "1" %}
-                                8 am - 12 am
+                                8 am - 12 pm
                             {% elif  consult.time_slot == "2 " %}
-                                12 am - 16 pm
+                                12 pm - 16 pm
                             {% else %}
                                 16 pm - 20 pm
 
@@ -115,15 +115,15 @@
 
                     <a href="{% url 'checkout' 'blog' %}"
                        class="lead  btn  btn-outline-info mt-2">
-                        Blog <span>299</span> &euro;
+                        Blog from 299 &euro;
                     </a>
                     <a href="{% url 'checkout' 'website' %}"
                        class="lead  btn  btn-outline-info  mt-2">
-                        Website <span>999</span> &euro;
+                        Website from 999 &euro;
                     </a>
                     <a href="{% url 'checkout' 'online_store' %}"
                        class="lead  btn  btn-outline-info  mt-2">
-                        Online Store <span>1999</span> &euro;
+                        Online Store from 1999 &euro;
                     </a>
                     <a href="{% url 'checkout' 'consultation' %}"
                        class="consultation lead  btn  btn-outline-info   mt-2">

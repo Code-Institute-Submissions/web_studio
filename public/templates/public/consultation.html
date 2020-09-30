@@ -48,7 +48,9 @@
                            required>
                     <hr>
                     <label for="phone_num">Your phone number</label>
-                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required class="form-control border border-info"
+                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
+                           placeholder="+ country code"
+                           required class="form-control border border-info"
                            value="{{ form.phone_num.value }}">
 
 
@@ -57,8 +59,8 @@
                     {% comment %} best time to contact {% endcomment %}
                     <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info" required>
                         <option value="">please select time</option>
-                        <option value="1">8 am - 12 am</option>
-                        <option value="2">12 am - 16 pm</option>
+                        <option value="1">8 am - 12 pm</option>
+                        <option value="2">12 pm - 16 pm</option>
                         <option value="3">16 pm - 20 pm</option>
                     </select>
                     <hr>

@@ -70,13 +70,13 @@
 				,
 				'Ease and efficiency. That\'s all I can say about this site. And extra 14 000 EUR last year....;-)'
 				,
-				'The office is located in a prime location...'
+				'You can have new website without leaving your home or office...'
 				,
 				'We have upgraded our site and are able to get much higher revenue then before upgrading.'
 				,
 				'Marcel was very helpful when we wanted to add extra pages to our website. And now we are reaping benefits of the cooperation.'
 				,
-				'Extra income for me and my young family. We are selling our homemade goods, and it has been just positive experience so far!'
+				'Extra income for me and my family. We are selling our homemade goods, and it has been just positive experience so far!'
 				,
 				'Using two blogs , both of them about healthy living. And extra cash is going towards our holidays...'
 				,

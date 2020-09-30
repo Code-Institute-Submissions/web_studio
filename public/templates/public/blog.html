@@ -25,15 +25,16 @@
                 <div class="card-header bg-transparent border-0 ">
 
                     <h1 class="font-weight-bold display-3  text-info">blog</h1>
+                    <h5 class="font-weight-bold display-5  text-info">from 299 &euro;</h5>
                 </div>
                 {% comment %} BUTTON TO BOOK INITIAL COUNSULTATION {% endcomment %}
                 <div class="card-body border-secondary border ">
                      {% if not request.user.is_authenticated %}
 
-                     <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">Book Free Initial consultation. </a>
+                     <a  href="{% url 'consultations'  %}" class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">Book Free Initial Consultation</a>
                     {% endif %}
 
-                        <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info float-right mt-2">Buy now! <span>299</span> &euro;</a>
+                        <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info float-right mt-2">Buy now!</a>
 
                 </div>
             </div>
@@ -100,7 +101,7 @@
                             </li>
                             <li class="list-group-item bottom_border">
                                 We will help you set-up Google Adsense account, or any other provider of your choice, so that you can
-                                monetize content of your blog.
+                                monetize content of your blog
                                  <span class="float-right text-success included">
                                     &check;
                                    </span>
@@ -132,7 +133,7 @@
                         <ul class="list-group">
                             <li class="list-group-item bottom_border">
                                 You will need to provide : <br>
-                                Privacy Policy, Terms of use
+                                Privacy Policy, Terms of use ( We can advise you on several options, how to create them )
 
                             </li>
 
@@ -149,7 +150,7 @@
             </div>
  {% comment %} BUY BUTTON {% endcomment %}
             <div class="col-lg-12 text-center">
-                <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
+                <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info float-right">Buy now!</a>
             </div>
 
             {% comment %} benefits   of having own blog{% endcomment %}
@@ -163,7 +164,7 @@
                     <div class="col-md-8 offset-md-4">
                         <ul class="list-group">
                             <li class="list-group-item bottom_border">
-                                <h3>You are in control.</h3>
+                                <h3>You are in control!</h3>
                                 <hr>
                                 <p class="benefit">
                                     Most free blogs don’t allow you to add new features to your site
@@ -174,7 +175,7 @@
                             </li>
                             <li class="list-group-item bottom_border">
 
-                                <h3> You own it.</h3>
+                                <h3> You own it!</h3>
                                 <hr>
                                 <p class="benefit">
                                     The biggest drawback for us is that you don’t really own your
@@ -232,7 +233,7 @@
             </div>
 {% comment %} BUY BUTTON {% endcomment %}
              <div class="col-lg-12 text-center">
-                <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info">Buy now! <span>299</span> &euro;</a>
+                <a  href="{% url 'checkout' 'blog' %}" class="lead  btn btn-lg btn-outline-info float-right">Buy now!</a>
             </div>
              <div class="col-12 mt-5"></div>
         </div>
