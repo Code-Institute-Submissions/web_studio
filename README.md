@@ -1,5 +1,5 @@
 
-![web-studio](https://raw.githubusercontent.com/marcelkolarcik/web-studio/master/readme_images/marcelli.gif)
+![web_studio](https://raw.githubusercontent.com/marcelkolarcik/web_studio/master/readme_images/marcelli.gif)
 Live preview of the site : <a href="https://marcelli.herokuapp.com/">marcellidesigns</a>
 # marcellidesigns
 
@@ -304,7 +304,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
   
     Preview of the site on mobile device
  
- ![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/web-studio/master/readme_images/marcelli_mobile_2.gif)
+ ![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/web_studio/master/readme_images/marcelli_mobile_2.gif)
  
  
  All the back end tests were done with TestCase form django.test
@@ -380,7 +380,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
   project folder to initialize it.
   
   ```cl
-   $ cd code/web-studio
+   $ cd code/web_studio
    ```
 
   
@@ -391,7 +391,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
 Then I created remote to GitHub 
   
   ```cl
-   $ git remote add origin-g https://github.com/marcelkolarcik/web-studio.git
+   $ git remote add origin-g https://github.com/marcelkolarcik/web_studio.git
    ```
 
 Then I created a Heroku app by creating an account on Heroku first and then clicking on a new button in the top right corner
@@ -444,7 +444,7 @@ Deploying to Heroku also allows me to test my application on multiple devices.
 
 To locally run the code clone my repository
 
-    $ git clone https://github.com/marcelkolarcik/web-studio.git
+    $ git clone https://github.com/marcelkolarcik/web_studio.git
 
 Install all packages from requirements.txt.
 
