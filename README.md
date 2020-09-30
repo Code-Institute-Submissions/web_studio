@@ -286,6 +286,9 @@ I have created a Favicon. Favicons save the users time in identifying a website 
  Some front-end testing was done in cypress.io. Test case: Customer creating an appointment, logging in, editing appointment, and then 
  deleting it.
  
+  I tested my website on 5in and 6in phones, 10in tablet 18in laptop and 22in desktop with good response from
+  all of the devices.
+ 
  All the back end tests were done with TestCase form django.test
  #### Test Cases:
  ##### checkout
@@ -426,6 +429,38 @@ Heroku will also allow me to deploy apps from any branch I have created, which i
 and selecting the branch I want to deploy my app from.
  
 Deploying to Heroku also allows me to test my application on multiple devices. 
+#### Local Deployment
+
+To locally run the code clone my repository
+
+    $ git clone https://github.com/marcelkolarcik/web-studio.git
+
+Install all packages from requirements.txt.
+
+Make migrations with 
+
+     manage.py makemigrations --dry-run
+to see what migrations you are making, once everything is clear, run
+
+    manage.py makemigrations
+    
+After that run 
+
+    manage.py migrate --plan
+    
+To make sure, that you're doing what you want to do and then run
+
+    manage.py migrate
+    
+To run project run
+
+    manage.py runserver
+    
+command
+    
+If you want to run tests run
+
+    manage.py test
   
 # Difficulties 
  Most challenges I encountered were with Stripe and testing the webhooks, as webhooks are sent to live site and not localhost,
