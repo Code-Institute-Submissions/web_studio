@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'storages',
 
-    'public',
+    'public_user',
     'checkout',
+    'products',
+    'appointments'
 ]
 
 MIDDLEWARE = [
@@ -100,7 +102,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/profile'
+LOGIN_REDIRECT_URL = '/profile/'
 
 WSGI_APPLICATION = 'web_studio.wsgi.application'
 
@@ -190,9 +192,7 @@ STRIPE_CURRENCY = 'eur'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
-BLOG_PRICE = os.getenv('BLOG_PRICE', 299)
-WEBSITE_PRICE = os.getenv('WEBSITE_PRICE', 999)
-STORE_PRICE = os.getenv('STORE_PRICE', 1999)
+
 
 
 if 'DEVELOPMENT' in os.environ:

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="col-12 mt-5"></div>
+
+    {% comment %}new consultation form{% endcomment %}
+    <div class="container">
+        <div class="row index">
+            <div class="card col-lg-12 border-0">
+
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info">book free consultation</h1>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <span class="display-1"><i class="far fa-comment-dots fa-2x text-info"></i></span>
+            </div>
+            <div class="col-lg-7">
+
+
+                <form action="{% url 'appointments' %}" method="POST" id="book_appointment">
+                    {% csrf_token %}
+                    <label for="name">Your name</label>
+                    <input data-cy="name" type="text" name="name" id="name" required class="form-control border border-info"
+                           value="{{ form.name.value }}"
+                           autofocus>
+                    <hr>
+                    <label for="email">Your email</label>
+                    <input data-cy="email" type="email" name="email" id="email" required class="form-control border border-info"
+                           value="{{ form.email.value }}">
+                     <hr>
+                    <label for="password">Your password ( you will be able to edit your appointment and see your
+                        purchases)</label>
+                    <input data-cy="password" type="password" name="password" id="password" class="form-control border border-info"
+                           required>
+                    <hr>
+                    <label for="phone_num">Your phone number</label>
+                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
+                           placeholder="+ country code"
+                           required class="form-control border border-info"
+                           value="{{ form.phone_num.value }}">
+
+
+                    <hr>
+                    <label for="time_slot">Best time to contact you</label>
+                    {% comment %} best time to contact {% endcomment %}
+                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info" required>
+                        <option value="">please select time</option>
+                        <option value="1">8 am - 12 pm</option>
+                        <option value="2">12 pm - 4 pm</option>
+                        <option value="3">4 pm - 8 pm</option>
+                    </select>
+                    <hr>
+
+                    <label for="site_type">Site type you are interested</label>
+                    {% comment %} type of site  {% endcomment %}
+                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info" required>
+                        <option value="">please select site type</option>
+                        <option value="1">blog</option>
+                        <option value="2">website</option>
+                        <option value="3">online store</option>
+                        <option value="4">something else</option>
+                    </select>
+                    <hr>
+                    <label for="project">Describe your project ( max 500 characters )</label>
+                    {% comment %} description of the project {% endcomment %}
+                    <textarea data-cy="project" name="project" id="project" required
+                              maxlength="500"
+                              cols="30" rows="10" class="form-control border border-info">{{ form.project.value }}</textarea>
+                    <hr>
+                    <input data-cy="submit" type="submit" value="book" class="form-control border border-info bg-info text-light">
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-12 mt-5"></div>
+
+{% endblock %}

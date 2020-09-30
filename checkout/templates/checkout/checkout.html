@@ -13,7 +13,7 @@
 
 
 
-
+{% comment %} checkout form {% endcomment %}
     <div class="col-12 mt-5"></div>
     <div class="container">
         <div class="row index">
@@ -33,30 +33,20 @@
                 <div class="card-body border-secondary border">
                     <h3 class="font-weight-bold text-info float-right">
                         <span id="total">
-                       {{ grand_total }}</span>
-
-
-                        &euro;</h3>
+                       {{ grand_total }}</span>&euro;</h3>
                 </div>
             </div>
 
-
             <div class="card col-lg-12 border-0">
 
-
-                <div class="card-header bg-transparent border-0">
-
-                </div>
                 <div class="card-body border-0">
                     <p class="my-3"></p>
                     <div class="row">
 
-
                         <div class="col-md-6 offset-md-6" id="payment_details">
-                        {% comment %}CHECKOUT FORM{% endcomment %}
+                            {% comment %}CHECKOUT FORM{% endcomment %}
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
                                 {% csrf_token %}
-
 
                                 <label for="product_type" class="sr-only">Product type</label>
                                 <input type="text" hidden value="{{ type }}" name="product_type" id="product_type">
@@ -72,7 +62,6 @@
                                                  {% endif %}"
                                 >
 
-
                                 <label for="email">Your email</label>
                                 <input type="email" name="email" id="email" required
                                        {% if  request.user.is_authenticated %}readonly{% endif %}
@@ -83,7 +72,6 @@
 
                                            {% elif order_form.email.value is not None %}{{ order_form.email.value }}
                                              {% endif %}">
-
                                 {% if type == 'consultation' %}
                                     {% comment %}IF CLIENT IS PURCHASING EXTRA CONSULTATION
                                     WE WILL NEED EXTRA FIELDS FOR CONSULTATION, SO THAT WE
@@ -101,8 +89,8 @@
                                             required>
                                         <option value="">please select time</option>
                                         <option value="1">8 am - 12 pm</option>
-                                        <option value="2">12 pm - 16 pm</option>
-                                        <option value="3">16 pm - 20 pm</option>
+                                        <option value="2">12 pm - 4 pm</option>
+                                        <option value="3">4 pm - 8 pm</option>
                                     </select>
                                     <hr>
 
@@ -123,7 +111,7 @@
                                     <textarea data-cy="project" name="project" id="project" required
                                               maxlength="500"
                                               cols="30" rows="10"
-                                              class="form-control border border-info">{{ form.project.value }}</textarea>
+                                          class="form-control border border-info">{{ form.project.value }}</textarea>
                                 {% endif %}
 
                                 <label for="street1">Street address 1</label>
@@ -200,7 +188,4 @@
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
-
-
-
 {% endblock %}

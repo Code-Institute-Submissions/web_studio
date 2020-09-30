@@ -1,5 +1,5 @@
 
-![web-studio](https://raw.githubusercontent.com/marcelkolarcik/readme-testing/master/readme_images/marcelli.gif)
+![web-studio](https://raw.githubusercontent.com/marcelkolarcik/web-studio/master/readme_images/marcelli.gif)
 Live preview of the site : <a href="https://marcelli.herokuapp.com/">marcellidesigns</a>
 # marcellidesigns
 
@@ -304,7 +304,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
   
     Preview of the site on mobile device
  
- ![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/readme-testing/master/readme_images/marcelli_mobile_2.gif)
+ ![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/web-studio/master/readme_images/marcelli_mobile_2.gif)
  
  
  All the back end tests were done with TestCase form django.test

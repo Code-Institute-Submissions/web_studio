@@ -8,19 +8,17 @@ from django.http import HttpResponse
 from .models import Order
 
 
+# Handle Stripe webhooks
 class StripeWH_Handler:
-    """Handle Stripe webhooks"""
 
     def __init__(self, request):
         self.request = request
 
-    def _send_confirmation_email(self, billing_details, order_id, receipt_url,product_type):
+    def _send_confirmation_email(self, billing_details, order_id, receipt_url, product_type):
         """Send the user a confirmation email"""
         cust_email = billing_details.email
 
-        """
-        email to customer
-        """
+        # email to customer
         request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
         key = os.getenv('MAILGUN_API_KEY')
         recipient = cust_email
@@ -40,12 +38,8 @@ class StripeWH_Handler:
                      'welcome_team': 'Marcelli Designs', }
                 )
         })
-        """
-        email to owner
-        """
-        # request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
-        # key = os.getenv('MAILGUN_API_KEY')
 
+        # email to owner
         requests.post(request_url, auth=('api', key), data={
             'from': 'marcellidesigns marcelkolarcik@gmail.com',
             'to': 'marcelkolarcik@gmail.com',
@@ -62,28 +56,25 @@ class StripeWH_Handler:
         })
 
     def handle_event(self, event):
-        """
-        Handle a generic/unknown/unexpected webhook event
-        """
+        # Handle a generic/unknown/unexpected webhook event
+
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
 
     def handle_payment_intent_succeeded(self, event):
-        """
-        Handle the payment_intent.succeeded webhook from Stripe
-        """
+        # Handle the payment_intent.succeeded webhook from Stripe
 
         intent = event.data.object
         pid = intent.id
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         receipt_url = intent.charges.data[0].receipt_url
-        types={
-            99:'consultation',
-            299:'blog',
-            999:'website',
-            1999:'online store'
+        types = {
+            99: 'consultation',
+            299: 'blog',
+            999: 'website',
+            1999: 'online store'
         }
         product_type = types[grand_total]
 
@@ -98,7 +89,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_done:
-            self._send_confirmation_email(billing_details, pid, receipt_url,product_type )
+            self._send_confirmation_email(billing_details, pid, receipt_url, product_type)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -125,15 +116,14 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
 
-        self._send_confirmation_email(billing_details, pid, receipt_url,product_type)
+        self._send_confirmation_email(billing_details, pid, receipt_url, product_type)
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):
-        """
-        Handle the payment_intent.payment_failed webhook from Stripe
-        """
+        # Handle the payment_intent.payment_failed webhook from Stripe
         intent = event.data.object
         types = {
             99: 'consultation',
@@ -141,14 +131,14 @@ class StripeWH_Handler:
             999: 'website',
             1999: 'online store'
         }
+
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         product_type = types[grand_total]
         billing_details = intent.charges.data[0].billing_details
-        request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+        request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
         key = os.getenv('MAILGUN_API_KEY')
-        """
-        IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO OWNER OF THE SITE
-        """
+
+        # IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO OWNER OF THE SITE
         requests.post(request_url, auth=('api', key), data={
             'from': 'marcellidesigns marcelkolarcik@gmail.com',
             'to': 'marcelkolarcik@gmail.com',
@@ -161,12 +151,11 @@ class StripeWH_Handler:
                      'product_type': product_type,
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
-                     'welcome_team': 'Marcelli Designs' }
+                     'welcome_team': 'Marcelli Designs'}
                 )
         })
-        """
-                IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO CUSTOMER
-        """
+
+        # IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO CUSTOMER
         requests.post(request_url, auth=('api', key), data={
             'from': 'marcellidesigns marcelkolarcik@gmail.com',
             'to': billing_details.email,
@@ -182,6 +171,7 @@ class StripeWH_Handler:
                      'welcome_team': 'Marcelli Designs', }
                 )
         })
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)

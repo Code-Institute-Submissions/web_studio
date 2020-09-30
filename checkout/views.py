@@ -2,17 +2,17 @@ import json
 import os
 
 import requests
+import stripe
+from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-import stripe
-from django.conf import settings
 from django.views.decorators.http import require_POST
 
-from public.forms import AppointmentForm
+from appointments.forms import AppointmentForm
+from products.models import Product
 from .forms import OrderForm
 from .models import Order
-
 
 
 @require_POST
@@ -25,8 +25,6 @@ def cache_checkout_data(request):
             'name': request.POST.get('name'),
             'email': request.POST.get('email'),
 
-
-
         })
         return HttpResponse(status=200)
     except Exception as e:
@@ -35,22 +33,23 @@ def cache_checkout_data(request):
         return HttpResponse(content=e, status=400)
 
 
-def checkout(request,type):
+def checkout(request, product_type):
     order_form = OrderForm()
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     template = 'checkout/checkout.html'
-    # setting total to 1999 in case user is messing with urls
-    total = 1999
-    if type == 'blog':
-        total = int(settings.BLOG_PRICE)
-    elif type == 'website':
-        total = int(settings.WEBSITE_PRICE)
-    elif type == 'store':
-        total = int(settings.STORE_PRICE)
-    elif type == 'consultation':
-        total = 99
 
+    if product_type == 'blog':
+        total = round(Product.objects.get(name='blog').price)
+    elif product_type == 'website':
+        total = round(Product.objects.get(name='website').price)
+    elif product_type == 'online-store':
+        total = round(Product.objects.get(name='online-store').price)
+    elif product_type == 'consultation':
+        total = round(Product.objects.get(name='consultation').price)
+    else:
+        # setting total to 1999 in case user is messing with urls
+        total = 1999
 
     # stripe amount in cents
     stripe_total = total * 100
@@ -68,7 +67,7 @@ def checkout(request,type):
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
         'user': request.user.username,
-        'type': type,
+        'type': product_type,
         'grand_total': total,
 
     }
@@ -81,12 +80,12 @@ def checkout(request,type):
             'post_code': request.POST.get('post_code'),
             'country': request.POST.get('country'),
             'email': request.POST.get('email'),
-            'product_type':type,
+            'product_type': product_type,
             'grand_total': total,
         }
         # IF CUSTOMER IS PURCHASING EXTRA CONSULTATION
         # WE WILL STORE IT IN DATABASE
-        if type == 'consultation':
+        if product_type == 'consultation':
             appointment_data = {
                 'name': request.POST['name'],
                 'email': request.POST['email'],
@@ -117,7 +116,7 @@ def checkout(request,type):
                         '1': 'blog', '2': 'website', '3': 'online store', '4': 'something else'
                     }
                     times = {
-                        '1': '8am-12am', '2': '12am-16pm', '3': '16pm-20pm',
+                        '1': '8am-12am', '2': '12am-4pm', '3': '4pm-8pm',
                     }
 
                     request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
@@ -130,7 +129,7 @@ def checkout(request,type):
                         "template": "marcellidesigns_appointment",
                         "h:X-Mailgun-Variables":
                             json.dumps(
-                                {'welcome': 'New appointment : paid' ,
+                                {'welcome': 'New appointment : paid',
                                  'body_1': request.POST['email'] + ' - ' + request.POST['phone_num'] + ' - ' +
                                            request.POST[
                                                'name'],
@@ -140,10 +139,7 @@ def checkout(request,type):
                                  'welcome_team': 'Marcelli Designs', })
                     })
 
-                    """
-                                   sending email to customer, informing him about new appointment
-                                   using MAILGUN service as it's already running for globtopus.com
-                    """
+                    # sending email to customer, confirming new appointment
                     request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
                     key = os.getenv('MAILGUN_API_KEY')
                     recipient = request.POST['email']
@@ -179,7 +175,7 @@ def checkout(request,type):
                 order.stripe_pid = pid
                 order.grand_total = total
                 order.total = total
-                order.product_type = type
+                order.product_type = product_type
                 order.save()
 
                 messages.success(request, 'Your order was created successfully ')
@@ -202,19 +198,12 @@ def checkout(request,type):
                         Please double check your information.')
             context['order_form'] = order_form
 
-    """
-           A view to return checkout page
-    """
     return render(request, template, context)
 
 
+# Handle successful checkouts
 def checkout_success(request, order_number):
-    """
-    Handle successful checkouts
-    """
-
     order = get_object_or_404(Order, order_number=order_number)
-    # if order was processed successfully
 
     template = 'checkout/checkout_success.html'
     context = {
@@ -223,5 +212,3 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
-
-
