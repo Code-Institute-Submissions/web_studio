@@ -37,7 +37,8 @@ class StripeWH_Handler:
                      'receipt_url': receipt_url,
                      'order_id': order_id,
 
-                     'welcome_team': 'Marcelli Designs', })
+                     'welcome_team': 'Marcelli Designs', }
+                )
         })
         """
         email to owner
@@ -160,7 +161,8 @@ class StripeWH_Handler:
                      'product_type': product_type,
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
-                     'welcome_team': 'Marcelli Designs', })
+                     'welcome_team': 'Marcelli Designs' }
+                )
         })
         """
                 IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO CUSTOMER
@@ -177,7 +179,8 @@ class StripeWH_Handler:
                      'product_type': product_type,
                      'customer_email': billing_details.email,
                      'customer_name': billing_details.name,
-                     'welcome_team': 'Marcelli Designs', })
+                     'welcome_team': 'Marcelli Designs', }
+                )
         })
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',

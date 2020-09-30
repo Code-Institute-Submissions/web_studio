@@ -113,13 +113,13 @@
 			}
 
 
-		shuffle ( names );
+		// shuffle ( names );
 
 		var page_testimonials = testimonials[ 'owner' ];
-		shuffle ( page_testimonials );
+		// shuffle ( page_testimonials );
 
 		var img_id = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-		shuffle ( img_id );
+		// shuffle ( img_id );
 		var testi_div = $ ( '#testi_holder' );
 		var c         = -1;
 		var b         = 0;

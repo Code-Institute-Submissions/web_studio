@@ -1,3 +1,4 @@
+{% comment %}CHECKOUT PAGE{% endcomment %}
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
@@ -41,7 +42,6 @@
             </div>
 
 
-            {% comment %}extras{% endcomment %}
             <div class="card col-lg-12 border-0">
 
 
@@ -54,6 +54,7 @@
 
 
                         <div class="col-md-6 offset-md-6" id="payment_details">
+                        {% comment %}CHECKOUT FORM{% endcomment %}
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
                                 {% csrf_token %}
 
@@ -85,6 +86,9 @@
                                              {% endif %}">
 
                                 {% if type == 'consultation' %}
+                                    {% comment %}IF CLIENT IS PURCHASING EXTRA CONSULTATION
+                                    WE WILL NEED EXTRA FIELDS FOR CONSULTATION, SO THAT WE
+                                    CAN CREATE NEW CONSULTATION IN THE DATABASE, AS WELL AS NEW ORDER{% endcomment %}
                                     <label for="phone_num">Your phone number</label>
                                     <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required
                                            class="form-control border border-info"
@@ -97,8 +101,8 @@
                                             class="form-control border border-info"
                                             required>
                                         <option value="">please select time</option>
-                                        <option value="1">8 am - 12 am</option>
-                                        <option value="2">12 am - 16 pm</option>
+                                        <option value="1">8 am - 12 pm</option>
+                                        <option value="2">12 pm - 16 pm</option>
                                         <option value="3">16 pm - 20 pm</option>
                                     </select>
                                     <hr>

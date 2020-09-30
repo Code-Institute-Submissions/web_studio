@@ -1,1 +1,0 @@
-marcellidesigns confirmation of your order  {{ order_id }}

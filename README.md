@@ -365,14 +365,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
     
  Once the card number was used, a webhook handler would handle an error event, and send an email to admin and customer,
   informing them of this error.
- 
- 
 
- 
- 
-   
-  I tested my website on 5in and 6in phones, 10in tablet 18in laptop, and 22in desktop with good response from
-  all of the devices.
   
    ## Version Control
    

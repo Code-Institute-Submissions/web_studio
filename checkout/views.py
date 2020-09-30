@@ -84,6 +84,8 @@ def checkout(request,type):
             'product_type':type,
             'grand_total': total,
         }
+        # IF CUSTOMER IS PURCHASING EXTRA CONSULTATION
+        # WE WILL STORE IT IN DATABASE
         if type == 'consultation':
             appointment_data = {
                 'name': request.POST['name'],

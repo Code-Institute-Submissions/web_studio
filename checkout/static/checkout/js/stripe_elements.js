@@ -1,3 +1,5 @@
+/*script to handle checkout process*/
+
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
@@ -17,6 +19,7 @@ var style = {
         iconColor: '#dc3545'
     }
 };
+
 var card = elements.create('card', {style: style, hidePostalCode: true});
 card.mount('#card-element');
 
