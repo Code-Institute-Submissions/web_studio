@@ -21,7 +21,7 @@ class StripeWH_Handler:
         """
         email to customer
         """
-        request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+        request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
         key = os.getenv('MAILGUN_API_KEY')
         recipient = cust_email
         requests.post(request_url, auth=('api', key), data={
@@ -43,8 +43,8 @@ class StripeWH_Handler:
         """
         email to owner
         """
-        request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
-        key = os.getenv('MAILGUN_API_KEY')
+        # request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+        # key = os.getenv('MAILGUN_API_KEY')
 
         requests.post(request_url, auth=('api', key), data={
             'from': 'marcellidesigns marcelkolarcik@gmail.com',

@@ -120,7 +120,7 @@ def checkout(request,type):
                         '1': '8am-12am', '2': '12am-16pm', '3': '16pm-20pm',
                     }
 
-                    request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+                    request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
                     key = os.getenv('MAILGUN_API_KEY')
                     recipient = 'marcelkolarcik@gmail.com'
                     requests.post(request_url, auth=('api', key), data={
@@ -144,7 +144,7 @@ def checkout(request,type):
                                    sending email to customer, informing him about new appointment
                                    using MAILGUN service as it's already running for globtopus.com
                     """
-                    request_url = "https://api.mailgun.net/v3/sandbox55fe83fc981d49c3874fc22b7dff254f.mailgun.org/messages"
+                    request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
                     key = os.getenv('MAILGUN_API_KEY')
                     recipient = request.POST['email']
                     requests.post(request_url, auth=('api', key), data={
