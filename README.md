@@ -69,6 +69,7 @@ A website for a web designer to showcase his work and to sell his services to cl
         -  see the products, they offer
         -  book an initial consultation
         -  purchase a product/service
+        -  receive confirmation email
         -  use the site on any type of device
        
      
@@ -105,20 +106,30 @@ A website for a web designer to showcase his work and to sell his services to cl
    - #### Create appointment
         
      To create an appointment, click on the products link in the top nav and select any product, and then click on 
-     Book a free initial consultation button. You will be taken to the consultation page, where you need to fill in the form with your details. When you click on the book button, we will create your appointment and create an account for you,
-     so that you can sign in and update or delete your appointment. If you decide to purchase any of our products, you will see your purchases as well. You will receive an email, confirming your appointment.
+     Book a free initial consultation button. You will be taken to the consultation page, where you need to fill in 
+     the form with your details. When you click on the book button, we will create your appointment and create an 
+     account for you,
+     so that you can sign in and update or delete your appointment. If you decide to purchase any of our products, 
+     you will see your purchases as well. You will receive an email, confirming your appointment.
 
    - #### Edit appointment
-     To edit your appointment, log in with your credentials by clicking on the Login link in the top navigation and entering your credentials into the login form. You will be logged in to your dashboard where you will see your appointment.
+     To edit your appointment, log in with your credentials by clicking on the Login link in the top navigation and 
+     entering your credentials into the login form. You will be logged in to your dashboard where you will see your 
+     appointment.
      Click on the edit appointment link. You will see the form with your appointment.
      You will be able to edit time, site type, and project description. 
 
    - #### Delete appointment
-     To delete your appointment, log in with your credentials by clicking on the Login link in the top navigation and entering your credentials into the login form. You will be logged in to your dashboard where you will see your appointment.
-     If you want to delete it, click on the edit appointment link, and then on the delete appointment button located under the form. 
+     To delete your appointment, log in with your credentials by clicking on the Login link in the top navigation and 
+     entering your credentials into the login form. You will be logged in to your dashboard where you will see your 
+     appointment.
+     If you want to delete it, click on the edit appointment link, and then on the delete appointment button located
+      under the form. 
 
    - #### Purchase-product
-   To purchase a product, select the product from the drop-down menu in the top navigation or click on any Buy Now! button, you will be taken to the checkout page. Fill in your details, for testing purposes, you can use Stripe test credit card number
+   To purchase a product, select the product from the drop-down menu in the top navigation or click on any Buy Now! 
+   button, you will be taken to the checkout page. Fill in your details, for testing purposes, you can use Stripe 
+   test credit card number
         
         4242 4242 4242 4242 
    with any date in the future for the expiry date and any number for CVC code.
@@ -251,6 +262,7 @@ Whenever collectstatic is run.Django will collect static files automatically and
  A public client can :
     
        -  book Free initial appointment
+       -  receive confirmation email
        -  purchase any product on the site using secure checkout provided by Stripe
        -  use the site on any device
              
@@ -288,6 +300,12 @@ I have created a Favicon. Favicons save the users time in identifying a website 
  
   I tested my website on 5in and 6in phones, 10in tablet 18in laptop and 22in desktop with good response from
   all of the devices.
+  
+  
+    Preview of the site on mobile device
+ 
+ ![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/readme-testing/master/readme_images/marcelli_mobile_2.gif)
+ 
  
  All the back end tests were done with TestCase form django.test
  #### Test Cases:
