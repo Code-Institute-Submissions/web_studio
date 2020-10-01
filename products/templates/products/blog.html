@@ -22,12 +22,18 @@
         <div class="row index">
             <div class="card col-lg-12 border-0">
 
-                <div class="card-header bg-transparent border-0 ">
 
-
+            <div class="card-header bg-transparent border-0">
                     <h1 class="font-weight-bold display-3  text-info">blog</h1>
-                    <h5 class="font-weight-bold display-5  text-info">from {{ blog_price }} &euro;</h5>
+                    <h4 class="font-weight-bold text-info">Great affordable solution to have own blog <br>
+                        <small class="text-dark">from {{ blog_price }} &euro;</small>
+                    </h4>
+
+
                 </div>
+              <hr>
+
+
                 {% comment %} BUTTON TO BOOK INITIAL COUNSULTATION {% endcomment %}
                 <div class="card-body border-secondary border ">
                     {% if not request.user.is_authenticated %}

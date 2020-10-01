@@ -20,25 +20,31 @@
 
             <div class="card col-lg-12 border-0">
 
-                <div class="card-header bg-transparent border-0">
-                    <h1 class="font-weight-bold display-5  text-info">checkout :
+
+
+            <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info">checkout :
                         {% if type == 'online_store' %}
                             online store
                         {% else %}
                             {{ type }}
-                        {% endif %}
-
-                    </h1>
-                </div>
-                <div class="card-body border-secondary border">
-                     <p class="lead"><strong>
-                            Please note, that you will need your Project ID from our first consultation. <br>
-                            No Project ID ? No problem ! <br>
-                          <a href="{% url 'appointments' %}"
-                           class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">Book Free Initial
+                        {% endif %}</h1>
+                    <h4 class="font-weight-bold text-info">Thank you very much! <br>
+                        <small class="text-dark"> Please note, that you will need your Project ID from our first consultation. <br>
+                            No Project ID ? No problem !</small>
+                        <br>
+                         <a href="{% url 'appointments' %}"
+                           class="consultation lead  btn  btn-outline-info float-left  mt-2">Book Free Initial
                             Consultation</a>
-                        </strong>
-                     </p>
+                    </h4>
+
+
+                </div>
+              <hr>
+
+
+                <div class="card-body border-secondary border">
+
                     <h3 class="font-weight-bold text-info float-right">
                         <span id="total">
                        {{ grand_total }}</span>&euro;</h3>
