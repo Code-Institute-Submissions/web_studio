@@ -18,6 +18,11 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'public_user/howitworks.html')
 
+    def test_freelancer_page(self):
+            response = self.client.get('/register_form/')
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'freelancers/register_form.html')
+
     def test_user_can_login(self):
         self.user = User.objects.create_user(username='Test User', password='password')
         self.client.login(username='Test User', password='password')

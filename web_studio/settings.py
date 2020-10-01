@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'public_user',
     'checkout',
     'products',
-    'appointments'
+    'appointments',
+    'freelancers',
+    'projects'
 ]
 
 MIDDLEWARE = [

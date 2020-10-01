@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'public_user/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+<div class="col-md-4 offset-md-4 mt-5">
+
+  <h1 class="font-weight-bold display-5  text-info">your project</h1>
+    <hr>
+   <ul class="list-group">
+                            <li class="list-group-item bottom_border   {% if project.started %}{{ 'bg-success text-light' }}{% endif %}">
+
+                                <input type="checkbox" name="started" id="started" disabled
+                                        {% if project.started %}{{ 'checked' }}{% endif %} >
+                                <label for="started">Project work started</label>
+                            </li>
+                            <li class="list-group-item bottom_border {% if project.wireframes %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="wireframes" id="wireframes" disabled
+                                        {% if project.wireframes %}{{ 'checked' }}{% endif %} >
+                                <label for="wireframes">Wireframes sent to customer</label>
+                            </li>
+                            <li class="list-group-item bottom_border {% if project.update_after_wireframes %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="update_after_wireframes" id="update_after_wireframes" disabled
+                                        {% if project.update_after_wireframes %}{{ 'checked' }}{% endif %} >
+                                <label for="update_after_wireframes">Updated after wireframes</label>
+                            </li>
+                            <li class="list-group-item bottom_border {% if project.started_on_site %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="started_on_site" id="started_on_site" disabled
+                                        {% if project.started_on_site %}{{ 'checked' }}{% endif %} >
+                                <label for="started_on_site">Started to work on the site</label>
+                            </li>
+                            <li class="list-group-item bottom_border  {% if project.development_link_sent %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="development_link_sent" id="development_link_sent" disabled
+                                        {% if project.development_link_sent %}{{ 'checked' }}{% endif %} >
+                                <label for="development_link_sent">Development link sent to customer</label>
+                            </li>
+                            <li class="list-group-item bottom_border  {% if project.development_link %}{{ 'bg-success text-light' }}{% endif %}">
+                                <label for="development_link">Development link</label>
+                                <input type="text" name="development_link" id="development_link"
+                                       value="{{ project.development_link }}" class="form-control">
+
+                            </li>
+                            <li class="list-group-item bottom_border  {% if project.client_approved %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="client_approved" id="client_approved" disabled
+                                        {% if project.client_approved %}{{ 'checked' }}{% endif %} >
+                                <label for="client_approved">Customer approved site</label>
+                            </li>
+                            <li class="list-group-item bottom_border  {% if project.domain_hosting %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="domain_hosting" id="domain_hosting" disabled
+                                        {% if project.domain_hosting %}{{ 'checked' }}{% endif %} >
+                                <label for="domain_hosting">Domain transfered and hosting done</label>
+                            </li>
+                            <li class="list-group-item bottom_border  {% if project.done %}{{ 'bg-success text-light' }}{% endif %}">
+                                <input type="checkbox" name="done" id="done" disabled
+                                        {% if project.done %}{{ 'checked' }}{% endif %} >
+                            {{ project.done }}
+                                <label for="done">Customer happy</label>
+                            </li>
+                        </ul>
+
+</div>
+
+{% endblock %}
+{% block postloadjs %}
+    <script src="{% static 'public_user/js/wireframes.js' %}"></script>
+{% endblock %}

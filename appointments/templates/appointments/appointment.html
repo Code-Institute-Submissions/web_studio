@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'public/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'public_user/css/index.css' %}">
     <!--FONT AWESOME CSS FILES-->
     <link
             crossorigin="anonymous"
@@ -59,9 +59,9 @@
                     {% comment %} best time to contact {% endcomment %}
                     <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info" required>
                         <option value="">please select time</option>
-                        <option value="1">8 am - 12 pm</option>
-                        <option value="2">12 pm - 4 pm</option>
-                        <option value="3">4 pm - 8 pm</option>
+                        <option value="8 am - 12 pm">8 am - 12 pm</option>
+                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
                     </select>
                     <hr>
 
@@ -69,10 +69,10 @@
                     {% comment %} type of site  {% endcomment %}
                     <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info" required>
                         <option value="">please select site type</option>
-                        <option value="1">blog</option>
-                        <option value="2">website</option>
-                        <option value="3">online store</option>
-                        <option value="4">something else</option>
+                        <option value="blog">blog</option>
+                        <option value="website">website</option>
+                        <option value="online_store">online store</option>
+                        <option value="something_else">something else</option>
                     </select>
                     <hr>
                     <label for="project">Describe your project ( max 500 characters )</label>

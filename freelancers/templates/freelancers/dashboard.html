@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'public_user/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="col-12 mt-5"></div>
+    {% comment %} how it works {% endcomment %}
+
+    <div class="container">
+        <div class="row index">
+            <div class="card col-lg-12 border-0">
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info portfolio">{{ freelancer.name }}</h1>
+                    <h4 class="font-weight-bold text-info">freelancer <br>
+                        <small class="text-dark"></small>
+                    </h4>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-7 border border-info">
+                <h3>Your job</h3>
+                <hr>
+                {% if appointment %}
+                    <p><span class="font-weight-bold text-info">Customer :</span> {{ appointment.email }}
+                        | {{ appointment.phone_num }}</p>
+                    <p><span class="font-weight-bold text-info">Site type :</span> {{ appointment.site_type }}</p>
+                    <p><span class="font-weight-bold text-info">Project:</span> {{ appointment.project }}</p>
+                    <p><span class="font-weight-bold text-info">Notes:</span> {{ appointment.notes }}</p>
+                    <p><span class="font-weight-bold text-info">Project ID:</span> {{ appointment.project_number }}</p>
+                {% endif %}
+                <hr>
+                {% if project %}
+                    <form action="{% url 'edit_project' project.project_number %}" method="POST">
+                     {% csrf_token %}
+                            <input type="text" name="project_number" id="project_number"
+                                       value="{{ project.project_number }}" class="form-control" hidden>
+                        <ul class="list-group">
+                            <li class="list-group-item bottom_border">
+
+                                <input type="checkbox" name="started" id="started"
+                                        {% if project.started %}{{ 'checked' }}{% endif %} >
+                                <label for="started">Project work started</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="wireframes" id="wireframes"
+                                        {% if project.wireframes %}{{ 'checked' }}{% endif %} >
+                                <label for="wireframes">Wireframes sent to customer</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="update_after_wireframes" id="update_after_wireframes"
+                                        {% if project.update_after_wireframes %}{{ 'checked' }}{% endif %} >
+                                <label for="update_after_wireframes">Updated after wireframes</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="started_on_site" id="started_on_site"
+                                        {% if project.started_on_site %}{{ 'checked' }}{% endif %} >
+                                <label for="started_on_site">Started to work on the site</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="development_link_sent" id="development_link_sent"
+                                        {% if project.development_link_sent %}{{ 'checked' }}{% endif %} >
+                                <label for="development_link_sent">Development link sent to customer</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <label for="development_link">Development link</label>
+                                <input type="text" name="development_link" id="development_link"
+                                       value="{{ project.development_link }}" class="form-control">
+
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="client_approved" id="client_approved"
+                                        {% if project.client_approved %}{{ 'checked' }}{% endif %} >
+                                <label for="client_approved">Customer approved site</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="domain_hosting" id="domain_hosting"
+                                        {% if project.domain_hosting %}{{ 'checked' }}{% endif %} >
+                                <label for="domain_hosting">Domain transfered and hosting done</label>
+                            </li>
+                            <li class="list-group-item bottom_border">
+                                <input type="checkbox" name="done" id="done"
+                                        {% if project.done %}{{ 'checked' }}{% endif %} >
+                            {{ project.done }}
+                                <label for="done">Customer happy</label>
+                            </li>
+                        </ul>
+
+                        <input type="submit" class="form-control bg-info text-light" value="update">
+                    </form>
+                {% endif %}
+
+
+            </div>
+            <div class="col-md-5 border border-info">
+                <h3>Your details</h3>
+                <hr>
+                <form action="{% url 'update_freelancer' freelancer.id %}" method="POST"
+                      id="update_freelancer">
+                    {% csrf_token %}
+                    <label for="name">Your name</label>
+                    <input data-cy="name" type="text" name="name" id="name" required
+                           class="form-control border border-info" readonly
+                           value="{{ form.name.value }}"
+                           autofocus>
+
+                    <label for="email">Your email</label>
+                    <input data-cy="email" type="email" name="email" id="email" required
+                           class="form-control border border-info" readonly
+                           value="{{ form.email.value }}">
+
+
+                    <input title="" data-cy="password" type="password" name="password" id="password"
+                           class="form-control border border-info" hidden value="pass"
+                           required>
+                    <label for="skills">Your skills</label>
+                    <input data-cy="phone_num" type="text" name="skills" id="skills"
+
+                           required class="form-control border border-info"
+                           value="{{ form.skills.value }}">
+
+
+                    <hr>
+
+                    <label for="portfolio_link">Portfolio link</label>
+                    <input data-cy="portfolio_link" type="text" name="portfolio_link" id="portfolio_link"
+
+                           required class="form-control border border-info"
+                           value="{{ form.portfolio_link.value }}">
+
+
+                    <hr>
+
+
+                    <label for="about">What are you good at</label>
+                    {% comment %} description of freelancer {% endcomment %}
+                    <textarea data-cy="about" name="about" id="about" required
+                              maxlength="500"
+                              cols="30" rows="10"
+                              class="form-control border border-info">{{ form.about.value }}</textarea>
+                    <hr>
+                    <input data-cy="submit" type="submit" value="update"
+                           class="form-control border border-info bg-info text-light">
+
+
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-12 my-5">
+            <h5 class="text-center"><small>Marcel Kolarcik</small></h5>
+            <div class="d-flex justify-content-center">
+                <a href="https://www.linkedin.com/in/marcel-kolarcik-81184a19b">LinkedIn</a>&nbsp;|&nbsp;
+                <a href="https://github.com/marcelkolarcik">Github</a>&nbsp;|&nbsp;
+                <a href="https://www.globtopus.com/user/5f621ae0a5a2db5b43a66392">Globtopus</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block postloadjs %}
+    <script src="{% static 'public_user/js/wireframes.js' %}"></script>
+{% endblock %}

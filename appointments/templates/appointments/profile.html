@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'public/css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'public_user/css/index.css' %}">
     <!--FONT AWESOME CSS FILES-->
     <link
             crossorigin="anonymous"
@@ -29,20 +29,29 @@
 
                     {% for consult in consultations %}
 
+                        <div class="border border-danger pl-3 pt-3 mb-3">
+                            <p class="text-danger">Use this project id when purchasing!</p>
 
+                            <p><span class="font-weight-bold text-info">Project id: </span>
+
+                                <input title="" type="text" value="{{ consult.project_number }}" id="myInput"
+                                       class=" col-md-12 bg-light p-1"> <span class="ok text-success d-none">copied &check;</span>
+                            <p>
+
+                                <button class="btn btn-sm btn-info copy_public_link">Copy</button>
+
+
+                            </p>
+
+                            <!-- The button used to copy the text -->
+
+
+                        </div>
 
 
                         <p><span class="font-weight-bold text-info">Site type:</span>
                             <strong>
-                                {% if consult.site_type == "1" %}
-                                    blog
-                                {% elif  consult.site_type == "2" %}
-                                    website
-                                {% elif  consult.site_type == "3" %}
-                                    online store
-                                {% else %}
-                                    something else
-                                {% endif %}
+                                {{ consult.site_type }}
                             </strong>
                             <small class="float-right">Created at : {{ consult.date }}</small>
                         </p>
@@ -68,18 +77,16 @@
 
 
                         <p><span class="font-weight-bold text-info">Time to contact you:</span> <strong>
-                            {% if consult.time_slot == "1" %}
-                                8 am - 12 pm
-                            {% elif  consult.time_slot == "2 " %}
-                                12 pm - 4 pm
-                            {% else %}
-                                4 pm - 8 pm
-
-                            {% endif %}
+                            {{ consult.time_slot }}
                         </strong></p>
                         <p><span
                                 class="font-weight-bold text-info">Your project:</span><br>
                             <strong style=" word-wrap: break-word;">{{ consult.project }}</strong>
+                        </p>
+
+                        <p><span
+                                class="font-weight-bold text-info">Notes:</span><br>
+                            <strong style=" word-wrap: break-word;">{{ consult.notes }}</strong>
                         </p>
 
                         <hr class="bg-info">
@@ -98,11 +105,13 @@
 
                         <ul class="list-group">
                             {% for order in orders %}
-                                <li class="list-group-item bottom_border">{{ order.product_type }}
+                                <li class="list-group-item bottom_border">{{ order.product_type }} |  <a href="{% url 'project' order.project_number %}">preview</a> <br>
+                                    <small>Project ID : {{ order.project_number }}</small>
                                     <span class="float-right text-success included">
                                       {{ order.grand_total }}
                                   </span>
                                     <br>
+
                                     <small>Purchased at: {{ order.date }}</small>
 
                                 </li>
@@ -138,4 +147,22 @@
 
     </div>
 
+{% endblock %}
+{% block postloadjs %}
+    <script>
+        /*USER CAN COPY THEIR PUBLIC LINK TO CLIPBOARD*/
+        $('.copy_public_link').on('click', function () {
+
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+            $('.ok').removeClass('d-none')
+
+        })
+    </script>
 {% endblock %}

@@ -10,7 +10,9 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from appointments.forms import AppointmentForm
+from appointments.models import Appointment
 from products.models import Product
+from projects.forms import ProjectForm
 from .forms import OrderForm
 from .models import Order
 
@@ -73,8 +75,10 @@ def checkout(request, product_type):
     }
     if request.method == 'POST':
 
+
         form_data = {
             'name': request.POST.get('name'),
+            'project_number': request.POST.get('project_number'),
             'street1': request.POST.get('street1'),
             'city': request.POST.get('city'),
             'post_code': request.POST.get('post_code'),
@@ -83,6 +87,22 @@ def checkout(request, product_type):
             'product_type': product_type,
             'grand_total': total,
         }
+        order_form = OrderForm(form_data)
+        # check if we have appointment with this di
+        if not Appointment.objects.filter(project_number=request.POST.get('project_number')).exists():
+            messages.error(request, 'We can not find your Project ID in our database. \
+                                                                      Please double check your information.')
+            context['order_form'] = order_form
+            return render(request, template, context)
+
+        # check if it is already used and paid for
+        if Order.objects.filter(project_number=request.POST.get('project_number')).exists():
+            messages.error(request, 'This Project ID is already paid for. \
+                                                                      Please double check your information.')
+
+            context['order_form'] = order_form
+            return render(request, template, context)
+
         # IF CUSTOMER IS PURCHASING EXTRA CONSULTATION
         # WE WILL STORE IT IN DATABASE
         if product_type == 'consultation':
@@ -165,7 +185,7 @@ def checkout(request, product_type):
                     messages.error(request, 'There was an error with your form. \
                                                                         Please double check your information')
 
-        order_form = OrderForm(form_data)
+
         if order_form.is_valid():
             # if order form is valid try to add order to DB
 
@@ -179,6 +199,8 @@ def checkout(request, product_type):
                 order.save()
 
                 messages.success(request, 'Your order was created successfully ')
+
+                ProjectForm({'project_number':request.POST.get('project_number')}).save()
 
                 return redirect(reverse('checkout_success', args=[order.order_number]))
 

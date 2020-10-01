@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'public/css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'public_user/css/index.css' %}">
     <!--FONT AWESOME CSS FILES-->
     <link
             crossorigin="anonymous"
@@ -55,18 +55,18 @@
                     <label for="time_slot">Best time to contact you</label>
 
                     <select name="time_slot" id="time_slot" required class="form-control">
-                        {% if form.time_slot.value == "1" %}
-                            <option value="1" selected>8 am - 12 am</option>
-                            <option value="2">12 am - 4 pm</option>
-                            <option value="3">4 pm - 8 pm</option>
-                        {% elif  form.time_slot.value == "2" %}
-                            <option value="1">8 am - 12 am</option>
-                            <option value="2" selected>12 am - 4 pm</option>
-                            <option value="3">4 pm - 8 pm</option>
+                        {% if form.time_slot.value == "8 am - 12 pm" %}
+                            <option value="8 am - 12 am" selected>8 am - 12 am</option>
+                            <option value="12 am - 4 pm">12 pm - 4 pm</option>
+                            <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                        {% elif  form.time_slot.value == "12 pm - 4 pm" %}
+                            <option value="8 am - 12 pm">8 am - 12 pm</option>
+                            <option value="12 pm - 4 pm" selected>12 am - 4 pm</option>
+                            <option value="4 pm - 8 pm">4 pm - 8 pm</option>
                         {% else %}
-                            <option value="1">8 am - 12 am</option>
-                            <option value="2">12 am - 4 pm</option>
-                            <option value="3" selected>4 pm - 8 pm</option>
+                            <option value="8 am - 12 pm">8 am - 12 pm</option>
+                            <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                            <option value="4 pm - 8 pm" selected>4 pm - 8 pm</option>
                         {% endif %}
 
                     </select>
@@ -77,30 +77,30 @@
                     <select data-cy="site_type" name="site_type" id="site_type" required class="form-control">
 
 
-                        {% if form.site_type.value == "1" %}
+                        {% if form.site_type.value == "blog" %}
                             {% comment %} blog {% endcomment %}
-                            <option value="1" selected>blog</option>
-                            <option value="2">website</option>
-                            <option value="3">online store</option>
-                            <option value="4">something else</option>
-                        {% elif  form.site_type.value == "2" %}
+                            <option value="blog" selected>blog</option>
+                            <option value="website">website</option>
+                            <option value="online_store">online store</option>
+                            <option value="something_else">something else</option>
+                        {% elif  form.site_type.value == "website" %}
                             {% comment %} website {% endcomment %}
-                            <option value="1">blog</option>
-                            <option value="2" selected>website</option>
-                            <option value="3">online store</option>
-                            <option value="4">something else</option>
-                        {% elif   form.site_type.value == "3" %}
+                            <option value="blog">blog</option>
+                            <option value="website" selected>website</option>
+                            <option value="online_store">online store</option>
+                            <option value="something_else">something else</option>
+                        {% elif   form.site_type.value == "online store" %}
                             {% comment %} online store {% endcomment %}
-                            <option value="1">blog</option>
-                            <option value="2">website</option>
-                            <option value="3" selected>online store</option>
-                            <option value="4">something else</option>
+                            <option value="blog">blog</option>
+                            <option value="website">website</option>
+                            <option value="online_store" selected>online store</option>
+                            <option value="something_else">something else</option>
                         {% else %}
                             {% comment %} something else {% endcomment %}
-                            <option value="1">blog</option>
-                            <option value="2">website</option>
-                            <option value="3">online store</option>
-                            <option value="4" selected>something else</option>
+                             <option value="blog">blog</option>
+                            <option value="website">website</option>
+                            <option value="online_store">online store</option>
+                            <option value="something_else" selected>something else</option>
                         {% endif %}
                     </select>
                     <hr>

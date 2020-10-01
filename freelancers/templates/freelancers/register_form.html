@@ -1,0 +1,96 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'public_user/css/index.css' %}">
+    <!--FONT AWESOME CSS FILES-->
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+            rel="stylesheet"
+    />
+{% endblock %}
+{% block  content %}
+    <div class="col-12 mt-5"></div>
+
+    {% comment %}new consultation form{% endcomment %}
+    <div class="container">
+        <div class="row index">
+            <div class="card col-lg-12 border-0">
+
+                <div class="card-header bg-transparent border-0">
+                    <h1 class="font-weight-bold display-3  text-info">freelancer</h1>
+                    <h4 class="font-weight-bold text-info">Would you like to become a part of our team? <br>
+                    <small class="text-dark">Register now and start your journey with us!</small>
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
+                <span class="display-1"></i>
+                <i class="fas fa-feather-alt fa-2x text-info"></i></span>
+
+            </div>
+            <div class="col-lg-7">
+
+
+                 <form action="{% url 'register_freelancer' %}" method="POST" id="register_freelancer">
+                    {% csrf_token %}
+                    <label for="name">Your name</label>
+                    <input data-cy="name" type="text" name="name" id="name" required
+                           class="form-control border border-info"
+                           value="{{ form.name.value }}"
+                           autofocus>
+
+                    <label for="email">Your email</label>
+                    <input data-cy="email" type="email" name="email" id="email" required
+                           class="form-control border border-info"
+                           value="{{ form.email.value }}">
+
+                    <label for="password">Your password</label>
+                    <input data-cy="password" type="password" name="password" id="password"
+                           class="form-control border border-info"
+                           required>
+                    <label for="skills">Your skills</label>
+                    <input data-cy="phone_num" type="text" name="skills" id="skills"
+
+                           required class="form-control border border-info"
+                           value="{{ form.skills.value }}">
+
+
+                    <hr>
+
+                    <label for="portfolio_link">Portfolio link</label>
+                    <input data-cy="portfolio_link" type="text" name="portfolio_link" id="portfolio_link"
+
+                           required class="form-control border border-info"
+                           value="{{ form.portfolio_link.value }}">
+
+
+                    <hr>
+
+
+                    <label for="about">What are you good at</label>
+                    {% comment %} description of freelancer {% endcomment %}
+                    <textarea data-cy="about" name="about" id="about" required
+                              maxlength="500"
+                              cols="30" rows="10"
+                              class="form-control border border-info">{{ form.about.value }}</textarea>
+                    <hr>
+                    <input data-cy="submit" type="submit" value="register"
+                           class="form-control border border-info bg-info text-light">
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-12 mt-5"></div>
+
+{% endblock %}

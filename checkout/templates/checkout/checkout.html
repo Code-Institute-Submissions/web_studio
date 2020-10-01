@@ -31,6 +31,14 @@
                     </h1>
                 </div>
                 <div class="card-body border-secondary border">
+                     <p class="lead"><strong>
+                            Please note, that you will need your Project ID from our first consultation. <br>
+                            No Project ID ? No problem ! <br>
+                          <a href="{% url 'appointments' %}"
+                           class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">Book Free Initial
+                            Consultation</a>
+                        </strong>
+                     </p>
                     <h3 class="font-weight-bold text-info float-right">
                         <span id="total">
                        {{ grand_total }}</span>&euro;</h3>
@@ -43,7 +51,8 @@
                     <p class="my-3"></p>
                     <div class="row">
 
-                        <div class="col-md-6 offset-md-6" id="payment_details">
+
+                        <div class="col-md-7 offset-md-5" id="payment_details">
                             {% comment %}CHECKOUT FORM{% endcomment %}
                             <form action="{% url 'checkout' type %}" method="POST" id="payment-form">
                                 {% csrf_token %}
@@ -52,6 +61,15 @@
                                 <input type="text" hidden value="{{ type }}" name="product_type" id="product_type">
 
                                 <h1 class="font-weight-bold display-5  text-info">payment details</h1>
+
+                             <label for="project_number">Project ID <br>
+                             <strong class="text-danger"><small>You can find it in your dashboard</small></strong>
+                             </label>
+                                <input type="text" name="project_number" id="project_number" required
+
+                                       class="form-control border border-info"
+                                       value="{{ order_form.project_number.value }}"
+                                >
 
                                 <label for="name">Your name</label>
                                 <input type="text" name="name" id="name" required
