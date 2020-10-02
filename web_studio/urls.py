@@ -18,7 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from checkout.views import validate_project_number
+
 urlpatterns = [
+                  path('validate_project_number/', validate_project_number,
+                       name='validate_project_number'),
                   path('admin/', admin.site.urls),
                   path('accounts/', include('allauth.urls')),
                   path('checkout/', include('checkout.urls')),

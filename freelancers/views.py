@@ -50,7 +50,7 @@ def register_freelancer(request):
     form_data = {
         'name': request.POST['name'],
         'email': request.POST['email'],
-        'password': 'dummy_password',
+        'phone_num': request.POST['phone_num'],
         'skills': request.POST['skills'],
         'portfolio_link': request.POST['portfolio_link'],
         'about': request.POST['about'],
@@ -84,7 +84,7 @@ def register_freelancer(request):
             SO THAT HE CAN LOG IN INTO HIS ACCOUNT
             
             """
-            form.password = ''
+
             form.save()
             new_user = User.objects.create_user(request.POST['name'],
                                                 request.POST['email'],
@@ -144,6 +144,8 @@ def register_freelancer(request):
 
             return render(request, template, context)
     else:
+        messages.error(request, 'There was an error with your form. \
+                                                                     Please double check your information')
         context['form'] = form
         return render(request, template, context)
 

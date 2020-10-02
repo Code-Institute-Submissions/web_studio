@@ -15,7 +15,7 @@ def project(request, project_id):
 
 
    # if user is not owner of the project return forbidden
-    if Appointment.objects.get(email=request.user.email).project_number != project_id:
+    if Appointment.objects.get(email=request.user.email,project_number=project_id).project_number != project_id:
         return HttpResponseForbidden()
 
     current_project = Project.objects.get(project_number=project_id)

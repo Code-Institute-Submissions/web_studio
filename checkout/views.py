@@ -2,6 +2,7 @@ import stripe
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.http import require_POST
 
@@ -11,11 +12,38 @@ from projects.forms import ProjectForm
 from .forms import OrderForm
 from .models import Order
 
+# ajax call
+def validate_project_number(request):
+    project_number = request.GET.get('project_number', None)
+    data = { 'is_taken':False}
+    # check if it exists
+    if not Appointment.objects.filter(project_number=project_number).exists():
+        data = {
+            'is_taken':True,
+            'msg': 'We can not find your Project ID in our database. \
+                If you need new project, please book free consultation first.'
+        }
+
+    # check if it is already used and paid for
+    if Order.objects.filter(project_number=project_number).exists():
+        data = {
+            'is_taken': True,
+            'msg': 'This Project ID is already paid for. \
+                    If you need new project, please book free consultation first.'
+        }
+
+
+
+    return JsonResponse(data)
+
 
 @require_POST
 def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
+
+        # check if we have appointment with this id
+
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
 
@@ -24,9 +52,10 @@ def cache_checkout_data(request):
 
         })
         return HttpResponse(status=200)
+
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be \
-            processed right now. Please try again later.')
+                    processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
 
 

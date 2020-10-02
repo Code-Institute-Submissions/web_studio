@@ -33,11 +33,15 @@
 
                             <p><span class="font-weight-bold text-info">Project id: </span>
 
-                                <input title="" type="text" value="{{ consult.project_number }}" id="myInput"
-                                       class=" col-md-12 bg-light p-1"> <span class="ok text-success d-none">copied &check;</span>
+                                <input title="" type="text" value="{{ consult.project_number }}"
+                                      id="{{ consult.project_number }}"
+
+                                       class=" col-md-12 bg-light p-1"> <span class="{{ consult.project_number }} ok text-success d-none">copied &check;</span>
                             <p>
 
-                                <button class="btn btn-sm btn-info copy_public_link">Copy</button>
+                                <button class="btn btn-sm btn-info copy_public_link"
+                                         data-div="{{ consult.project_number }}"
+                                >Copy</button>
 
 
                             </p>
@@ -152,7 +156,8 @@
         /*USER CAN COPY THEIR PUBLIC LINK TO CLIPBOARD*/
         $('.copy_public_link').on('click', function () {
 
-            var copyText = document.getElementById("myInput");
+
+            var copyText = document.getElementById($(this).data('div'));
 
             /* Select the text field */
             copyText.select();
@@ -160,7 +165,7 @@
 
             /* Copy the text inside the text field */
             document.execCommand("copy");
-            $('.ok').removeClass('d-none')
+            $('.'+$(this).data('div')).removeClass('d-none').fadeOut(1000)
 
         })
     </script>

@@ -104,7 +104,7 @@
 
 <header class="container-fluid p-0 sticky-top ">
 
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand font-weight-bold   text-info" href="{% url 'home' %}">
             <h4 class="font-weight-bold"><span class="text-info">marcelli</span><span class="text-light">designs</span>
             </h4></a>
@@ -151,15 +151,18 @@
 
 
             </ul>
+        <ul>
+
+        </ul>
             {% if request.user.is_authenticated %}
 
-                <a href="{% url 'profile' %}" class="dropdown-item text-info">{{ user }}</a>
+                <a href="{% url 'profile' %}" class="nav-link text-info">{{ user }}</a>
                 <form method="post" action="{% url 'account_logout' %}">
                     {% csrf_token %}
-                    <button class="dropdown-item  text-info" type="submit">Logout</button>
+                    <button class=" nav-link text-info" type="submit">Logout</button>
                 </form>
             {% else %}
-                <a href="{% url 'account_login' %}" class="dropdown-item text-info float-right">
+                <a href="{% url 'account_login' %}" class=" nav-link text-info float-right">
                     <span class="___" data-text="Login">Login</span> </a>
             {% endif %}
         </div>

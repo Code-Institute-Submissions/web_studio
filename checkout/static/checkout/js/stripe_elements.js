@@ -39,6 +39,36 @@ card.addEventListener('change', function (event) {
     }
 });
 
+
+$('#project_number').on('input', function () {
+console.log($(this).val())
+      var project_number = $(this).val();
+
+      $.ajax({
+        url: '/validate_project_number/',
+        data: {
+          'project_number': project_number,
+             'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            if(data.is_taken)
+            {
+
+                  $('#submit-button').attr('disabled', true);
+                  $('#project_number_error').text(data.msg)
+                 $('#consultation').removeClass('d-none')
+            }
+            else{
+                $('#submit-button').attr('disabled', false);
+                 $('#project_number_error').text('')
+                 $('#consultation').addClass('d-none')
+            }
+
+        }
+      });
+})
+
 // Handle form submit
 var form = document.getElementById('payment-form');
 
@@ -57,6 +87,8 @@ form.addEventListener('submit', function (ev) {
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
+        'project_number':  $.trim(form.project_number.value),
+
 
 
     };
