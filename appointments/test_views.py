@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
@@ -13,30 +14,6 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'appointments/appointment.html')
 
     def test_get_edit_appointment_page(self):
-        item = Appointment.objects.create(name='New item')
-        response = self.client.get(f'/edit/appointment/{item.id}')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'appointments/edit_appointment.html')
-
-    def test_can_create_appointment(self):
-        # user is creating appointment
-        response = self.client.post('/appointments/', {
-            'name': 'customer name',
-            'email': 'some@email.com',
-            'phone_num': '0876707891',
-            'time_slot': '1',
-            'site_type': '2',
-            'project': 'big project',
-            'password': 'password',
-            'done': False})
-
-        self.assertRedirects(response, '/accounts/login/')
-        # we will log him in with his credential
-        self.client.login(username='customer name', password='password')
-        response = self.client.get('/profile/')
-        self.assertTemplateUsed(response, 'appointments/profile.html')
-
-    def test_create_edit_delete_appointment(self):
         # CREATING APPOINTMENT
         self.appointment = Appointment.objects.create(
             name='customer name',
@@ -49,39 +26,38 @@ class TestViews(TestCase):
             done=False
         )
 
-        # get newly created appointment
-        appointment = Appointment.objects.get(id=self.appointment.id)
-        # assert it is right one
-        self.assertEqual(appointment.project, 'big project')
-        # https://stackoverflow.com/a/58242905 self.appointment.id
 
-        # getting form with the appointment
-        appointment_id = self.appointment.id
-        update_url = reverse('edit_appointment', args=(appointment_id,))
-        delete_url = reverse('delete_appointment', args=(appointment_id,))
-        request = self.client.get(update_url)
+        # only signed in users can update appointment
+        self.user = User.objects.create_user(username='Test User', password='password', email='some@email.com')
+        self.client.login(username='Test User', password='password')
 
-        form = request.context['form']
-        data = form.initial
+        # make sure appointment is users appointment
+        self.assertEqual(self.appointment.email, self.user.email)
 
-        # EDITING APPOINTMENT
-        data['project'] = 'updated project'
+        response = self.client.get(f'/edit/appointment/{self.appointment.id}')
 
-        # posting the form
-        self.client.post(update_url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'appointments/edit_appointment.html')
 
-        # retrieving the form and checking for updated value
-        request = self.client.get(update_url)
+    def test_can_create_appointment(self):
+        response = self.client.get('/appointments/')
+        self.assertTemplateUsed(response, 'appointments/appointment.html')
+        # user is creating appointment
+        response = self.client.post('/appointments/', {
+            'name': 'customer name',
+            'email': 'some@email.com',
+            'phone_num': '0876707891',
+            'time_slot': '1',
+            'site_type': '2',
+            'project': 'big project',
+            'password': 'password',
+            'notes': 'Write notes about project',
+            'done': False})
 
-        self.assertEqual(request.context['form'].initial['project'], 'updated project')
+        self.assertRedirects(response, '/accounts/login/')
+        # we will log him in with his credential
+        self.client.login(username='customer name', password='password')
+        response = self.client.get('/profile/')
+        self.assertTemplateUsed(response, 'appointments/profile.html')
 
-        # check that we have 1 appointment
-        appointments = Appointment.objects.all()
-        self.assertTrue(len(appointments) == 1)
 
-        # DELETING APPOINTMENT
-        self.client.delete(delete_url)
-
-        # check that we have 0 appointments
-        appointments = Appointment.objects.all()
-        self.assertTrue(len(appointments) == 0)

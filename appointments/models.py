@@ -14,9 +14,9 @@ class Appointment(models.Model):
     time_slot = models.CharField(max_length=50, default=False, blank=False, null=False)
     site_type = models.CharField(max_length=50, default=False, blank=False, null=False)
     project = models.TextField(max_length=500, blank=False, null=False)
-    notes = models.TextField(default='',max_length=500, blank=False, null=False)
+    notes = models.TextField(default='',max_length=500, blank=True, null=True)
     date = models.DateField(auto_now_add=True, null=True, blank=True)
-    done = models.BooleanField(default=False, blank=False, null=False)
+    done = models.BooleanField(null=False, blank=False, default=False)
 
 
 
@@ -37,5 +37,8 @@ class Appointment(models.Model):
 
     def __str__(self):
         return self.project_number
+
+    def __repr__(self):
+        return self.name
 
 

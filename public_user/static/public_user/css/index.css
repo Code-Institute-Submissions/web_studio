@@ -57,7 +57,11 @@ a.lead:hover {
     height:630px;
 }
 
-
+.freelancer_nav:hover{
+    border: 1px solid red;
+    color: #17a2b8;
+    cursor: pointer;
+}
 /*DIFFERENT SIZES ON DIFFERENT SCREENS*/
 @media screen and ( max-width: 1200px ) {
 

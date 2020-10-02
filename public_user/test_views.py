@@ -18,6 +18,11 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'public_user/howitworks.html')
 
+    def test_appointments_page(self):
+        response = self.client.get('/appointments/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'appointments/appointment.html')
+
     def test_freelancer_page(self):
             response = self.client.get('/register_form/')
             self.assertEqual(response.status_code, 200)

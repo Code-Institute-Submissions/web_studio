@@ -18,13 +18,11 @@
         <div class="row index">
             <div class="card col-lg-12 border-0">
 
-                <div class="card-header bg-transparent border-0">
-                    <h1 class="font-weight-bold display-3  text-info"> Hi {{ user }}
-                    </h1>
-
-
+               <div class="card-header bg-transparent border-0">
+                    <p class="lead font-weight-bold display-5  text-info">You can update or delete your consultation here</p>
+                    <hr class="bg-info">
                 </div>
-                <p>You can update or delete your consultation here</p>
+
 
             </div>
 
@@ -32,7 +30,7 @@
             <div class="col-lg-7">
 
                 {% comment %} form to update consultation {% endcomment %}
-                <form action="{% url 'edit_appointment' item_id %}" method="POST" id="book_consultation">
+                <form action="{% url 'edit_appointment' item_id %}" method="POST" id="edit_appointment">
                     {% csrf_token %}
                     <label for="name">Your name</label>
                     <input data-cy="name" type="text" name="name" id="name" required class="form-control" autofocus
@@ -46,10 +44,13 @@
                     <input type="text" name="phone_num" id="phone_num" required class="form-control"
                            value="{{ form.phone_num.value }}">
 
-                    <input type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
-                    <input type="password" name="password" id="password" hidden value="dummy_password">
+                    <input title="" type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
+                    <input title="" type="password" name="password" id="password" hidden value="dummy_password">
 
-
+                    <textarea title="" data-cy="notes" name="notes" id="notes" hidden readonly
+                              maxlength="500"
+                              cols="30" rows="10"
+                              class="form-control  form-control-sm">{{ form.notes.value }}</textarea>
                     <hr>
 
                     <label for="time_slot">Best time to contact you</label>
@@ -97,27 +98,39 @@
                             <option value="something_else">something else</option>
                         {% else %}
                             {% comment %} something else {% endcomment %}
-                             <option value="blog">blog</option>
+                            <option value="blog">blog</option>
                             <option value="website">website</option>
                             <option value="online_store">online store</option>
                             <option value="something_else" selected>something else</option>
                         {% endif %}
                     </select>
+                    <label for="notes" class="font-weight-bold text-info">Developers Notes </label>
+
+                    <textarea data-cy="notes" name="notes" id="notes" readonly
+                              maxlength="500"
+                              cols="30" rows="10" class="form-control  ">{{ form.notes.value }}</textarea>
+
                     <hr>
                     <label for="project">Describe your project ( max 500 characters )</label>
+                    <br>
+                    <small class="text-danger">Developer can see your notes and respond</small>
+                    <small class="text-dark">through</small>
+                    <span class="font-weight-bold text-info">Developers Notes </span> &uArr;
                     <textarea data-cy="project" name="project" id="project"
                               maxlength="500"
                               cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
                     <hr>
                     {% comment %} button to update consultation{% endcomment %}
-                    <input data-cy="update_appointment" type="submit" value="update" class="form-control bg-info text-light">
+                    <input data-cy="update_appointment" type="submit" value="update"
+                           class="form-control bg-info text-light">
                     <br>
 
 
                 </form>
                 {% comment %} user can delete consultation {% endcomment %}
                 <form action="{% url 'delete_appointment' item_id %}">
-                    <input data-cy="delete_appointment" type="submit" value="delete consultation" class="form-control bg-danger text-light">
+                    <input data-cy="delete_appointment" type="submit" value="delete consultation"
+                           class="form-control bg-danger text-light">
 
                 </form>
 

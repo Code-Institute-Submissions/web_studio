@@ -11,3 +11,12 @@
     font-weight: 800;
     font-size: 1.4rem;
 }
+@media screen and ( max-width: 767px ) {
+    .index h1 {
+        font-size: 2rem;
+    }
+
+    .index p {
+        font-size: 0.9rem;
+    }
+}

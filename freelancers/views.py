@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-
+from django.http import HttpResponseForbidden
 from appointments.models import Appointment
 from projects.models import Project
 from .forms import FreelancerForm
@@ -15,11 +15,25 @@ from .models import Freelancer
 
 
 def register_form(request):
-    return render(request, 'freelancers/register_form.html')
+    template = 'freelancers/register_form.html'
+    context = {}
+    if request.user.is_authenticated:
+
+        messages.info(request,
+                       'Thank you for your interest. It appears that you are  '
+                       ' already signed in... If you would like to create new'
+                       ' account, please logout and try again. Thank you! '
+                       )
+
+        context={
+            'logged_in':True
+        }
+    return render(request, template,context)
 
 
 def register_freelancer(request):
     template = 'freelancers/register_form.html'
+
 
     def user_name_present(name):
         if User.objects.filter(username=name).exists():
@@ -137,6 +151,7 @@ def register_freelancer(request):
 def freelancer(request):
     freelancer = Freelancer.objects.get(email=request.user.email)
     form = FreelancerForm(instance=freelancer)
+    request.session["freelancer"] = True
 
     try:
         appointment = Appointment.objects.get(project_number=freelancer.current_project)
@@ -162,6 +177,10 @@ def freelancer(request):
 
 def update_freelancer(request, freelancer_id):
     freelancer_i = get_object_or_404(Freelancer, id=freelancer_id)
+    # if freelancer is not updating his own profile
+    if freelancer_i.email != request.user.email:
+        return HttpResponseForbidden()
+
     if request.method == 'POST':
 
         form = FreelancerForm(request.POST, instance=freelancer_i)

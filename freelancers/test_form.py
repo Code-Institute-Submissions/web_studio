@@ -14,6 +14,7 @@ class TestFreelancerForm(TestCase):
         form = FreelancerForm(
             {
                 'name': 'First Freelancer',
+                'phone_num': '0987876',
                 'email': 'some@email.com',
                 'about': 'I want that job',
                 'skills': 'Python, Flask, Django, Jquery, MongoDB',
@@ -28,4 +29,4 @@ class TestFreelancerForm(TestCase):
     def test_fields_are_explicit_in_form_metaclass(self):
         form = FreelancerForm()
         self.assertEqual(form.Meta.fields,
-                         ('name', 'email', 'about', 'skills', 'portfolio_link','password'))
+                         ('name', 'email', 'about', 'skills', 'portfolio_link','password','phone_num'))

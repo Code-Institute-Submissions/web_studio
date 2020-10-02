@@ -1,7 +1,3 @@
-import json
-import os
-
-import requests
 import stripe
 from django.conf import settings
 from django.contrib import messages
@@ -9,7 +5,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.http import require_POST
 
-from appointments.forms import AppointmentForm
 from appointments.models import Appointment
 from products.models import Product
 from projects.forms import ProjectForm
@@ -75,7 +70,6 @@ def checkout(request, product_type):
     }
     if request.method == 'POST':
 
-
         form_data = {
             'name': request.POST.get('name'),
             'project_number': request.POST.get('project_number'),
@@ -88,103 +82,22 @@ def checkout(request, product_type):
             'grand_total': total,
         }
         order_form = OrderForm(form_data)
-        # check if we have appointment with this di
+        # new paid consultation doesn't need project id
+
+        # check if we have appointment with this id
         if not Appointment.objects.filter(project_number=request.POST.get('project_number')).exists():
             messages.error(request, 'We can not find your Project ID in our database. \
-                                                                      Please double check your information.')
+                                                                          Please double check your information.')
             context['order_form'] = order_form
             return render(request, template, context)
 
         # check if it is already used and paid for
         if Order.objects.filter(project_number=request.POST.get('project_number')).exists():
             messages.error(request, 'This Project ID is already paid for. \
-                                                                      Please double check your information.')
+                                                                          Please double check your information.')
 
             context['order_form'] = order_form
             return render(request, template, context)
-
-        # IF CUSTOMER IS PURCHASING EXTRA CONSULTATION
-        # WE WILL STORE IT IN DATABASE
-        if product_type == 'consultation':
-            appointment_data = {
-                'name': request.POST['name'],
-                'email': request.POST['email'],
-                'phone_num': request.POST['phone_num'],
-                'password': 'user_password',
-                'site_type': request.POST['site_type'],
-                'time_slot': request.POST['time_slot'],
-                'project': request.POST['project'],
-                'done': 'done' in request.POST,
-            }
-
-            consultation_form = AppointmentForm(appointment_data)
-            context = {
-                'form': consultation_form
-            }
-            if consultation_form.is_valid():
-                try:
-                    """
-                    IF FORM IS VALID, WE WILL SAVE IT TO DB 
-                    """
-                    consultation_form.save()
-
-                    """
-                    sending email to owner of the website, informing him about new appointment
-                    using MAILGUN service as it's already running for globtopus.com
-                    """
-                    site_types = {
-                        '1': 'blog', '2': 'website', '3': 'online store', '4': 'something else'
-                    }
-                    times = {
-                        '1': '8am-12am', '2': '12am-4pm', '3': '4pm-8pm',
-                    }
-
-                    request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
-                    key = os.getenv('MAILGUN_API_KEY')
-                    recipient = 'marcelkolarcik@gmail.com'
-                    requests.post(request_url, auth=('api', key), data={
-                        'from': 'marcellidesigns marcelkolarcik@gmail.com',
-                        'to': recipient,
-                        'subject': 'New appointment',
-                        "template": "marcellidesigns_appointment",
-                        "h:X-Mailgun-Variables":
-                            json.dumps(
-                                {'welcome': 'New appointment : paid',
-                                 'body_1': request.POST['email'] + ' - ' + request.POST['phone_num'] + ' - ' +
-                                           request.POST[
-                                               'name'],
-                                 'body_2': request.POST['project'],
-                                 'question': times[request.POST['time_slot']],
-                                 'sign-in': 'Site',
-                                 'welcome_team': 'Marcelli Designs', })
-                    })
-
-                    # sending email to customer, confirming new appointment
-                    request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
-                    key = os.getenv('MAILGUN_API_KEY')
-                    recipient = request.POST['email']
-                    requests.post(request_url, auth=('api', key), data={
-                        'from': 'marcellidesigns marcelkolarcik@gmail.com',
-                        'to': recipient,
-                        'subject': 'Your appointment',
-                        "template": "marcellidesigns_customer_appointment",
-                        "h:X-Mailgun-Variables":
-                            json.dumps(
-                                {'welcome': 'Your appointment',
-                                 'customer_name': request.POST['name'],
-                                 'time': times[request.POST['time_slot']],
-                                 'phone': request.POST['phone_num'],
-                                 'project': request.POST['project'],
-                                 'site_type': site_types[request.POST['site_type']],
-
-                                 'welcome_team': 'Marcelli Designs', })
-                    })
-
-
-                except:
-                    messages.error(request, 'There was an error with your form. \
-                                                                        Please double check your information')
-
 
         if order_form.is_valid():
             # if order form is valid try to add order to DB
@@ -200,7 +113,10 @@ def checkout(request, product_type):
 
                 messages.success(request, 'Your order was created successfully ')
 
-                ProjectForm({'project_number':request.POST.get('project_number')}).save()
+                # create new project for the order with project number created
+                # when appointment was created so that appointment, order and project are
+                # all connected through project number
+                ProjectForm({'project_number': request.POST.get('project_number')}).save()
 
                 return redirect(reverse('checkout_success', args=[order.order_number]))
 

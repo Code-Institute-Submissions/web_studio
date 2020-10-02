@@ -39,18 +39,37 @@
                 <form action="{% url 'appointments' %}" method="POST" id="book_appointment">
                     {% csrf_token %}
                     <label for="name">Your name</label>
-                    <input data-cy="name" type="text" name="name" id="name" required class="form-control border border-info"
-                           value="{{ form.name.value }}"
-                           autofocus>
+                   <input type="text" name="name" id="name" required
+                                           {% if  request.user.is_authenticated %}readonly{% endif %}
+                                           class="form-control border border-info"
+                                           value="{% if request.user.is_authenticated %}{{ user }}
+
+                                               {% elif order_form.name.value is not None %}{{ order_form.name.value }}
+                                                                 {% endif %}"
+                                    >
                     <hr>
                     <label for="email">Your email</label>
-                    <input data-cy="email" type="email" name="email" id="email" required class="form-control border border-info"
-                           value="{{ form.email.value }}">
+                    <input type="email" name="email" id="email" required
+                                           {% if  request.user.is_authenticated %}readonly{% endif %}
+                                           class="form-control border border-info"
+                                           value=" {% if request.user.email %}
+                                                   {{ request.user.email }}
+                                                 {% elif order_form.email.value is not None %}{{ order_form.email.value }}
+                                                             {% endif %}">
+
                      <hr>
+                 {% if not  request.user.is_authenticated %}
                     <label for="password">Your password ( you will be able to edit your appointment and see your
                         purchases)</label>
-                    <input data-cy="password" type="password" name="password" id="password" class="form-control border border-info"
-                           required>
+                {% endif %}
+                    <input data-cy="password" type="password" name="password" id="password"
+                            {% if   request.user.is_authenticated %}
+                           {{ ' hidden' }}
+                                {% else %}
+                                {{ 'required' }}
+                                {% endif %}
+                           class="form-control border border-info"
+                           >
                     <hr>
                     <label for="phone_num">Your phone number</label>
                     <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
@@ -86,6 +105,9 @@
                               maxlength="500"
                               cols="30" rows="10" class="form-control border border-info">{{ form.project.value }}</textarea>
                     <hr>
+                     <textarea data-cy="notes" name="notes" id="project" hidden
+                              maxlength="500"
+                              cols="30" rows="10" class="form-control">&nbsp;</textarea>
                     <input data-cy="submit" type="submit" value="book" class="form-control border border-info bg-info text-light">
 
 

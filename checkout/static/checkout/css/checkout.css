@@ -73,3 +73,12 @@
 .bottom_border_dark{
     border-bottom: 1px solid #212529;
 }
+@media screen and ( max-width: 767px ) {
+    .index h1 {
+        font-size: 2rem;
+    }
+
+    .index p {
+        font-size: 0.9rem;
+    }
+}

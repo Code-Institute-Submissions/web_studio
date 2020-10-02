@@ -12,7 +12,7 @@ from appointments.forms import AppointmentForm
 from appointments.models import Appointment
 from checkout.models import Order
 from freelancers.models import Freelancer
-
+from django.http import HttpResponseForbidden
 
 def appointments(request):
     template = 'appointments/appointment.html'
@@ -40,6 +40,7 @@ def appointments(request):
             'site_type': request.POST['site_type'],
             'time_slot': request.POST['time_slot'],
             'project': request.POST['project'],
+            'notes': request.POST['notes'],
             'done': 'done' in request.POST,
         }
 
@@ -48,7 +49,7 @@ def appointments(request):
             'form': appointment_form
         }
         # user already registered with his email
-        if user_email_present(request.POST['email']):
+        if not request.user.is_authenticated and  user_email_present(request.POST['email']):
             messages.error(request,
                            'It appears that you already registered.Please login with '
                            ' your credentials to manage your account. Thank you! '
@@ -57,7 +58,7 @@ def appointments(request):
             return render(request, template, context)
 
         # username used already, Django won't create new user with the same name
-        if user_name_present(request.POST['name']):
+        if  not request.user.is_authenticated and  user_name_present(request.POST['name']):
             messages.error(request, 'User name taken. Please use different user name!')
 
             return render(request, template, context)
@@ -71,13 +72,22 @@ def appointments(request):
                 CHANGE HIS CONSULTATION
                 """
                 appointment_form = appointment_form.save()
-                new_user = User.objects.create_user(request.POST['name'],
-                                                    request.POST['email'],
-                                                    request.POST['password'])
-                new_user.save()
+
+                if user_email_present(request.POST['email']):
+                    messages.info(request,
+                                   'It appears that you already registered. We added this  '
+                                   ' consultation to your dashboard. Thank you! '
+                                   )
+                else:
+                    #create new user if not registered yet
+                    new_user = User.objects.create_user(request.POST['name'],
+                                                        request.POST['email'],
+                                                        request.POST['password'])
+                    new_user.save()
+
 
                 messages.success(request,
-                                 f'Your account was created successfully. Please login with your {appointment_form.project_number}'
+                                 f'Your account was created successfully. Please login with your '
                                  'credentials.')
                 # user can sign in with his credentials
 
@@ -125,14 +135,25 @@ def appointments(request):
             except:
                 messages.error(request, 'There was an error with your form. \
                                                               Please double check your information')
+        else:
+            messages.error(request, 'There was an error with your form. \
+                                                                          Please double check your information')
         context['consultation_form'] = appointment_form
 
     return render(request, template, context)
 
 
 # customer updating appointment
+@login_required
 def edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if Freelancer.objects.filter(email=request.user.email).exists() and \
+            Freelancer.objects.get(email=request.user.email).current_project != appointment.project_number:
+        return HttpResponseForbidden()
+    # if user is not owner of the appointment return forbiden
+    if not Freelancer.objects.filter(email=request.user.email).exists() and appointment.email != request.user.email:
+        return HttpResponseForbidden()
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
@@ -154,9 +175,15 @@ def edit_appointment(request, appointment_id):
 
 
 # customer deleting appointment
+@login_required
 def delete_appointment(request, appointment_id):
     try:
+
         appointment = get_object_or_404(Appointment, id=appointment_id)
+        # if user is not owner of the appointment return forbiden
+        if appointment.email != request.user.email:
+            return HttpResponseForbidden()
+
         appointment.delete()
         messages.success(request, "Your appointment was deleted successfully!")
 
@@ -181,6 +208,7 @@ def profile(request):
 
     else:
         template = 'appointments/profile.html'
+        request.session["client"] = True
 
     try:
         appointment_detail = Appointment.objects.filter(email=request.user.email).order_by('-date')

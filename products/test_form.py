@@ -16,7 +16,7 @@ class TestProductForm(TestCase):
         self.assertIn('price', form.errors.keys())
         self.assertEqual(form.errors['price'][0], 'This field is required.')
 
-    def test_product_form_is_valid(self):
+    def test_product_form_with_price_and_name_is_valid(self):
         form = ProductForm({'price': '299', 'name': 'blog'})
 
         self.assertTrue(form.is_valid())

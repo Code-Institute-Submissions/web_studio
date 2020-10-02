@@ -20,7 +20,7 @@ class TestAppointmentForm(TestCase):
                 'site_type': '2',
                 'project': 'big project',
                 'password': 'password',
-                'done': False,
+
             }
         )
 
@@ -29,4 +29,5 @@ class TestAppointmentForm(TestCase):
     def test_fields_are_explicit_in_form_metaclass(self):
         form = AppointmentForm()
         self.assertEqual(form.Meta.fields,
-                         ('name', 'email', 'time_slot', 'site_type', 'project', 'password', 'done', 'phone_num'))
+                         ('name', 'email', 'time_slot', 'site_type', 'project', 'password', 'done', 'phone_num',
+                          'notes'))
