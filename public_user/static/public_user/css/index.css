@@ -64,7 +64,9 @@ a.lead:hover {
 .btn {
     border-radius: 0;
 }
-
+.form-control {
+    border-radius: 0;
+}
 .freelancer_nav:hover {
     border: 1px solid red;
     color: #17a2b8;

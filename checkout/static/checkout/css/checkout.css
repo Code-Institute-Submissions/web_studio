@@ -73,6 +73,12 @@
 .bottom_border_dark{
     border-bottom: 1px solid #212529;
 }
+.btn {
+    border-radius: 0;
+}
+.form-control {
+    border-radius: 0;
+}
 @media screen and ( max-width: 767px ) {
     .index h1 {
         font-size: 2rem;

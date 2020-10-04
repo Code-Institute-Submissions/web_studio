@@ -19,9 +19,9 @@
             <div class="card col-lg-12 border-0">
 
                 <div class="card-header bg-transparent border-0">
-                    <h1 class="font-weight-bold display-3  text-info">free consultation</h1>
-                    <h4 class="font-weight-bold text-info">You'll be glad you did it! <br>
-                        <small class="text-dark">it's free...</small>
+                    <h1 class="font-weight-bold display-3  text-info">consultation</h1>
+                    <h4 class="font-weight-bold text-info">Let's get to know each other little bit better...;-)<br>
+                        <small class="text-dark">We'll see if we are good fit. It's free...</small>
                     </h4>
 
 
@@ -59,8 +59,8 @@
 
                      <hr>
                  {% if not  request.user.is_authenticated %}
-                    <label for="password">Your password ( you will be able to edit your appointment and see your
-                        purchases)</label>
+                    <label for="password">Your password <br>
+                        <small class="text-info">to manage your account</small></label>
                 {% endif %}
                     <input data-cy="password" type="password" name="password" id="password"
                             {% if   request.user.is_authenticated %}
@@ -99,7 +99,8 @@
                         <option value="something_else">something else</option>
                     </select>
                     <hr>
-                    <label for="project">Describe your project ( max 500 characters )</label>
+                    <label for="project">Describe your project<br>
+                        <small class="text-info">max 500 characters</small></label>
                     {% comment %} description of the project {% endcomment %}
                     <textarea data-cy="project" name="project" id="project" required
                               maxlength="500"
