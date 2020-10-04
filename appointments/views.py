@@ -142,21 +142,23 @@ def appointments(request):
     return render(request, template, context)
 
 
-# customer updating appointment
+# client or freelancer updating appointment / communicating through appointment form
 @login_required
 def edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
-    #Appointment.objects.filter(project_number=appointment.project_number).update(paid_for=True)
-    # project_number = Order.objects.get(stripe_pid='pi_1HYVQHBbXRJmL0n9IHE3Xf5I').project_number
-    # Appointment.objects.filter(project_number=project_number).update(
-    #     paid_for=True)
 
+    # if freelancers is trying access project he is not working on => forbidden
     if Freelancer.objects.filter(email=request.user.email).exists() and \
             Freelancer.objects.get(email=request.user.email).current_project != appointment.project_number:
         return HttpResponseForbidden()
-    # if user is not owner of the appointment return forbiden
+
+    # if client is not owner of the appointment  => forbidden
     if not Freelancer.objects.filter(email=request.user.email).exists() and appointment.email != request.user.email:
         return HttpResponseForbidden()
+    try:
+        freelancer =  Freelancer.objects.get(current_project=appointment.project_number)
+    except:
+        freelancer=False
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
@@ -172,7 +174,8 @@ def edit_appointment(request, appointment_id):
     context = {
         'form': form,
         'item_id': appointment_id,
-        'email': appointment.email
+        'email': appointment.email,
+        'freelancer':freelancer
     }
     return render(request, 'appointments/edit_appointment.html', context)
 

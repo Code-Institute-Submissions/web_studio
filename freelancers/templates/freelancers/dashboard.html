@@ -10,61 +10,70 @@
     {% comment %} how it works {% endcomment %}
 
     <div class="container">
-{#        <div class="row index">#}
-{#            <div class="card col-lg-12 border-0">#}
-{#                <div class="card-header bg-transparent border-0">#}
-{#                    <h1 class="font-weight-bold display-3  text-info portfolio">{{ freelancer.name }}</h1>#}
-{#                    <h4 class="font-weight-bold text-info">freelancer <br>#}
-{#                        <small class="text-dark"></small>#}
-{#                    </h4>#}
-{##}
-{#                </div>#}
-{#            </div>#}
-{##}
-{##}
-{#        </div>#}
+        {#        <div class="row index">#}
+        {#            <div class="card col-lg-12 border-0">#}
+        {#                <div class="card-header bg-transparent border-0">#}
+        {#                    <h1 class="font-weight-bold display-3  text-info portfolio">{{ freelancer.name }}</h1>#}
+        {#                    <h4 class="font-weight-bold text-info">freelancer <br>#}
+        {#                        <small class="text-dark"></small>#}
+        {#                    </h4>#}
+        {##}
+        {#                </div>#}
+        {#            </div>#}
+        {##}
+        {##}
+        {#        </div>#}
         <div class="row">
-         <div class="col-md-4 list-group-item bg-info text-light freelancer_nav" data-div="client">
-            your client
-        </div>
+            <div class="col-md-4 list-group-item bg-info text-light freelancer_nav" data-div="client">
+                your client
+            </div>
 
-         <div class="col-md-4 list-group-item bg-info text-light freelancer_nav" data-div="job">
-             job progress
-        </div>
+            <div class="col-md-4 list-group-item bg-info text-light freelancer_nav" data-div="job">
+                job progress
+            </div>
 
 
-         <div class="col-md-4 list-group-item bg-info text-light freelancer_nav" data-div="freelancer">
-            your details
-        </div>
-        <div class="col-md-8 offset-md-2 details  mt-3" id="client">
-            {% if appointment %}
+            <div class="col-md-4 list-group-item bg-info text-light freelancer_nav" data-div="freelancer">
+                your details
+            </div>
+            {% comment %} current client details {% endcomment %}
+            <div class="col-md-8 offset-md-2 details  mt-3" id="client">
+                {% if appointment %}
 
                     <form action="{% url 'edit_appointment' appointment.id %}" method="POST" id="edit_appointment">
 
-                     <p><span class="font-weight-bold text-info">Project ID:</span> {{ appointment.project_number }}</p>
+                        <p><span class="font-weight-bold text-info">Project ID:</span> {{ appointment.project_number }}
+                        </p>
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="name" class="font-weight-bold text-info">Name</label>
-                             <strong>{{  appointment.name }}</strong>
+                                <strong>{{ appointment.name }}</strong>
                                 <input data-cy="name" type="text" name="name" id="name" required hidden readonly
                                        class="form-control form-control-sm" autofocus
                                        value=" {{ appointment.name }}"> <br>
                                 <label for="email" class="font-weight-bold text-info">Email</label>
-                             <strong>{{  appointment.email }}</strong>
-                                <input type="email" name="email" id="email" hidden readonly required class="form-control  form-control-sm"
+                                <strong>{{ appointment.email }}</strong>
+                                <input type="email" name="email" id="email" hidden readonly required
+                                       class="form-control  form-control-sm"
                                        value=" {{ appointment.email }}">
-
+                                <br>
                                 <label for="phone_num" class="font-weight-bold text-info">Phone number</label>
-                             <strong>{{  appointment.phone_num }}</strong>
-                                <input type="text" name="phone_num" id="phone_num" hidden readonly required class="form-control form-control-sm"
+                                <strong>{{ appointment.phone_num }}</strong>
+
+                                <input type="text" name="phone_num" id="phone_num" hidden readonly required
+                                       class="form-control form-control-sm"
                                        value="{{ appointment.phone_num }}">
 
-                                <input title="" type="checkbox" name="done" id="appointment_done" hidden value=" {{ appointment.done }}">
-                                <input title="" type="password" name="password" id="password" hidden value="dummy_password">
+                                <input title="" type="checkbox" name="done" id="appointment_done" hidden
+                                       value=" {{ appointment.done }}">
+                                <input title="" type="password" name="password" id="password" hidden
+                                       value="dummy_password">
+                                <br>
                                 <label for="time_slot" class="font-weight-bold text-info">Best time to contact :</label>
-                                <strong>{{  appointment.time_slot }}</strong>
-                                <select name="time_slot" id="time_slot" required hidden class="form-control  form-control-sm">
+                                <strong>{{ appointment.time_slot }}</strong>
+                                <select name="time_slot" id="time_slot" required hidden
+                                        class="form-control  form-control-sm">
                                     {% if appointment.time_slot == "8 am - 12 pm" %}
                                         <option value="8 am - 12 am" selected>8 am - 12 am</option>
                                         <option value="12 am - 4 pm">12 pm - 4 pm</option>
@@ -80,47 +89,50 @@
                                     {% endif %}
 
                                 </select>
-                              <label for="site_type" class="font-weight-bold text-info">Site type</label>
+                            <br>
+                                <label for="site_type" class="font-weight-bold text-info">Site type</label>
                                 <strong>{{ appointment.site_type }}</strong>
-                                <select data-cy="site_type" name="site_type" id="site_type" hidden required class="form-control  form-control-sm">
+                                <select data-cy="site_type" name="site_type" id="site_type" hidden required
+                                        class="form-control  form-control-sm">
 
 
-                            {% if appointment.site_type == "blog" %}
-                                {% comment %} blog {% endcomment %}
-                                <option value="blog" selected>blog</option>
-                                <option value="website">website</option>
-                                <option value="online_store">online store</option>
-                                <option value="something_else">something else</option>
-                            {% elif  appointment.site_type == "website" %}
-                                {% comment %} website {% endcomment %}
-                                <option value="blog">blog</option>
-                                <option value="website" selected>website</option>
-                                <option value="online_store">online store</option>
-                                <option value="something_else">something else</option>
-                            {% elif   appointment.site_type == "online store" %}
-                                {% comment %} online store {% endcomment %}
-                                <option value="blog">blog</option>
-                                <option value="website">website</option>
-                                <option value="online_store" selected>online store</option>
-                                <option value="something_else">something else</option>
-                            {% else %}
-                                {% comment %} something else {% endcomment %}
-                                <option value="blog">blog</option>
-                                <option value="website">website</option>
-                                <option value="online_store">online store</option>
-                                <option value="something_else" selected>something else</option>
-                            {% endif %}
-                        </select>
+                                    {% if appointment.site_type == "blog" %}
+                                        {% comment %} blog {% endcomment %}
+                                        <option value="blog" selected>blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% elif  appointment.site_type == "website" %}
+                                        {% comment %} website {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website" selected>website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% elif   appointment.site_type == "online store" %}
+                                        {% comment %} online store {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store" selected>online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% else %}
+                                        {% comment %} something else {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else" selected>something else</option>
+                                    {% endif %}
+                                </select>
 
                             </div>
                             <div class="col-md-6">
-                                 <label for="project" class="font-weight-bold text-info">Client's Project Idea</label>
-                        <small class="text-danger">Can change</small> <br>
-                                 <strong>{{ appointment.project }}</strong>
+                                <label for="project" class="font-weight-bold text-info">Client's Project Idea</label>
+                                <small class="text-danger">Can change</small> <br>
+                                <strong>{{ appointment.project }}</strong>
 
-                        <textarea data-cy="project" name="project" id="project" readonly hidden
-                                  maxlength="500"
-                                  cols="30" rows="10" class="form-control  form-control-sm">{{ appointment.project }}</textarea>
+                                <textarea data-cy="project" name="project" id="project" readonly hidden
+                                          maxlength="500"
+                                          cols="30" rows="10"
+                                          class="form-control  form-control-sm">{{ appointment.project }}</textarea>
 
                             </div>
                         </div>
@@ -128,11 +140,12 @@
 
                         <hr>
                         <label for="notes" class="font-weight-bold text-info">Your Notes <br>
-                        <small class="text-danger">Customer can see your notes and respond</small>
-                           <small class="text-dark">through</small>  Client's Project Idea &uArr;</label>
+                            <small class="text-danger">Customer can see your notes and respond</small>
+                            <small class="text-dark">through</small> Client's Project Idea &uArr;</label>
                         <textarea data-cy="notes" name="notes" id="notes"
                                   maxlength="500"
-                                  cols="30" rows="10" class="form-control  form-control-sm">{{ appointment.notes }}</textarea>
+                                  cols="30" rows="10"
+                                  class="form-control  form-control-sm">{{ appointment.notes }}</textarea>
                         <hr>
                         {% comment %} button to update consultation{% endcomment %}
                         <input data-cy="update_appointment" type="submit" value="update notes"
@@ -142,12 +155,13 @@
 
                     </form>
                 {% else %}
-                <p class="text-center font-weight-bold text-info">No client at the moment...</p>
-            {% endif %}
-        </div>
-         <div class="col-md-8 offset-md-2 details d-none  mt-3" id="job">
+                    <p class="text-center font-weight-bold text-info">No client at the moment...</p>
+                {% endif %}
+            </div>
+            {% comment %} current project progress {% endcomment %}
+            <div class="col-md-8 offset-md-2 details d-none  mt-3" id="job">
 
-           {% if project %}
+                {% if project %}
                     <form action="{% url 'edit_project' project.project_number %}" method="POST" id="project">
                         {% csrf_token %}
                         <input type="text" name="project_number" id="project_number"
@@ -198,7 +212,7 @@
                             <li class="list-group-item bottom_border">
                                 <input type="checkbox" name="done" id="done"
                                         {% if project.done %}{{ 'checked' }}{% endif %} >
-                                {{ project.done }}
+
                                 <label for="done">Customer happy</label>
                             </li>
                         </ul>
@@ -207,9 +221,10 @@
                     </form>
                 {% endif %}
 
-         </div>
-         <div class="col-md-8 offset-md-2 details d-none  mt-3" id="freelancer">
-              <form action="{% url 'update_freelancer' freelancer.id %}" method="POST"
+            </div>
+            {% comment %}form to update freelancers details{% endcomment %}
+            <div class="col-md-8 offset-md-2 details d-none  mt-3" id="freelancer">
+                <form action="{% url 'update_freelancer' freelancer.id %}" method="POST"
                       id="update_freelancer">
                     {% csrf_token %}
                     <label for="f_name">Your name</label>
@@ -222,7 +237,7 @@
                     <input data-cy="email" type="email" name="email" id="f_email" required
                            class="form-control border border-info" readonly
                            value="{{ form.email.value }}">
-                        <label for="phone_num">Your phone</label>
+                    <label for="phone_num">Your phone</label>
                     <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required
                            class="form-control border border-info"
                            value="{{ form.phone_num.value }}">
@@ -262,7 +277,7 @@
 
                 </form>
 
-         </div>
+            </div>
 
         </div>
         <div class="col-lg-12 my-5">
@@ -278,11 +293,10 @@
 {% endblock %}
 {% block postloadjs %}
     <script>
-    $('.freelancer_nav').on('click', function()
-    {
-        $('.details').addClass('d-none')
-        $('#'+$(this).data('div'))
-        .removeClass('d-none')
-    })
+        $('.freelancer_nav').on('click', function () {
+            $('.details').addClass('d-none')
+            $('#' + $(this).data('div'))
+                .removeClass('d-none')
+        })
     </script>
 {% endblock %}

@@ -41,32 +41,36 @@ card.addEventListener('change', function (event) {
 
 
 $('#project_number').on('input', function () {
-console.log($(this).val())
-      var project_number = $(this).val();
+    console.log($(this).val())
+    var project_number = $(this).val();
 
-      $.ajax({
+    $.ajax({
         url: '/validate_project_number/',
         data: {
-          'project_number': project_number,
-             'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            'project_number': project_number,
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
         },
         dataType: 'json',
         success: function (data) {
-            if(data.is_taken)
-            {
+            if (data.is_taken) {
 
-                  $('#submit-button').attr('disabled', true);
-                  $('#project_number_error').text(data.msg)
-                 $('#consultation').removeClass('d-none')
-            }
-            else{
+                $('#submit-button').attr('disabled', true);
+                $('#project_number_error').text(data.msg)
+                $('#consultation').removeClass('d-none')
+                $('#project_no_consultation_error').text('')
+            } else if (data.no_consultation) {
                 $('#submit-button').attr('disabled', false);
-                 $('#project_number_error').text('')
-                 $('#consultation').addClass('d-none')
+                $('#project_number_error').text('')
+                $('#project_no_consultation_error').text(data.msg)
+                $('#consultation').addClass('d-none')
+            } else {
+                $('#submit-button').attr('disabled', false);
+                $('#project_number_error').text('')
+                $('#consultation').addClass('d-none')
             }
 
         }
-      });
+    });
 })
 
 // Handle form submit
@@ -87,8 +91,7 @@ form.addEventListener('submit', function (ev) {
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
-        'project_number':  $.trim(form.project_number.value),
-
+        'project_number': $.trim(form.project_number.value),
 
 
     };
@@ -108,8 +111,6 @@ form.addEventListener('submit', function (ev) {
                         line2: $.trim(form.post_code.value),
                         city: $.trim(form.city.value),
                         country: $.trim(form.country.value),
-
-
 
 
                     },

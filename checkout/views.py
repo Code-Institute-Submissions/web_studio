@@ -16,20 +16,45 @@ from .models import Order
 def validate_project_number(request):
     project_number = request.GET.get('project_number', None).strip()
     data = { 'is_taken':False}
-    # check if it exists
-    if not Appointment.objects.filter(project_number=project_number).exists():
-        data = {
-            'is_taken':True,
-            'msg': 'We can not find your Project ID in our database. \
-                If you need new project, please book free consultation first.'
-        }
+
+
+
+
+
+        # FOR ALLOWING PERSON WHO IS ASSESSING THE PROJECT, TO PURCHASE THE PRODUCT,
+        # LETTING PURCHASE PASS WITHOUT CONSULTATION
+
+    # if Appointment.objects.filter(project_number=project_number).exists() and \
+    #         not Appointment.objects.get(project_number=project_number).done:
+    #         data = {
+    #             'is_taken': True,
+    #             'msg': 'We did not have consultation yet! '
+    #         }
 
     # check if it is already used and paid for
-    if Order.objects.filter(project_number=project_number).exists():
+    if Order.objects.filter(project_number=project_number).exists() and \
+                     Appointment.objects.get(project_number=project_number).paid_for:
         data = {
             'is_taken': True,
             'msg': 'This Project ID is already paid for. \
-                    If you need new project, please book free consultation first.'
+                       If you need new project, please book free consultation first.'
+        }
+     # check if consultation took place and is marked as done
+    elif Appointment.objects.filter(project_number=project_number).exists() and \
+                    not Appointment.objects.get(project_number=project_number).done:
+        data = {
+                    'no_consultation': True,
+                    'msg': 'We did not have consultation yet! We will let you purchase the product '
+                           'as this is testing site and we can not have consultation, but in real life '
+                           'scenario, we would have to have conversation about your project, to see '
+                           'if we can help you with your idea. '
+                }
+    # check if appointment exists
+    elif not Appointment.objects.filter(project_number=project_number).exists():
+        data = {
+            'is_taken': True,
+            'msg': 'We can not find your Project ID in our database. \
+                   If you need new project, please book free consultation first.'
         }
 
 

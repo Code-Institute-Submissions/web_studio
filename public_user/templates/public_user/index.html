@@ -302,11 +302,22 @@
                     </h1>
                 </div>
             </div>
-            <div class="my-5 col-12 ">
+
+
+            <div class="my-5 col-md-6 offset-md-3 ">
+                <hr class="my-5">
+                <h4 class="text-center gradient p-5 we_are">We are group of experienced web developers from around the
+                    world, that will
+                    help you build your dream.</h4>
+                <hr class="my-5">
             </div>
+
+            <div></div>
             <div class="col-lg-5 d-flex justify-content-center align-items-center ">
                 <span class="display-1"><i class="fas fa-blog fa-2x text-info"></i></span>
             </div>
+
+
             <div class="col-lg-7 ">
                 <h1 class="display-4 float-right">Do you want to make money from your own blog?</h1>
 
@@ -314,29 +325,31 @@
                     from
                     299 EUR</a>
             </div>
+
+
             <div class="my-5 col-lg-10 offset-lg-1 ">
-                <hr>
-                <p class=" testimonial">
+
+                <p class="testimonial gradient text-center p-5">
                     We combine our skills with a common goal: we want to provide you with projects
                     that will help you develop your blog and more effectively reach new
                     readers.
                 </p>
-                <hr>
+
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-7">
                 <h1 class="display-4 float-right">Do you want to promote your product, service or business?</h1>
 
                 <a href="{% url 'website' %}" class="lead float-right btn btn-lg btn-outline-info ">Prices start
                     from
                     999 EUR</a>
             </div>
-            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
                 <span class="display-1 mt-3"><i class="fas fa-user-tie fa-2x  text-info"></i></span>
             </div>
 
             <div class="my-5  col-md-10 offset-md-1 ">
-                <hr>
-                <p class=" testimonial">
+
+                <p class=" testimonial  gradient text-center p-5">
                     We create websites that are useful and clearly convey content. When designing, we follow the UI
                     / UX
                     principles and knowledge in the field of marketing.
@@ -346,7 +359,7 @@
                     places where you want to lead them. In turn, you, as the administrator, get a functional system
                     that gives you control over every element of the website.
                 </p>
-                <hr>
+
             </div>
             <div class="col-lg-5">
 
@@ -360,8 +373,8 @@
                     from 1999 EUR</a>
             </div>
             <div class="my-5 col-md-10 offset-md-1 ">
-                <hr>
-                <p class=" testimonial">
+
+                <p class=" testimonial  gradient text-center p-5">
                     We create personalized solutions in the field of e-commerce, project management and customer
                     relations.
                     The systems we create help to increase sales results from online activities or effectively
@@ -370,9 +383,9 @@
 
 
                 </p>
-                <hr>
+
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-7">
 
                 <h1 class="display-4 float-right"> Do you have something else in mind?</h1>
                 <a href="{% url 'appointments' %}" class="lead float-right btn btn-lg btn-outline-info">Get in
@@ -380,14 +393,72 @@
             </div>
 
 
-            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+            <div class="col-lg-5 d-flex justify-content-center align-items-center">
                 <span class="display-1"><i class="fas fa-question  fa-2x  text-info"></i></span>
             </div>
+            <hr>
+
+            <div class="my-5 background col-12 p-5 ">
+                <h1 class=" text-center gradient mb-5">Some of our work...</h1>
+                <div class="d-flex justify-content-around">
+                    <div class="polaroid rotate_right">
+                        <img class="img-thumbnail" src="{% static "public_user/images/globtopus_img.png" %} "
+
+                             alt="globtopus website">
+
+                        <p class="caption">How are you today?</p>
+                        <a href="https://www.globtopus.com">www.globtopus.com</a>
+                    </div>
+
+                    <div class="polaroid rotate_left">
+
+                        <img class="img-thumbnail" src="{% static "public_user/images/how-do-you-do-2.png" %}"
+
+                             alt="how-do-you-do-2 website">
+                        <p class="caption">Want to learn english?</p>
+                        <a href="https://how-do-you-do.herokuapp.com/">how-do-you-do.herokuapp.com</a>
+                    </div>
+
+                    <div class="polaroid rotate_right">
+
+                        <img class="img-thumbnail" src="{% static "public_user/images/wake-up-happy.png" %}"
+
+                             alt="wake up happy website">
+
+                        <p class="caption">Looking for a room with a view? </p>
+                        <a href="https://marcelkolarcik.github.io/wake-up-happy/index.html">wake-up-happy</a>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="polaroid rotate_left">
 
 
-            <div class="my-5 col-12 ">
-                <hr>
+                        <img class="img-thumbnail" src="{% static "public_user/images/blog.png" %}"
+
+                             alt="jaksiemasz website">
+
+                        <p class="caption">For keen bloggers...</p>
+                        <a href="http://www.jaksiemasz.me/">www.jaksiemasz.me</a>
+                    </div>
+
+                    <div class="polaroid rotate_right">
+
+
+                        <img class="img-thumbnail" src="{% static "public_user/images/simplejQueryTranslator.png" %}"
+
+                             alt="simplejQueryTranslator website">
+                        <p class="caption">When you need to translate your website.</p>
+                        <a href="https://marcelkolarcik.github.io/simple-jQuery-translator/index.html">simple-jQuery-translator</a>
+                    </div>
+
+
+                </div>
+
+
+      <a href="{% url 'portfolio' %}"> <p class=" text-center gradient mb-5 mt-5">Portfolio </p></a>
+
             </div>
+
 
         </div>
     </div>

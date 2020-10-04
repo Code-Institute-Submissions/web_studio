@@ -21,78 +21,114 @@
 
             <div class="col-lg-8 border">
                 <div class="card-header bg-transparent border-0">
-                    <p class="lead font-weight-bold display-5  text-info">Your consultations</p>
+                    <p class="lead font-weight-bold display-5  text-info">Your Projects</p>
                     <hr class="bg-info">
                 </div>
                 {% if consultations %}
 
                     {% for consult in consultations %}
                         <div class="project  mb-3 p-2">
+                            {% if consult.paid_for %}
+                                <a href="{% url 'project' consult.project_number %}"
+                                   class="float-right btn btn-sm btn-success ml-2  mr-2">Preview</a>
 
-                        <div class="border border-danger pl-3 pt-3 mb-3    ">
-                            <p class="text-danger">Use this project id when purchasing!</p>
 
-                            <p><span class="font-weight-bold text-info">Project id: </span>
+                            {% else %}
+                                <div class="border border-danger pl-3 pt-3 mb-3    ">
+                                    <p class="text-danger">Use this project id when purchasing this project!</p>
 
-                                <input title="" type="text" value="{{ consult.project_number }}"
-                                      id="{{ consult.project_number }}"
+                                    <p><span class="font-weight-bold text-info">Project id: </span>
 
-                                       class=" col-md-12 bg-light p-1"> <span class="{{ consult.project_number }} ok text-success d-none">copied &check;</span>
-                            <p>
+                                        <input title="" type="text" value="{{ consult.project_number }}"
+                                               id="{{ consult.project_number }}"
 
-                                <button class="btn btn-sm btn-info copy_public_link"
-                                         data-div="{{ consult.project_number }}"
-                                >Copy</button>
+                                               class=" col-md-12 bg-light p-1"> <span
+                                                class="{{ consult.project_number }} ok text-success d-none">copied &check;</span>
+                                    <p>
 
-                             <a class="btn btn-sm btn-success float-right mr-2"
-                                         href="{% url 'checkout'  consult.site_type %}"
+                                        <button class="btn btn-sm btn-info copy_public_link"
+                                                data-div="{{ consult.project_number }}"
+                                        >Copy
+                                        </button>
+
+
+                                    </p>
+
+                                    <!-- The button used to copy the text -->
+
+
+                                </div>
+
+                                <a class="btn btn-sm btn-success float-right mr-2  ml-2 "
+                                   href="{% url 'checkout'  consult.site_type %}"
                                 >Buy</a>
+                            {% endif %}
 
+
+
+                            <p><span class="font-weight-bold text-info">Site type:</span>
+                                <strong>
+                                    {{ consult.site_type }}
+                                </strong>
+                                <small class="float-right">Created at : {{ consult.date }}</small>
+                            </p>
+                         <p><span class="font-weight-bold text-info">Project ID:</span>
+                                <strong>
+                                    {{ consult.project_number }}
+                                </strong>
 
                             </p>
 
-                            <!-- The button used to copy the text -->
 
 
-                        </div>
 
 
-                        <p><span class="font-weight-bold text-info">Site type:</span>
-                            <strong>
-                                {{ consult.site_type }}
-                            </strong>
-                            <small class="float-right">Created at : {{ consult.date }}</small>
-                        </p>
 
 
-                        {% if consult.done %}
 
-                            <span class="lead float-right btn btn-lg btn-outline-info"
-                            >consultation done <span class="text-success">&check;</span></span>
+                            <p><span
+                                    class="font-weight-bold text-info">Your project:</span><br>
+                                <strong style=" word-wrap: break-word;">{{ consult.project }}</strong>
+                            </p>
+                            <p><span class="font-weight-bold text-info">Time to contact you:</span> <strong>
+                                {{ consult.time_slot }}
+                            </strong></p>
+
+                        <p><span class="font-weight-bold text-info">Consultation done :</span> <strong>
+                                  {% if consult.done %}
+
+                              <span class="text-success">&check;</span>
 
 
-                        {% else %}
+                            {% else %}
+                                <span class="text-danger">&cross;</span>
+
+                            {% endif %}
+                            </strong></p>
+
+                         <p><span class="font-weight-bold text-info">Paid :</span> <strong>
+                                  {% if consult.paid_for %}
+
+
+                                <span class=" text-success  mr-2">Paid for &check;</span>
+
+
+                            {% else %}
+                                <span class="text-danger">&cross;</span>
+
+                            {% endif %}
+                            </strong></p>
+
+
+                            <p><span
+                                    class="font-weight-bold text-info">Notes:</span><br>
+                                <strong style=" word-wrap: break-word;">{{ consult.notes }}</strong>
+                            </p>
+
                             <a
                                     data-cy="edit_consultation"
-                                    class="lead float-right btn btn-outline-info"
+                                    class="lead  btn btn-outline-info mb-3"
                                     href="/edit/appointment/{{ consult.id }}"> edit consultation</a>
-                        {% endif %}
-
-
-                        <p><span class="font-weight-bold text-info">Time to contact you:</span> <strong>
-                            {{ consult.time_slot }}
-                        </strong></p>
-                        <p><span
-                                class="font-weight-bold text-info">Your project:</span><br>
-                            <strong style=" word-wrap: break-word;">{{ consult.project }}</strong>
-                        </p>
-
-                        <p><span
-                                class="font-weight-bold text-info">Notes:</span><br>
-                            <strong style=" word-wrap: break-word;">{{ consult.notes }}</strong>
-                        </p>
-
-
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -109,7 +145,8 @@
 
                         <ul class="list-group">
                             {% for order in orders %}
-                                <li class="list-group-item bottom_border">{{ order.product_type }} |  <a href="{% url 'project' order.project_number %}">preview</a> <br>
+                                <li class="list-group-item bottom_border">{{ order.product_type }} | <a
+                                        href="{% url 'project' order.project_number %}">preview</a> <br>
                                     <small>Project ID : {{ order.project_number }}</small>
                                     <span class="float-right text-success included">
                                       {{ order.grand_total }}
@@ -138,7 +175,7 @@
                        class="lead  btn  btn-outline-info  mt-2">
                         Online Store from 1999 &euro;
                     </a>
-                    <a href="{% url 'appointments'  %}"
+                    <a href="{% url 'appointments' %}"
                        class="consultation lead  btn  btn-outline-info   mt-2">
                         Consultation</a>
 
@@ -166,7 +203,7 @@
 
             /* Copy the text inside the text field */
             document.execCommand("copy");
-            $('.'+$(this).data('div')).removeClass('d-none').fadeOut(1000)
+            $('.' + $(this).data('div')).removeClass('d-none').fadeOut(1000)
 
         })
     </script>

@@ -16,121 +16,145 @@
 
     <div class="container">
         <div class="row index">
-            <div class="card col-lg-12 border-0">
+            <div class="card border-0 col-md-12">
 
-               <div class="card-header bg-transparent border-0">
-                    <p class="lead font-weight-bold display-5  text-info">You can update or delete your consultation here</p>
+                <div class="card-header bg-transparent border-0">
+                    <p class="lead font-weight-bold display-5  text-info">You can update your consultation or comunicate
+                        with developer</p>
+                    <hr class="bg-info">
+                    <p class="lead lead font-weight-bold">Your developer details</p>
+                    {% if not freelancer %}
+                        <p>We will start on your project soon!</p>
+                        <br>
+                    {% endif %}
+                    <label class="font-weight-bold text-info">Name :</label>
+                    <strong>{{ freelancer.name }}</strong>
+                    <br>
+                    <label class="font-weight-bold text-info">Email :</label>
+                    <strong>{{ freelancer.email }}</strong>
+                    <br>
+                    <label class="font-weight-bold text-info">Phone Number :</label>
+                    <strong>{{ freelancer.phone_num }}</strong>
                     <hr class="bg-info">
                 </div>
 
 
+                <div class="card-body">
+
+                    {% comment %} form to update consultation {% endcomment %}
+                    <form action="{% url 'edit_appointment' item_id %}" method="POST" id="edit_appointment">
+                        {% csrf_token %}
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label for="name">Your name</label>
+                                <input data-cy="name" type="text" name="name" id="name" required class="form-control"
+                                       autofocus
+                                       value=" {{ form.name.value }}">
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="email">Your email</label>
+                                <input type="email" name="email" id="email" required class="form-control"
+                                       value=" {{ form.email.value }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="phone_num">Your phone number</label>
+                                <input type="text" name="phone_num" id="phone_num" required class="form-control"
+                                       value="{{ form.phone_num.value }}">
+                            </div>
+
+                            <input title="" type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
+
+
+                            <div class="col-md-4">
+                                <label for="time_slot">Best time to contact you</label>
+
+                                <select name="time_slot" id="time_slot" required class="form-control">
+                                    {% if form.time_slot.value == "8 am - 12 pm" %}
+                                        <option value="8 am - 12 am" selected>8 am - 12 am</option>
+                                        <option value="12 am - 4 pm">12 pm - 4 pm</option>
+                                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                                    {% elif  form.time_slot.value == "12 pm - 4 pm" %}
+                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                        <option value="12 pm - 4 pm" selected>12 am - 4 pm</option>
+                                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                                    {% else %}
+                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                                        <option value="4 pm - 8 pm" selected>4 pm - 8 pm</option>
+                                    {% endif %}
+
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="col-md-4">
+                                <label for="site_type">Site type you are interested</label>
+
+                                <select data-cy="site_type" name="site_type" id="site_type" required
+                                        class="form-control">
+
+
+                                    {% if form.site_type.value == "blog" %}
+                                        {% comment %} blog {% endcomment %}
+                                        <option value="blog" selected>blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% elif  form.site_type.value == "website" %}
+                                        {% comment %} website {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website" selected>website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% elif   form.site_type.value == "online store" %}
+                                        {% comment %} online store {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store" selected>online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% else %}
+                                        {% comment %} something else {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else" selected>something else</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                              <div class="col-md-6">
+                                <label for="notes" class="font-weight-bold text-info">Developers Notes </label>
+                                  <br>
+                                <small class="text-info">Developer's board for notes and messages</small>
+
+                                <textarea data-cy="notes" name="notes" id="notes" readonly
+                                          maxlength="500"
+                                          cols="30" rows="10" class="form-control  ">{{ form.notes.value }}</textarea>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="project">Describe your project ( max 500 characters )</label>
+                                <br>
+                                <small class="text-danger">Developer can see your notes and respond</small>
+                                <small class="text-dark">through</small>
+                                <span class="font-weight-bold text-info">Developers Notes </span> &uArr;
+                                <textarea data-cy="project" name="project" id="project"
+                                          maxlength="500"
+                                          cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
+                            </div>
+                            <div class="col-md-6 mt-4 offset-md-3">
+                                {% comment %} button to update consultation{% endcomment %}
+                                <input data-cy="update_appointment" type="submit" value="update"
+                                       class="form-control bg-info text-light">
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                </div>
             </div>
-
-
-            <div class="col-lg-7">
-
-                {% comment %} form to update consultation {% endcomment %}
-                <form action="{% url 'edit_appointment' item_id %}" method="POST" id="edit_appointment">
-                    {% csrf_token %}
-                    <label for="name">Your name</label>
-                    <input data-cy="name" type="text" name="name" id="name" required class="form-control" autofocus
-                           value=" {{ form.name.value }}">
-                    <hr>
-                    <label for="email">Your email</label>
-                    <input type="email" name="email" id="email" required class="form-control"
-                           value=" {{ form.email.value }}">
-
-                    <label for="phone_num">Your phone number</label>
-                    <input type="text" name="phone_num" id="phone_num" required class="form-control"
-                           value="{{ form.phone_num.value }}">
-
-                    <input title="" type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
-                    <input title="" type="password" name="password" id="password" hidden value="dummy_password">
-
-                    <textarea title="" data-cy="notes" name="notes" id="notes" hidden readonly
-                              maxlength="500"
-                              cols="30" rows="10"
-                              class="form-control  form-control-sm">{{ form.notes.value }}</textarea>
-                    <hr>
-
-                    <label for="time_slot">Best time to contact you</label>
-
-                    <select name="time_slot" id="time_slot" required class="form-control">
-                        {% if form.time_slot.value == "8 am - 12 pm" %}
-                            <option value="8 am - 12 am" selected>8 am - 12 am</option>
-                            <option value="12 am - 4 pm">12 pm - 4 pm</option>
-                            <option value="4 pm - 8 pm">4 pm - 8 pm</option>
-                        {% elif  form.time_slot.value == "12 pm - 4 pm" %}
-                            <option value="8 am - 12 pm">8 am - 12 pm</option>
-                            <option value="12 pm - 4 pm" selected>12 am - 4 pm</option>
-                            <option value="4 pm - 8 pm">4 pm - 8 pm</option>
-                        {% else %}
-                            <option value="8 am - 12 pm">8 am - 12 pm</option>
-                            <option value="12 pm - 4 pm">12 pm - 4 pm</option>
-                            <option value="4 pm - 8 pm" selected>4 pm - 8 pm</option>
-                        {% endif %}
-
-                    </select>
-                    <hr>
-
-                    <label for="site_type">Site type you are interested</label>
-
-                    <select data-cy="site_type" name="site_type" id="site_type" required class="form-control">
-
-
-                        {% if form.site_type.value == "blog" %}
-                            {% comment %} blog {% endcomment %}
-                            <option value="blog" selected>blog</option>
-                            <option value="website">website</option>
-                            <option value="online_store">online store</option>
-                            <option value="something_else">something else</option>
-                        {% elif  form.site_type.value == "website" %}
-                            {% comment %} website {% endcomment %}
-                            <option value="blog">blog</option>
-                            <option value="website" selected>website</option>
-                            <option value="online_store">online store</option>
-                            <option value="something_else">something else</option>
-                        {% elif   form.site_type.value == "online store" %}
-                            {% comment %} online store {% endcomment %}
-                            <option value="blog">blog</option>
-                            <option value="website">website</option>
-                            <option value="online_store" selected>online store</option>
-                            <option value="something_else">something else</option>
-                        {% else %}
-                            {% comment %} something else {% endcomment %}
-                            <option value="blog">blog</option>
-                            <option value="website">website</option>
-                            <option value="online_store">online store</option>
-                            <option value="something_else" selected>something else</option>
-                        {% endif %}
-                    </select>
-                    <label for="notes" class="font-weight-bold text-info">Developers Notes </label>
-
-                    <textarea data-cy="notes" name="notes" id="notes" readonly
-                              maxlength="500"
-                              cols="30" rows="10" class="form-control  ">{{ form.notes.value }}</textarea>
-
-                    <hr>
-                    <label for="project">Describe your project ( max 500 characters )</label>
-                    <br>
-                    <small class="text-danger">Developer can see your notes and respond</small>
-                    <small class="text-dark">through</small>
-                    <span class="font-weight-bold text-info">Developers Notes </span> &uArr;
-                    <textarea data-cy="project" name="project" id="project"
-                              maxlength="500"
-                              cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
-                    <hr>
-                    {% comment %} button to update consultation{% endcomment %}
-                    <input data-cy="update_appointment" type="submit" value="update"
-                           class="form-control bg-info text-light">
-                    <br>
-
-
-                </form>
-
-
-            </div>
-
         </div>
 
     </div>
