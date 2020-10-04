@@ -14,7 +14,7 @@ from .models import Order
 
 # ajax call
 def validate_project_number(request):
-    project_number = request.GET.get('project_number', None)
+    project_number = request.GET.get('project_number', None).strip()
     data = { 'is_taken':False}
     # check if it exists
     if not Appointment.objects.filter(project_number=project_number).exists():
@@ -114,14 +114,14 @@ def checkout(request, product_type):
         # new paid consultation doesn't need project id
 
         # check if we have appointment with this id
-        if not Appointment.objects.filter(project_number=request.POST.get('project_number')).exists():
+        if not Appointment.objects.filter(project_number=request.POST.get('project_number').strip()).exists():
             messages.error(request, 'We can not find your Project ID in our database. \
                                                                           Please double check your information.')
             context['order_form'] = order_form
             return render(request, template, context)
 
         # check if it is already used and paid for
-        if Order.objects.filter(project_number=request.POST.get('project_number')).exists():
+        if Order.objects.filter(project_number=request.POST.get('project_number').strip()).exists():
             messages.error(request, 'This Project ID is already paid for. \
                                                                           Please double check your information.')
 

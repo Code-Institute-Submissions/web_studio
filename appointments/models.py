@@ -16,6 +16,7 @@ class Appointment(models.Model):
     notes = models.TextField(default='',max_length=500, blank=True, null=True)
     date = models.DateField(auto_now_add=True, null=True, blank=True)
     done = models.BooleanField(null=False, blank=False, default=False)
+    paid_for = models.BooleanField(null=False, blank=False, default=False)
 
 
 

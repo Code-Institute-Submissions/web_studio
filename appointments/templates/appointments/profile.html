@@ -27,8 +27,9 @@
                 {% if consultations %}
 
                     {% for consult in consultations %}
+                        <div class="project  mb-3 p-2">
 
-                        <div class="border border-danger pl-3 pt-3 mb-3">
+                        <div class="border border-danger pl-3 pt-3 mb-3    ">
                             <p class="text-danger">Use this project id when purchasing!</p>
 
                             <p><span class="font-weight-bold text-info">Project id: </span>
@@ -42,6 +43,10 @@
                                 <button class="btn btn-sm btn-info copy_public_link"
                                          data-div="{{ consult.project_number }}"
                                 >Copy</button>
+
+                             <a class="btn btn-sm btn-success float-right mr-2"
+                                         href="{% url 'checkout'  consult.site_type %}"
+                                >Buy</a>
 
 
                             </p>
@@ -64,12 +69,7 @@
 
                             <span class="lead float-right btn btn-lg btn-outline-info"
                             >consultation done <span class="text-success">&check;</span></span>
-                            {% comment %} user can delete consultation {% endcomment %}
-                            <form action="{% url 'delete_appointment' consult.id %}">
-                                <input type="submit" value="delete consultation"
-                                       class="bg-danger text-light col-md-4 offset-mb-8 mb-3">
 
-                            </form>
 
                         {% else %}
                             <a
@@ -92,7 +92,8 @@
                             <strong style=" word-wrap: break-word;">{{ consult.notes }}</strong>
                         </p>
 
-                        <hr class="bg-info">
+
+                        </div>
                     {% endfor %}
                 {% endif %}
 
@@ -153,7 +154,7 @@
 {% endblock %}
 {% block postloadjs %}
     <script>
-        /*USER CAN COPY THEIR PUBLIC LINK TO CLIPBOARD*/
+        /*USER CAN COPY PROJECT ID TO CLIPBOARD*/
         $('.copy_public_link').on('click', function () {
 
 

@@ -18,7 +18,7 @@ class TestProjectView(TestCase):
             time_slot='1',
             site_type='2',
             project='big project',
-            password='password',
+
             done=False
         )
         self.project = Project.objects.create(project_number=self.appointment.project_number)

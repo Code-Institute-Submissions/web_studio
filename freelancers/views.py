@@ -3,6 +3,7 @@ import os
 
 import requests
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -149,8 +150,13 @@ def register_freelancer(request):
         context['form'] = form
         return render(request, template, context)
 
-
+@login_required
 def freelancer(request):
+
+
+    # if logged in client tries to access freelancer page, we will redirect back to client's profile
+    if  request.session.get('client'):
+        return redirect('profile')
     freelancer = Freelancer.objects.get(email=request.user.email)
     form = FreelancerForm(instance=freelancer)
     request.session["freelancer"] = True
@@ -176,7 +182,7 @@ def freelancer(request):
     }
     return render(request, 'freelancers/dashboard.html', context)
 
-
+@login_required
 def update_freelancer(request, freelancer_id):
     freelancer_i = get_object_or_404(Freelancer, id=freelancer_id)
     # if freelancer is not updating his own profile

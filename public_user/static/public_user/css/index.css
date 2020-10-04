@@ -62,6 +62,9 @@ a.lead:hover {
     color: #17a2b8;
     cursor: pointer;
 }
+.project{
+    background-color:lightcyan;
+}
 /*DIFFERENT SIZES ON DIFFERENT SCREENS*/
 @media screen and ( max-width: 1200px ) {
 

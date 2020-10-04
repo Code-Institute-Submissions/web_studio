@@ -19,7 +19,7 @@ class TestModels(TestCase):
             time_slot='1',
             site_type='2',
             project='big project',
-            password='password',
+
             done=False
         )
 
@@ -39,7 +39,7 @@ class TestModels(TestCase):
         # getting form with the appointment
         appointment_id = self.appointment.id
         update_url = reverse('edit_appointment', args=(appointment_id,))
-        delete_url = reverse('delete_appointment', args=(appointment_id,))
+
         request = self.client.get(update_url)
 
         form = request.context['form']
@@ -60,9 +60,4 @@ class TestModels(TestCase):
         appointments = Appointment.objects.all()
         self.assertTrue(len(appointments) == 1)
 
-        # DELETING APPOINTMENT
-        self.client.delete(delete_url)
 
-        # check that we have 0 appointments
-        appointments = Appointment.objects.all()
-        self.assertTrue(len(appointments) == 0)

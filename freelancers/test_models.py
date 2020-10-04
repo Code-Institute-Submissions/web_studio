@@ -22,7 +22,7 @@ class TestModels(TestCase):
             skills='skills',
             portfolio_link='portfolio_link',
             about='about',
-            password='password',
+
         )
 
         self.user = User.objects.create_user(username='freelancer name', password='password', email='some@email.com')
@@ -40,7 +40,7 @@ class TestModels(TestCase):
             skills='skills',
             portfolio_link='portfolio_link',
             about='about',
-            password='password',
+
         )
         Freelancer.objects.filter(name=self.freelancer.name).update(skills='new skils')
 

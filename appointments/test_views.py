@@ -22,7 +22,7 @@ class TestViews(TestCase):
             time_slot='1',
             site_type='2',
             project='big project',
-            password='password',
+
             done=False
         )
 

@@ -4,7 +4,9 @@ import time
 
 import requests
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
+from appointments.models import Appointment
 from .models import Order
 
 
@@ -83,13 +85,24 @@ class StripeWH_Handler:
         while attempt <= 5:
             order_done = Order.objects.filter(stripe_pid=pid).exists()
             if order_done:
+                # mark project appointment as paid for
+
+                project_number = Order.objects.get(stripe_pid=pid).project_number
+                Appointment.objects.filter(project_number=project_number).update(
+                    paid_for=True)
                 break
             else:
 
                 attempt += 1
                 time.sleep(1)
         if order_done:
+            #send confirmation email
             self._send_confirmation_email(billing_details, pid, receipt_url, product_type)
+
+
+
+
+
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -108,6 +121,11 @@ class StripeWH_Handler:
                     total=grand_total,
                     stripe_pid=pid,
                 )
+                # mark project appointment as paid for
+                project_number = Order.objects.get(stripe_pid=pid).project_number
+                Appointment.objects.filter(project_number=project_number).update(
+                    paid_for=True)
+
 
             except Exception as e:
                 if order:

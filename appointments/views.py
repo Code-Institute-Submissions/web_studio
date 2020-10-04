@@ -146,6 +146,10 @@ def appointments(request):
 @login_required
 def edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
+    #Appointment.objects.filter(project_number=appointment.project_number).update(paid_for=True)
+    # project_number = Order.objects.get(stripe_pid='pi_1HYVQHBbXRJmL0n9IHE3Xf5I').project_number
+    # Appointment.objects.filter(project_number=project_number).update(
+    #     paid_for=True)
 
     if Freelancer.objects.filter(email=request.user.email).exists() and \
             Freelancer.objects.get(email=request.user.email).current_project != appointment.project_number:
@@ -173,28 +177,10 @@ def edit_appointment(request, appointment_id):
     return render(request, 'appointments/edit_appointment.html', context)
 
 
-# customer deleting appointment
-@login_required
-def delete_appointment(request, appointment_id):
-    try:
-
-        appointment = get_object_or_404(Appointment, id=appointment_id)
-        # if user is not owner of the appointment return forbiden
-        if appointment.email != request.user.email:
-            return HttpResponseForbidden()
-
-        appointment.delete()
-        messages.success(request, "Your appointment was deleted successfully!")
-
-    except User.DoesNotExist:
-        messages.error(request, "Appointment does not exist")
-
-    return redirect('profile')
-
 
 """
     user can log in to his account to update or delete appointment
-    or to see his orders if any
+    to see his orders if any, to see progress of the work on his project
 """
 
 
