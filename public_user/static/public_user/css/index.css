@@ -64,6 +64,9 @@ a.lead:hover {
 .btn {
     border-radius: 0;
 }
+.text-light-info{
+    color: #1bc1db;
+}
 .form-control {
     border-radius: 0;
 }
