@@ -275,7 +275,7 @@ Whenever collectstatic is run. Django will collect static files automatically an
  A public client can :
     
        -  book Free initial appointment
-       -  purchase any product on the site using secure checkout provided by Stripe
+       -  purchase any product on the site using secure checkout provided by Stripe, provided he has his project id from initial consultation
        -  use the site on any device
              
              
@@ -285,6 +285,7 @@ Whenever collectstatic is run. Django will collect static files automatically an
      
        -  same as public user plus :
        -  Login after booking the initial appointment to manage his appointment, and see any purchases on the site
+       -  update consultation details and comunicate with developer
       
  
 - ### Admin 
@@ -292,9 +293,12 @@ Whenever collectstatic is run. Django will collect static files automatically an
 Admin can :
               
        -  have an account on the site
-       -  preview all Appointments and Orders
+       -  preview all Appointments,Orders,Projects and Freelancers
        -  mark Appointment as done
+       -  assign Project to the Freelancer
+       -  add new products to the site
        -  use the site on any device
+       
 
 
  - ### Logged in freelancer 
@@ -315,8 +319,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
  The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project 
  to ensure there were no syntax errors in the project.
  
- Some front-end testing was done in cypress.io. Test case: Customer creating an appointment, logging in, editing appointment, and then 
- deleting it.
+ Some front-end testing was done in cypress.io. Test case: Customer creating an appointment, logging in, editing appointment.
  
   
  All the back end tests were done with TestCase form django.test
@@ -326,7 +329,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
      test_done_field_is_not_required PASS
      test_fields_are_explicit_in_form_metaclass PASS
      test_done_defaults_to_false PASS
-     test_create_edit_delete_appointment PASS
+     test_create_edit_appointment PASS
      test_get_add_appointment_page PASS
      test_get_edit_appointment_page PASS
      test_can_create_appointment PASS
@@ -352,7 +355,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
 #### products
      test_product_name_is_required PASS
      test_product_price_is_required PASS
-     test_product_form_with_price_and_name_is_valid PA
+     test_product_form_with_price_and_name_is_valid PASS
 
 #### projects
      test_project_number_is_required PASS
@@ -521,7 +524,7 @@ If you want to be able to receive confirmation emails, you will need to set up a
 and follow easy instructions on how to use services. Set MAILGUN_KEY variable into environmental variables,
 and use your test URL provided by MAILGUN.
 
-And you will need to create templates with templates_names and variables as per
+You will need to create templates with templates_names and variables as per
 checkout/views.py
 appointments/views.py
 freelancers/views.py
