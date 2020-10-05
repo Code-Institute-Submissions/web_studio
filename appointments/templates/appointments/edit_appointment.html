@@ -19,7 +19,8 @@
             <div class="card border-0 col-md-12">
 
                 <div class="card-header bg-transparent border-0">
-                    <p class="lead font-weight-bold display-5  text-info">You can update your consultation or comunicate
+                    <p class="lead font-weight-bold display-5  text-info">You can update your consultation or
+                        communicate
                         with developer</p>
                     <hr class="bg-info">
                     <p class="lead lead font-weight-bold">Your developer details</p>
@@ -49,7 +50,7 @@
                             <div class="col-md-6">
                                 <label for="name">Your name</label>
                                 <input data-cy="name" type="text" name="name" id="name" required class="form-control"
-                                       autofocus
+                                        readonly
                                        value=" {{ form.name.value }}">
 
                             </div>
@@ -65,7 +66,15 @@
                                        value="{{ form.phone_num.value }}">
                             </div>
 
-                            <input title="" type="checkbox" name="done" id="done" hidden value=" {{ form.done.value }}">
+                            <input title="" type="checkbox" name="done" id="done" hidden
+                                    {% if  form.done.value %}
+                                   checked
+                                    {% endif %} >
+                            <input title="" type="checkbox" name="paid_for" hidden
+                                   id="paid_for"
+                                    {% if  form.paid_for.value %}
+                                   checked
+                                    {% endif %} >
 
 
                             <div class="col-md-4">
@@ -90,7 +99,10 @@
                             </div>
                             <hr>
                             <div class="col-md-4">
-                                <label for="site_type">Site type you are interested</label>
+                                <label for="site_type">Site type </label>
+
+                            <small class="text-info">not editable</small>
+
 
                                 <select data-cy="site_type" name="site_type" id="site_type" required
                                         class="form-control">
@@ -108,7 +120,7 @@
                                         <option value="website" selected>website</option>
                                         <option value="online_store">online store</option>
                                         <option value="something_else">something else</option>
-                                    {% elif   form.site_type.value == "online store" %}
+                                    {% elif   form.site_type.value == "online_store" %}
                                         {% comment %} online store {% endcomment %}
                                         <option value="blog">blog</option>
                                         <option value="website">website</option>
@@ -123,9 +135,9 @@
                                     {% endif %}
                                 </select>
                             </div>
-                              <div class="col-md-6">
+                            <div class="col-md-6">
                                 <label for="notes" class="font-weight-bold text-info">Developers Notes </label>
-                                  <br>
+                                <br>
                                 <small class="text-info">Developer's board for notes and messages</small>
 
                                 <textarea data-cy="notes" name="notes" id="notes" readonly
@@ -139,7 +151,7 @@
                                 <small class="text-danger">Developer can see your notes and respond</small>
                                 <small class="text-dark">through</small>
                                 <span class="font-weight-bold text-info">Developers Notes </span> &uArr;
-                                <textarea data-cy="project" name="project" id="project"
+                                <textarea data-cy="project" name="project" id="project" autofocus
                                           maxlength="500"
                                           cols="30" rows="10" class="form-control">{{ form.project.value }}</textarea>
                             </div>
@@ -159,5 +171,15 @@
 
     </div>
     <div id="footer" class="mt-5 mb-5"></div>
-
 {% endblock %}
+
+{% block postloadjs %}
+    {% comment %} disabling option of editing site type
+    https://stackoverflow.com/a/25537719
+    {% endcomment %}
+    <script>
+    $("#site_type option:not(:selected)").prop("disabled", true);
+    </script>
+{% endblock %}
+
+

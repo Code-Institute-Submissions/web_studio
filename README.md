@@ -154,7 +154,7 @@ Also place for freelance web developers and web designers to sign up and work wi
    I used Adobe Illustrator to create wireframes for the site. I used exact colors from the website,
    so that the client will have a better idea of how his website going to look like.
   
-[Wireframes.pdf](../readme_images/wireframes.pdf)
+[Wireframes.pdf](readme_images/wireframes.pdf)
     
  - ### Colors 
  
@@ -521,6 +521,9 @@ and use your test URL provided by MAILGUN.
 
 Please note that, when testing locally, you won't receive a confirmation email after purchase,
 as the app is sending email after webhook from Stripe is sent, confirming the successful payment.
+
+And you will need to mark appointment as paid for from within the admin, as we are marking
+it as paid for after successful webhook from Stripe as well.
 
 
     

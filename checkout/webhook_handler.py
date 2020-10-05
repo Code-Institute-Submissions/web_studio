@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 from appointments.models import Appointment
+from send_mail.views import send_mail
 from .models import Order
 
 
@@ -21,41 +22,33 @@ class StripeWH_Handler:
         cust_email = billing_details.email
 
         # email to customer
-        request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
-        key = os.getenv('MAILGUN_API_KEY')
-        recipient = cust_email
-        requests.post(request_url, auth=('api', key), data={
-            'from': 'marcellidesigns marcelkolarcik@gmail.com',
-            'to': recipient,
-            'subject': 'Thank you for your order',
-            "template": "marcellidesigns_customer_purchase",
-            "h:X-Mailgun-Variables":
-                json.dumps(
-                    {'welcome': 'Thank you for your order',
-                     'product_type': product_type,
-                     'customer_name': billing_details.name,
-                     'receipt_url': receipt_url,
-                     'order_id': order_id,
+        send_mail(
+            {
+                'to': cust_email,
+                'subject': 'Thank you for your order',
+                'template': 'marcellidesigns_customer_purchase',
+                'template_vars': {'welcome': 'Thank you for your order',
+                                  'product_type': product_type,
+                                  'customer_name': billing_details.name,
+                                  'receipt_url': receipt_url,
+                                  'order_id': order_id,
 
-                     'welcome_team': 'Marcelli Designs', }
-                )
-        })
+                                  'welcome_team': 'Marcelli Designs', }
+            })
 
         # email to owner
-        requests.post(request_url, auth=('api', key), data={
-            'from': 'marcellidesigns marcelkolarcik@gmail.com',
-            'to': 'marcelkolarcik@gmail.com',
-            'subject': 'New order',
-            "template": "marcellidesigns_customer_purchase_owner",
-            "h:X-Mailgun-Variables":
-                json.dumps(
-                    {'welcome': 'New purchase',
-                     'product_type': product_type,
-                     'customer_email': cust_email,
-                     'receipt_url': receipt_url,
-                     'order_id': order_id,
-                     'welcome_team': 'Marcelli Designs', })
-        })
+        send_mail(
+            {
+                'to': 'marcelkolarcik@gmail.com',
+                'subject': 'New order',
+                'template': 'marcellidesigns_customer_purchase_owner',
+                'template_vars': {'welcome': 'New purchase',
+                                  'product_type': product_type,
+                                  'customer_email': cust_email,
+                                  'receipt_url': receipt_url,
+                                  'order_id': order_id,
+                                  'welcome_team': 'Marcelli Designs', }
+            })
 
     def handle_event(self, event):
         # Handle a generic/unknown/unexpected webhook event
@@ -96,12 +89,8 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_done:
-            #send confirmation email
+            # send confirmation email
             self._send_confirmation_email(billing_details, pid, receipt_url, product_type)
-
-
-
-
 
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
@@ -153,42 +142,34 @@ class StripeWH_Handler:
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         product_type = types[grand_total]
         billing_details = intent.charges.data[0].billing_details
-        request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
-        key = os.getenv('MAILGUN_API_KEY')
 
         # IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO OWNER OF THE SITE
-        requests.post(request_url, auth=('api', key), data={
-            'from': 'marcellidesigns marcelkolarcik@gmail.com',
-            'to': 'marcelkolarcik@gmail.com',
-            'subject': 'Error with your order',
-            "template": "marcellidesign_error_purchase_owner",
-            "h:X-Mailgun-Variables":
-                json.dumps(
-                    {'welcome': 'Error while purchasing',
-                     'body': 'There was an error while customer was trying to buy one of your products.',
-                     'product_type': product_type,
-                     'customer_email': billing_details.email,
-                     'customer_name': billing_details.name,
-                     'welcome_team': 'Marcelli Designs'}
-                )
-        })
+        send_mail(
+            {
+                'to': 'marcelkolarcik@gmail.com',
+                'subject': 'Error with order',
+                'template': 'marcellidesign_error_purchase_owner',
+                'template_vars': {'welcome': 'Error while purchasing',
+                                  'body': 'There was an error while customer was trying to buy one of your products.',
+                                  'product_type': product_type,
+                                  'customer_email': billing_details.email,
+                                  'customer_name': billing_details.name,
+                                  'welcome_team': 'Marcelli Designs'}
+            })
 
         # IF THERE IS ERROR WITH PURCHASE WE WILL SEND EMAIL TO CUSTOMER
-        requests.post(request_url, auth=('api', key), data={
-            'from': 'marcellidesigns marcelkolarcik@gmail.com',
-            'to': billing_details.email,
-            'subject': 'Error with your order',
-            "template": "marcellidesigns_error_purchasing",
-            "h:X-Mailgun-Variables":
-                json.dumps(
-                    {'welcome': 'Error while purchasing',
-                     'body': 'There was an error during the purchase, your card was not charged',
-                     'product_type': product_type,
-                     'customer_email': billing_details.email,
-                     'customer_name': billing_details.name,
-                     'welcome_team': 'Marcelli Designs', }
-                )
-        })
+        send_mail(
+            {
+                'to': billing_details.email,
+                'subject': 'Error with your order',
+                'template': 'marcellidesigns_error_purchasing',
+                'template_vars': {'welcome': 'Error while purchasing',
+                                  'body': 'There was an error during the purchase, your card was not charged',
+                                  'product_type': product_type,
+                                  'customer_email': billing_details.email,
+                                  'customer_name': billing_details.name,
+                                  'welcome_team': 'Marcelli Designs', }
+            })
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',

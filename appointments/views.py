@@ -5,6 +5,7 @@ import requests
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -12,7 +13,8 @@ from appointments.forms import AppointmentForm
 from appointments.models import Appointment
 from checkout.models import Order
 from freelancers.models import Freelancer
-from django.http import HttpResponseForbidden
+from send_mail.views import send_mail
+
 
 def appointments(request):
     template = 'appointments/appointment.html'
@@ -48,7 +50,7 @@ def appointments(request):
             'form': appointment_form
         }
         # user already registered with his email
-        if not request.user.is_authenticated and  user_email_present(request.POST['email']):
+        if not request.user.is_authenticated and user_email_present(request.POST['email']):
             messages.error(request,
                            'It appears that you already registered.Please login with '
                            ' your credentials to manage your account. Thank you! '
@@ -57,7 +59,7 @@ def appointments(request):
             return render(request, template, context)
 
         # username used already, Django won't create new user with the same name
-        if  not request.user.is_authenticated and  user_name_present(request.POST['name']):
+        if not request.user.is_authenticated and user_name_present(request.POST['name']):
             messages.error(request, 'User name taken. Please use different user name!')
 
             return render(request, template, context)
@@ -74,16 +76,15 @@ def appointments(request):
 
                 if user_email_present(request.POST['email']):
                     messages.info(request,
-                                   'It appears that you already registered. We added this  '
-                                   ' consultation to your dashboard. Thank you! '
-                                   )
+                                  'It appears that you already registered. We added this  '
+                                  ' consultation to your dashboard. Thank you! '
+                                  )
                 else:
-                    #create new user if not registered yet
+                    # create new user if not registered yet
                     new_user = User.objects.create_user(request.POST['name'],
                                                         request.POST['email'],
                                                         request.POST['password'])
                     new_user.save()
-
 
                 messages.success(request,
                                  f'Your account was created successfully. Please login with your '
@@ -91,44 +92,36 @@ def appointments(request):
                 # user can sign in with his credentials
 
                 # sending email to owner of the website, informing him about new appointment
-
-                request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
-                key = os.getenv('MAILGUN_API_KEY')
-                recipient = 'marcelkolarcik@gmail.com'
-                requests.post(request_url, auth=('api', key), data={
-                    'from': 'marcellidesigns marcelkolarcik@gmail.com',
-                    'to': recipient,
-                    'subject': 'New appointment',
-                    "template": "marcellidesigns_appointment",
-                    "h:X-Mailgun-Variables":
-                        json.dumps(
-                            {'welcome': 'New appointment : ' + request.POST['site_type'],
-                             'body_1': request.POST['email'] + ' - ' + request.POST['phone_num'] + ' - ' + request.POST[
-                                 'name'],
-                             'body_2': request.POST['project'],
-                             'question': request.POST['time_slot'],
-                             'sign-in': 'Site',
-                             'welcome_team': 'Marcelli Designs', })
-                })
+                send_mail(
+                    {
+                        'to': 'marcelkolarcik@gmail.com',
+                        'subject': 'New appointment',
+                        'template': 'marcellidesigns_appointment',
+                        'template_vars': {'welcome': 'New appointment : ' + request.POST['site_type'],
+                                          'body_1': request.POST['email'] + ' - ' + request.POST['phone_num'] + ' - ' +
+                                                    request.POST[
+                                                        'name'],
+                                          'body_2': request.POST['project'],
+                                          'question': request.POST['time_slot'],
+                                          'sign-in': 'Site',
+                                          'welcome_team': 'Marcelli Designs', }
+                    })
 
                 # sending email to customer, informing him about new appointment
 
-                recipient = request.POST['email']
-                requests.post(request_url, auth=('api', key), data={
-                    'from': 'marcellidesigns marcelkolarcik@gmail.com',
-                    'to': recipient,
-                    'subject': 'Your appointment',
-                    "template": "marcellidesigns_customer_appointment",
-                    "h:X-Mailgun-Variables":
-                        json.dumps(
-                            {'welcome': 'Your appointment',
-                             'customer_name': request.POST['name'],
-                             'time': request.POST['time_slot'],
-                             'phone': request.POST['phone_num'],
-                             'project': request.POST['project'],
-                             'site_type': request.POST['site_type'],
-                             'welcome_team': 'Marcelli Designs', })
-                })
+                send_mail(
+                    {
+                        'to': request.POST['email'],
+                        'subject': 'Your appointment',
+                        'template': 'marcellidesigns_customer_appointment',
+                        'template_vars': {'welcome': 'Your appointment',
+                                          'customer_name': request.POST['name'],
+                                          'time': request.POST['time_slot'],
+                                          'phone': request.POST['phone_num'],
+                                          'project': request.POST['project'],
+                                          'site_type': request.POST['site_type'],
+                                          'welcome_team': 'Marcelli Designs', }
+                    })
                 return redirect(reverse('account_login'))
 
             except:
@@ -156,9 +149,9 @@ def edit_appointment(request, appointment_id):
     if not Freelancer.objects.filter(email=request.user.email).exists() and appointment.email != request.user.email:
         return HttpResponseForbidden()
     try:
-        freelancer =  Freelancer.objects.get(current_project=appointment.project_number)
+        freelancer = Freelancer.objects.get(current_project=appointment.project_number)
     except:
-        freelancer=False
+        freelancer = False
 
     if request.method == 'POST':
         form = AppointmentForm(request.POST, instance=appointment)
@@ -175,10 +168,9 @@ def edit_appointment(request, appointment_id):
         'form': form,
         'item_id': appointment_id,
         'email': appointment.email,
-        'freelancer':freelancer
+        'freelancer': freelancer
     }
     return render(request, 'appointments/edit_appointment.html', context)
-
 
 
 """

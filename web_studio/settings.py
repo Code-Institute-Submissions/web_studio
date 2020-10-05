@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'products',
     'appointments',
     'freelancers',
-    'projects'
+    'projects',
+    'send_mail'
 ]
 
 MIDDLEWARE = [

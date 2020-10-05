@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponseForbidden
 from appointments.models import Appointment
 from projects.models import Project
+from send_mail.views import send_mail
 from .forms import FreelancerForm
 from .models import Freelancer
 
@@ -94,47 +95,32 @@ def register_freelancer(request):
 
             messages.success(request, 'Your account was created successfully. Please login with your '
                                       'credentials.')
-            # user can sign in with his credentials
+            # send email to new freelancer
+            send_mail(
+                {
+                    'to':request.POST['email'],
+                    'subject': 'Welcome to the team!',
+                    'template':'welcome_freelancer',
+                    'template_vars':{
+                        'name': request.POST['name']
+                    }
+                })
+            # send email to owner of the agency
+            send_mail(
+                {
+                    'to': 'marcelkolarcik@gmail.com',
+                    'subject': 'New freelancer to the team!',
+                    'template': 'md_new_freelancer',
+                    'template_vars': {
+                        'name': request.POST['name'],
+                        'email': request.POST['email'],
+                        'phone_num': request.POST['phone_num'],
+                        'skills': request.POST['skills'],
+                        'portfolio_link': request.POST['portfolio_link'],
+                        'about': request.POST['about'],
+                    }
+                })
 
-            # sending email to owner of the website, informing him about new appointment
-
-            # request_url = "https://api.eu.mailgun.net/v3/globtopus.com/messages"
-            # key = os.getenv('MAILGUN_API_KEY')
-            # recipient = 'marcelkolarcik@gmail.com'
-            # requests.post(request_url, auth=('api', key), data={
-            #     'from': 'marcellidesigns marcelkolarcik@gmail.com',
-            #     'to': recipient,
-            #     'subject': 'New appointment',
-            #     "template": "marcellidesigns_appointment",
-            #     "h:X-Mailgun-Variables":
-            #         json.dumps(
-            #             {'welcome': 'New appointment : ' + site_types[request.POST['site_type']],
-            #              'body_1': request.POST['email'] + ' - ' + request.POST['phone_num'] + ' - ' + request.POST[
-            #                  'name'],
-            #              'body_2': request.POST['project'],
-            #              'question': times[request.POST['time_slot']],
-            #              'sign-in': 'Site',
-            #              'welcome_team': 'Marcelli Designs', })
-            # })
-            #
-            # # sending email to customer, informing him about new appointment
-            #
-            # recipient = request.POST['email']
-            # requests.post(request_url, auth=('api', key), data={
-            #     'from': 'marcellidesigns marcelkolarcik@gmail.com',
-            #     'to': recipient,
-            #     'subject': 'Your appointment',
-            #     "template": "marcellidesigns_customer_appointment",
-            #     "h:X-Mailgun-Variables":
-            #         json.dumps(
-            #             {'welcome': 'Your appointment',
-            #              'customer_name': request.POST['name'],
-            #              'time': times[request.POST['time_slot']],
-            #              'phone': request.POST['phone_num'],
-            #              'project': request.POST['project'],
-            #              'site_type': site_types[request.POST['site_type']],
-            #              'welcome_team': 'Marcelli Designs', })
-            # })
             return redirect(reverse('account_login'))
 
         except:
