@@ -139,10 +139,14 @@ div.rotate_left {
     .display-1 {
         font-size: 2rem;
     }
+
 }
 
 /*SMALLER SIZES FOR PROGRESS STEPS */
 @media screen and ( max-width: 540px ) {
 
+.we_are {
+    font-size: 0.8rem;
 
+}
 }
