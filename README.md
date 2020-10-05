@@ -1,16 +1,16 @@
 
-![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/readme-testing/master/readme_images/marcelli.gif)
+![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/web_studio/master/readme_images/marcelli.gif)
 Live preview of the site : <a href="https://marcelli.herokuapp.com/">marcellidesigns</a>
 # marcellidesigns
 
 
 
-## Usage 
+## What is it 
 
 An online web development agency.
 
-	 An agency, where you can order your next blog, website, online store or anything else you have in mind.
-	 Also place for web developers, web designers to sign up and work with us... 
+An agency, where you can order your next blog, website, online store, or anything else you have in mind.
+Also place for freelance web developers and web designers to sign up and work with us... 
 
 
 
@@ -93,8 +93,8 @@ An online web development agency.
    As a freelancer working for the agency I would like to be able to:
      
        
-       -  have a dashboard where I can update client on work progress
-       -  comunicate with client through the dashboard
+       -  have a dashboard where I can update the client on work progress
+       -  communicate with the client through the dashboard
              
    - #### Admin
                     
@@ -138,22 +138,23 @@ An online web development agency.
    you will receive an email informing you, that there was an error, and that your card was not charged.
    - #### Communicate with developer ( client )
         
-     To be able to communicate with developer, log in into your dashboard and click on edit consultation
-     and then write into text area named "your project" and click on update. If developer is logged in,
+     To be able to communicate with the developer, log in into your dashboard and click on edit consultation and then write into the text area named "your project" and click on update. If the developer is logged in,
      he might reply to you
      
    - #### Communicate with client ( developer )
         
-     To be able to communicate with client, log in into your dashboard and click on job progress
-     and check what work has been dobe so far, so when client logs into his dashboard, he will see
+     To be able to communicate with the client, login in your dashboard and click on job progress
+     and check what work has been done so far, so when the client logs into his dashboard, he will see
      progress with the work. 
-     You can also write to notes text area and click on update. If client is logged in,
+     You can also write to the notes text area and click on the update. If the client is logged in,
      he might reply to you.
     
 - ### Wireframes  
    
-   I used Adobe Illustrator to create wireframes for the site
-    [Wireframes](WIREFRAMES.md)
+   I used Adobe Illustrator to create wireframes for the site. I used exact colors from the website,
+   so that the client will have a better idea of how his website going to look like.
+  
+[Wireframes.pdf](../readme_images/wireframes.pdf)
     
  - ### Colors 
  
@@ -163,7 +164,7 @@ An online web development agency.
 ### cypress.io
 > Fast, easy and reliable testing for anything that runs in a browser.
 
-I decided to write some tests for front end in cypress.io. 
+I decided to write some tests for the front end in cypress.io. 
 I Installed Cypress via npm: 
 
 ```cl 
@@ -210,7 +211,7 @@ as a scripting or glue language to connect existing components.
 
 ### Mailgun
  I am using the Mailgun service for sending emails, as I created the account while releasing www.globtopus.com to the public.
- I am able to create email templates for every type of email and store it in Mailgan Dashboard, and when sending
+ I can create email templates for every type of email and store it in Mailgan Dashboard, and when sending
  email from the app, I just name the template and send the variables with my MAILGUN KEYS, and the emails are sent
  with the templates I chose. 
  
@@ -219,12 +220,12 @@ To store my images and static files like javascript and CSS files, I am using Am
 Which is a cloud-based storage service. I created an account by clicking on create an AWS account.
  On the account type page, I selected personal and filled out the required information.
 And clicked to create account to continue. Once signed in I search for S3 services and create a new bucket, named marcellidesigns for easy remembering. And selected Europe as a region. I unchecked block all public access since this bucket needs to be public to allow access to our static files. Then I need to set some settings. By clicking on
-newly created bucket and then on the properties tab, I click on static website hosting, for index and error documents, I entered
-default values. Then click Save.On the permissions tab, we will make a few changes. First I'll paste in a CORS configuration
+the newly created bucket and then on the properties tab, I click on static website hosting, for index and error documents, I entered
+default values. Then click Save. On the permissions tab, we will make a few changes. First I'll paste in a CORS configuration
 which is going to set up the required access between our Heroku app and this s3 bucket.
 Next, I'll go to the bucket policy tab.
 And select a policy generator so we can create a security policy for this bucket.
-The policy type is going to be a s3 bucket policy.
+The policy type is going to be an s3 bucket policy.
 Will allow all principals by using a star.
 And the action will be, get an object.
 Now I'll copy the ARN which stands for Amazon resource name from the other tab.
@@ -258,13 +259,13 @@ On the user's page, I'll click add a user.
 create a user named marcellidesigns-staticfiles-user.
 Give him programmatic access.
 And then select next. Now I can put the user in our group.
-I'll click through to the end and then click create a user.
+I'll click through to the end and then click to create a user.
 Now I'll download the CSV file which will contain this users access key and secret access key
 Which I'll use to authenticate him from my Django app.
 To connect Django to the AWS s3 bucket I'll need to install
-boto3 and django-storages. I need to add some settings in settings.py like AWS_STORAGE_BUCKET_NAME
+boto3 and Django-storages. I need to add some settings in settings.py like AWS_STORAGE_BUCKET_NAME
 and AWS_S3_REGION_NAME which I downloaded from AWS.
-Whenever collectstatic is run.Django will collect static files automatically and upload them to s3
+Whenever collectstatic is run. Django will collect static files automatically and upload them to s3
 
 
  ## Features
@@ -302,7 +303,7 @@ Admin can :
      
       
        -  Update his registration details
-       -  Comunicate with the client through the dashboard
+       -  Communicate with the client through the dashboard
        -  Update client with the progress of the work
 
 
@@ -317,10 +318,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
  Some front-end testing was done in cypress.io. Test case: Customer creating an appointment, logging in, editing appointment, and then 
  deleting it.
  
-    Mobile preview
- 
- ![readme-testing](https://raw.githubusercontent.com/marcelkolarcik/readme-testing/master/readme_images/marcelli_mobile_2.gif)
- 
+  
  All the back end tests were done with TestCase form django.test
  #### Test Cases:
  #### Appointment
@@ -384,9 +382,9 @@ I have created a Favicon. Favicons save the users time in identifying a website 
     4000000000005126   Charge succeeds but refunding a captured charge fails asynchronously with a failure_reason of expired_or_canceled_card. Note that because refund failures are asynchronous, the refund will appear to be successful at first and will only have the failed status on subsequent fetches. We also notify you of refund failures using the charge.refund.updated webhook event.
     4000000000000101   If a CVC number is provided, the cvc_check fails. If your account is blocking payments that fail CVC code validation, the charge is declined.
     4000000000000341   Attaching this card to a Customer object succeeds but attempts to charge the customer fail.
-    4000000000009235   Results in a charge with a risk_level of elevated.
-    4000000000004954   Results in a charge with a risk_level of highest.
-    4100000000000019   Results in a charge with a risk_level of highest. The charge is blocked as it's considered fraudulent.
+    4000000000009235   results in a charge with a risk_level of elevated.
+    4000000000004954   results in a charge with a risk_level of highest.
+    4100000000000019   results in a charge with a risk_level of highest. The charge is blocked as it's considered fraudulent.
     4000000000000002   Charge is declined with a card_declined code.
     4000000000009995   Charge is declined with a card_declined code. The decline_code attribute is insufficient_funds.
     4000000000009987   Charge is declined with a card_declined code. The decline_code attribute is lost_card.
@@ -415,7 +413,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
    
   ## Deployment
   
-  At the start of development, I created GitHub repository and as I develop my app locally in PyCharm I 
+  At the start of development, I created a GitHub repository and as I develop my app locally in PyCharm I 
   created a new Django Project in Pycharm, then I would use GitBash on my windows machine to cd into the
   project folder to initialize it.
   
@@ -504,7 +502,29 @@ To make sure, that you're doing what you want to do and then run
 
     manage.py migrate
     
-To run project run
+Create superuser by
+
+    manage.py createsuperuser
+    
+Add these products with prices into the products table from the admin section of the site
+http://127.0.0.1:8000/admin/login
+
+blog => 299
+
+website => 999
+
+online-store => 1999
+
+To be able to receive confirmation emails, you will need to set up an account with MAILGUN https://www.mailgun.com/ services
+and follow easy instructions on how to use services. Set MAILGUN_KEY variable into environmental variables,
+and use your test URL provided by MAILGUN.
+
+Please note that, when testing locally, you won't receive a confirmation email after purchase,
+as the app is sending email after webhook from Stripe is sent, confirming the successful payment.
+
+
+    
+To run the project run
 
     manage.py runserver
     
@@ -514,7 +534,7 @@ If you want to run tests run
 
     manage.py test
     
- To fully experience the app, once you have all set-up ready you can follow these steps:
+#### To fully experience the app, once you have all set-up ready you can follow these steps:
  
 1. Create super user by running
 
@@ -522,22 +542,26 @@ If you want to run tests run
         
 so that you can assign jobs to your freelancers.
 
-2. Create an appointment as client
-3. Purchase any product with Project ID generated when you created appointment, it will be in your dashboard
+2. Create an appointment as a client
+3. Purchase any product with Project ID generated when you created an appointment, it will be in your dashboard
 with your appointment. You won't be able to purchase anything without this appointment Project ID.
-4. Log out, click on Freelancer? in the top navigation and create freelancer account, by filling out 
-freelancer registration form .
+4. Log out, click on Freelancer? in the top navigation and create a freelancer account, by filling out 
+freelancer registration form.
 5. Log out.
-6. Login as superuser by navigating to http://127.0.0.1:8000/admin/login
-7. Find the order, copy its project number ( 32 bit string that will look something like this
+6. log in as superuser by navigating to http://127.0.0.1:8000/admin/login
+7. Find the order, copy its project number (a 32-bit string that will look something like this
 '4AD953BCC9904D789DBE6E2DD700CAE6')
-8. Paste it in freelancer's Current project field and save.
-9. Log in as freelancer and you should see your client's information, job progress, and your registration details.
-10.  You can open new private window by CTRL + SHIFT + N and log in as client.
-11. Now you can update job progress as freelancer, and check progress as client. You can also write some
-messages back and forth through your notes text area as freelancer and through your project text area as client.
+8. Paste it in the freelancer's Current project field and save.
+9. Log in as a freelancer and you should see your client's information, job progress, and registration details.
+10.  You can open a new private window by CTRL + SHIFT + N and log in as a client.
+11. Now you can update job progress as a freelancer, and check progress as a client. You can also write some
+messages back and forth through your notes text area as a freelancer and through your project text area as a client.
 
 12. Until the job is done.
+
+13. If you want to test the live site I have sent admin credentials to CodeInstitute while submitting the project,
+so you should have access to the admin section of https://marcelli.herokuapp.com/admin/login and just follow the
+steps 1-12.
 
 # Difficulties 
  Most challenges I encountered were with Stripe and testing the webhooks, as webhooks are sent to live site and not localhost,
