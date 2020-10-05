@@ -1,10 +1,6 @@
-import json
-import os
 import time
 
-import requests
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 
 from appointments.models import Appointment
 from send_mail.views import send_mail

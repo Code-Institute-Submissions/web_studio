@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.urls import reverse
 
 from .models import Appointment
 
@@ -25,7 +24,6 @@ class TestViews(TestCase):
 
             done=False
         )
-
 
         # only signed in users can update appointment
         self.user = User.objects.create_user(username='Test User', password='password', email='some@email.com')
@@ -59,5 +57,3 @@ class TestViews(TestCase):
         self.client.login(username='customer name', password='password')
         response = self.client.get('/profile/')
         self.assertTemplateUsed(response, 'appointments/profile.html')
-
-

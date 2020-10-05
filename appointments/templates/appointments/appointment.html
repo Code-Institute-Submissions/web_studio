@@ -26,7 +26,7 @@
 
 
                 </div>
-              <hr>
+                <hr>
 
             </div>
 
@@ -39,37 +39,38 @@
                 <form action="{% url 'appointments' %}" method="POST" id="book_appointment">
                     {% csrf_token %}
                     <label for="name">Your name</label>
-                   <input type="text" name="name" id="name" required
-                                           {% if  request.user.is_authenticated %}readonly{% endif %}
-                                           class="form-control border border-info"
-                                           value="{% if request.user.is_authenticated %}{{ user }}
+                    <input type="text" name="name" id="name" required
+                           {% if  request.user.is_authenticated %}readonly{% endif %}
+                           class="form-control border border-info"
+                           value="{% if request.user.is_authenticated %}{{ user }}
 
                                                {% elif order_form.name.value is not None %}{{ order_form.name.value }}
                                                                  {% endif %}"
-                                    >
+                    >
                     <hr>
                     <label for="email">Your email</label>
                     <input type="email" name="email" id="email" required
-                                           {% if  request.user.is_authenticated %}readonly{% endif %}
-                                           class="form-control border border-info"
-                                           value=" {% if request.user.email %}
+                           {% if  request.user.is_authenticated %}readonly{% endif %}
+                           class="form-control border border-info"
+                           value=" {% if request.user.email %}
                                                    {{ request.user.email }}
-                                                 {% elif order_form.email.value is not None %}{{ order_form.email.value }}
+
+                               {% elif order_form.email.value is not None %}{{ order_form.email.value }}
                                                              {% endif %}">
 
-                     <hr>
-                 {% if not  request.user.is_authenticated %}
-                    <label for="password">Your password <br>
-                        <small class="text-info">to manage your account</small></label>
-                {% endif %}
+                    <hr>
+                    {% if not  request.user.is_authenticated %}
+                        <label for="password">Your password <br>
+                            <small class="text-info">to manage your account</small></label>
+                    {% endif %}
                     <input data-cy="password" type="password" name="password" id="password"
                             {% if   request.user.is_authenticated %}
-                           {{ ' hidden' }}
-                                {% else %}
+                                {{ ' hidden' }}
+                            {% else %}
                                 {{ 'required' }}
-                                {% endif %}
+                            {% endif %}
                            class="form-control border border-info"
-                           >
+                    >
                     <hr>
                     <label for="phone_num">Your phone number</label>
                     <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
@@ -81,7 +82,8 @@
                     <hr>
                     <label for="time_slot">Best time to contact you</label>
                     {% comment %} best time to contact {% endcomment %}
-                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info" required>
+                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info"
+                            required>
                         <option value="">please select time</option>
                         <option value="8 am - 12 pm">8 am - 12 pm</option>
                         <option value="12 pm - 4 pm">12 pm - 4 pm</option>
@@ -91,7 +93,8 @@
 
                     <label for="site_type">Site type you are interested</label>
                     {% comment %} type of site  {% endcomment %}
-                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info" required>
+                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info"
+                            required>
                         <option value="">please select site type</option>
                         <option value="blog">blog</option>
                         <option value="website">website</option>
@@ -104,12 +107,14 @@
                     {% comment %} description of the project {% endcomment %}
                     <textarea data-cy="project" name="project" id="project" required
                               maxlength="500"
-                              cols="30" rows="10" class="form-control border border-info">{{ form.project.value }}</textarea>
+                              cols="30" rows="10"
+                              class="form-control border border-info">{{ form.project.value }}</textarea>
                     <hr>
-                     <textarea data-cy="notes" name="notes" id="project" hidden
+                    <textarea data-cy="notes" name="notes" id="project" hidden
                               maxlength="500"
                               cols="30" rows="10" class="form-control">&nbsp;</textarea>
-                    <input data-cy="submit" type="submit" value="book" class="form-control border border-info bg-info text-light">
+                    <input data-cy="submit" type="submit" value="book"
+                           class="form-control border border-info bg-info text-light">
 
 
                 </form>

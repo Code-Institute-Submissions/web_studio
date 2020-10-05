@@ -6,4 +6,4 @@ from .models import Appointment
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ('name', 'email', 'time_slot', 'site_type', 'project', 'done', 'phone_num','notes','paid_for')
+        fields = ('name', 'email', 'time_slot', 'site_type', 'project', 'done', 'phone_num', 'notes', 'paid_for')

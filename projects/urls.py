@@ -7,5 +7,4 @@ urlpatterns = [
     path('project/<project_id>', project, name='project'),
     path('edit_project/<project_id>', edit_project, name='edit_project'),
 
-
 ]

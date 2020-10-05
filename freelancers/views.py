@@ -1,14 +1,10 @@
-import json
-import os
-
-import requests
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.decorators.http import require_POST
-from django.http import HttpResponseForbidden
+
 from appointments.models import Appointment
 from projects.models import Project
 from send_mail.views import send_mail
@@ -20,22 +16,20 @@ def register_form(request):
     template = 'freelancers/register_form.html'
     context = {}
     if request.user.is_authenticated:
-
         messages.info(request,
-                       'Thank you for your interest. It appears that you are  '
-                       ' already signed in... If you would like to create new'
-                       ' account, please logout and try again. Thank you! '
-                       )
+                      'Thank you for your interest. It appears that you are  '
+                      ' already signed in... If you would like to create new'
+                      ' account, please logout and try again. Thank you! '
+                      )
 
-        context={
-            'logged_in':True
+        context = {
+            'logged_in': True
         }
-    return render(request, template,context)
+    return render(request, template, context)
 
 
 def register_freelancer(request):
     template = 'freelancers/register_form.html'
-
 
     def user_name_present(name):
         if User.objects.filter(username=name).exists():
@@ -98,10 +92,10 @@ def register_freelancer(request):
             # send email to new freelancer
             send_mail(
                 {
-                    'to':request.POST['email'],
+                    'to': request.POST['email'],
                     'subject': 'Welcome to the team!',
-                    'template':'welcome_freelancer',
-                    'template_vars':{
+                    'template': 'welcome_freelancer',
+                    'template_vars': {
                         'name': request.POST['name']
                     }
                 })
@@ -136,12 +130,11 @@ def register_freelancer(request):
         context['form'] = form
         return render(request, template, context)
 
+
 @login_required
 def freelancer(request):
-
-
     # if logged in client tries to access freelancer page, we will redirect back to client's profile
-    if  request.session.get('client'):
+    if request.session.get('client'):
         return redirect('profile')
     freelancer = Freelancer.objects.get(email=request.user.email)
     form = FreelancerForm(instance=freelancer)
@@ -153,20 +146,19 @@ def freelancer(request):
     except:
         appointment = False
 
-
     try:
         project = Project.objects.get(project_number=freelancer.current_project)
     except:
         project = False
 
-
     context = {
         'freelancer': freelancer,
         'form': form,
-        'appointment':appointment,
-        'project':project
+        'appointment': appointment,
+        'project': project
     }
     return render(request, 'freelancers/dashboard.html', context)
+
 
 @login_required
 def update_freelancer(request, freelancer_id):

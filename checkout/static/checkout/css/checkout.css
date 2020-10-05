@@ -1,25 +1,25 @@
 /* css styles for stripe elements*/
 .StripeElement,
 .stripe-style-input {
-  box-sizing: border-box;
-  height: 40px;
-  padding: 10px 12px;
-  border: 1px solid #212529;
-  border-radius: 0px;
-  background-color: white;
-  box-shadow: 0 1px 3px 0 #e6ebf1;
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid #212529;
+    border-radius: 0px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
 }
 
 .StripeElement--focus,
 .stripe-style-input:focus,
 .stripe-style-input:active {
-  box-shadow: 0 1px 3px 0 #cfd7df;
+    box-shadow: 0 1px 3px 0 #cfd7df;
 }
 
 .StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
+    background-color: #fefde5 !important;
 }
 
 .stripe-style-input::placeholder {
@@ -36,22 +36,26 @@
     color: #000;
     border-bottom: 1px solid #212529;
     border-top: 0;
-	border-left: 0;
-	border-right: 0;
+    border-left: 0;
+    border-right: 0;
     padding: 10px;
 }
-.dark{
+
+.dark {
     color: #212529;
 }
-.no_border{
-  border: 0;
+
+.no_border {
+    border: 0;
 }
-.icon{
-  font-size: 1.35rem;
+
+.icon {
+    font-size: 1.35rem;
 }
+
 #loading-overlay {
-	display: none;
-	position: fixed;
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -61,24 +65,29 @@
 }
 
 .loading-spinner {
-	display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
     height: 100%;
 }
-.border_dark{
+
+.border_dark {
     border: 1px solid #212529;
 }
-.bottom_border_dark{
+
+.bottom_border_dark {
     border-bottom: 1px solid #212529;
 }
+
 .btn {
     border-radius: 0;
 }
+
 .form-control {
     border-radius: 0;
 }
+
 @media screen and ( max-width: 767px ) {
     .index h1 {
         font-size: 2rem;

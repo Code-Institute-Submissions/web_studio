@@ -30,10 +30,10 @@ class TestModels(TestCase):
         # https://stackoverflow.com/a/58242905 self.appointment.id
 
         # only signed in users can update appointment
-        self.user = User.objects.create_user(username='customer name', password='password',email='some@email.com')
+        self.user = User.objects.create_user(username='customer name', password='password', email='some@email.com')
         self.client.login(username='customer name', password='password')
 
-        #make sure appointment is users appointment
+        # make sure appointment is users appointment
         self.assertEqual(appointment.email, self.user.email)
 
         # getting form with the appointment
@@ -59,5 +59,3 @@ class TestModels(TestCase):
         # check that we have 1 appointment
         appointments = Appointment.objects.all()
         self.assertTrue(len(appointments) == 1)
-
-

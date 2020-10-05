@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import register_form,register_freelancer,freelancer,update_freelancer
+from .views import register_form, register_freelancer, freelancer, update_freelancer
 
 urlpatterns = [
 

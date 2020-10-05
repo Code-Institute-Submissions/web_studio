@@ -12,4 +12,5 @@ class TestOrderForm(TestCase):
 
     def test_fields_are_explicit_in_form_metaclass(self):
         form = OrderForm()
-        self.assertEqual(form.Meta.fields, ('name', 'email', 'street1', 'city', 'post_code', 'country','project_number'))
+        self.assertEqual(form.Meta.fields,
+                         ('name', 'email', 'street1', 'city', 'post_code', 'country', 'project_number'))

@@ -519,11 +519,17 @@ To be able to receive confirmation emails, you will need to set up an account wi
 and follow easy instructions on how to use services. Set MAILGUN_KEY variable into environmental variables,
 and use your test URL provided by MAILGUN.
 
+And you will need to create templates with templates_names and variables as per
+checkout/views.py
+appointments/views.py
+freelancers/views.py
+
 Please note that, when testing locally, you won't receive a confirmation email after purchase,
 as the app is sending email after webhook from Stripe is sent, confirming the successful payment.
 
 And you will need to mark appointment as paid for from within the admin, as we are marking
-it as paid for after successful webhook from Stripe as well.
+it as paid for after successful webhook from Stripe as well, and localhost is not receiving 
+webhooks from Stripe.
 
 
     
@@ -562,9 +568,7 @@ messages back and forth through your notes text area as a freelancer and through
 
 12. Until the job is done.
 
-13. If you want to test the live site I have sent admin credentials to CodeInstitute while submitting the project,
-so you should have access to the admin section of https://marcelli.herokuapp.com/admin/login and just follow the
-steps 1-12.
+
 
 # Difficulties 
  Most challenges I encountered were with Stripe and testing the webhooks, as webhooks are sent to live site and not localhost,

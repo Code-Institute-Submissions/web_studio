@@ -3,14 +3,13 @@ from django.test import TestCase
 from django.urls import reverse
 
 from appointments.models import Appointment
-from freelancers.models import Freelancer
 from projects.models import Project
 
 
 class TestProjectView(TestCase):
 
     def test_project_preview_page(self):
-        self.user = User.objects.create_user(username='Test User', password='password',email='email@email.com')
+        self.user = User.objects.create_user(username='Test User', password='password', email='email@email.com')
         self.appointment = Appointment.objects.create(
             name='customer name',
             email=self.user.email,
@@ -29,7 +28,6 @@ class TestProjectView(TestCase):
 
         self.assertTemplateUsed(response, 'appointments/profile.html')
 
-
         project_number = self.project.project_number
 
         preview_url = reverse('project', args=(project_number,))
@@ -37,7 +35,3 @@ class TestProjectView(TestCase):
         self.client.get(preview_url)
 
         self.assertEqual(response.status_code, 200)
-
-
-
-

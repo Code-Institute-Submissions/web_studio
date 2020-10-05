@@ -20,8 +20,7 @@
             <div class="card col-lg-12 border-0">
 
 
-
-             <div class="card-header bg-transparent border-0">
+                <div class="card-header bg-transparent border-0">
                     <h1 class="font-weight-bold display-3  text-info">online store</h1>
                     <h4 class="font-weight-bold text-info">Ok, you mean business. <br>
                         <small class="text-dark">from {{ online_store_price }} &euro;</small>
@@ -29,17 +28,17 @@
 
 
                 </div>
-              <hr>
+                <hr>
                 <div class="card-body border-secondary border">
                     {% if not request.user.is_authenticated %}
 
-                     <a  href="{% url 'appointments'  %}"
-                         class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">
-                         Book Free Initial Consultation </a>
+                        <a href="{% url 'appointments' %}"
+                           class="consultation lead  btn btn-lg btn-outline-info float-left  mt-2">
+                            Book Free Initial Consultation </a>
                     {% endif %}
 
-                 <a  href="{% url 'checkout' 'online-store' %}"
-                     class="lead  btn btn-lg btn-outline-info float-right mt-2">Buy now!</a>
+                    <a href="{% url 'checkout' 'online-store' %}"
+                       class="lead  btn btn-lg btn-outline-info float-right mt-2">Buy now!</a>
 
                 </div>
             </div>
@@ -161,11 +160,10 @@
                             <li class="list-group-item bottom_border">
                                 You will need to provide : <br>
                                 Privacy Policy, Terms of use
-                            ( We can advise you on several options, how to create them )
+                                ( We can advise you on several options, how to create them )
 
 
                             </li>
-
 
 
                             <li class="list-group-item bottom_border">

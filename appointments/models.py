@@ -6,19 +6,17 @@ from django.db import models
 # Create your models here.
 
 class Appointment(models.Model):
-    project_number = models.CharField(default=False,max_length=32, null=False, editable=False)
+    project_number = models.CharField(default=False, max_length=32, null=False, editable=False)
     email = models.CharField(max_length=50, blank=False, null=False)
     phone_num = models.CharField(max_length=50, blank=False, null=False, default=0)
     name = models.CharField(max_length=50, blank=False, null=False)
     time_slot = models.CharField(max_length=50, default=False, blank=False, null=False)
     site_type = models.CharField(max_length=50, default=False, blank=False, null=False)
     project = models.TextField(max_length=500, blank=False, null=False)
-    notes = models.TextField(default='',max_length=500, blank=True, null=True)
+    notes = models.TextField(default='', max_length=500, blank=True, null=True)
     date = models.DateField(auto_now_add=True, null=True, blank=True)
     done = models.BooleanField(null=False, blank=False, default=False)
     paid_for = models.BooleanField(null=False, blank=False, default=False)
-
-
 
     def _generate_project_number(self):
         """
@@ -40,5 +38,3 @@ class Appointment(models.Model):
 
     def __repr__(self):
         return self.name
-
-

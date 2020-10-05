@@ -24,9 +24,9 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'appointments/appointment.html')
 
     def test_freelancer_page(self):
-            response = self.client.get('/register_form/')
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, 'freelancers/register_form.html')
+        response = self.client.get('/register_form/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'freelancers/register_form.html')
 
     def test_user_can_login(self):
         self.user = User.objects.create_user(username='Test User', password='password')

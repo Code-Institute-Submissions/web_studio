@@ -44,8 +44,6 @@ class TestModels(TestCase):
         )
         Freelancer.objects.filter(name=self.freelancer.name).update(skills='new skils')
 
-
         # value needs to be reloaded from the database.
         self.freelancer.refresh_from_db()
         self.assertEqual(self.freelancer.skills, 'new skils')
-

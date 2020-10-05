@@ -87,7 +87,7 @@
 
                                             </small></strong><br>
                                         <small><strong id="project_number_error" class="text-danger"></strong></small>
-                                          <small><strong id="project_no_consultation_error" class="text-success"></strong></small>
+                                        <small><strong id="project_no_consultation_error" class="text-success"></strong></small>
                                         <span id="consultation" class="d-none"><br>
                                              <a href="{% url 'appointments' %}"
                                                 class="consultation lead  btn btn-sm btn-outline-info float-left  mt-2">
@@ -99,6 +99,7 @@
 
                                            class="form-control border border-info"
                                            value="
+
                                                    {% if order_form.project_number.value %}{{ order_form.project_number.value }}{% endif %}"
                                     >
 

@@ -5,7 +5,7 @@ from django.db import models
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    project_number= models.CharField(default=False,max_length=32, null=False)
+    project_number = models.CharField(default=False, max_length=32, null=False)
     product_type = models.CharField(max_length=30, null=False, blank=False)
     name = models.CharField(max_length=50, null=False, blank=False)
     street1 = models.CharField(max_length=50, null=False, blank=False, default='')

@@ -72,18 +72,12 @@
                                 </strong>
                                 <small class="float-right">Created at : {{ consult.date }}</small>
                             </p>
-                         <p><span class="font-weight-bold text-info">Project ID:</span>
+                            <p><span class="font-weight-bold text-info">Project ID:</span>
                                 <strong>
                                     {{ consult.project_number }}
                                 </strong>
 
                             </p>
-
-
-
-
-
-
 
 
                             <p><span
@@ -94,29 +88,29 @@
                                 {{ consult.time_slot }}
                             </strong></p>
 
-                        <p><span class="font-weight-bold text-info">Consultation done :</span> <strong>
-                                  {% if consult.done %}
+                            <p><span class="font-weight-bold text-info">Consultation done :</span> <strong>
+                                {% if consult.done %}
 
-                              <span class="text-success">&check;</span>
+                                    <span class="text-success">&check;</span>
 
 
-                            {% else %}
-                                <span class="text-danger">&cross;</span>
+                                {% else %}
+                                    <span class="text-danger">&cross;</span>
 
-                            {% endif %}
+                                {% endif %}
                             </strong></p>
 
-                         <p><span class="font-weight-bold text-info">Paid :</span> <strong>
-                                  {% if consult.paid_for %}
+                            <p><span class="font-weight-bold text-info">Paid :</span> <strong>
+                                {% if consult.paid_for %}
 
 
-                                <span class=" text-success  mr-2">Paid for &check;</span>
+                                    <span class=" text-success  mr-2">Paid for &check;</span>
 
 
-                            {% else %}
-                                <span class="text-danger">&cross;</span>
+                                {% else %}
+                                    <span class="text-danger">&cross;</span>
 
-                            {% endif %}
+                                {% endif %}
                             </strong></p>
 
 

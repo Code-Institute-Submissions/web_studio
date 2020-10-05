@@ -50,7 +50,7 @@
                             <div class="col-md-6">
                                 <label for="name">Your name</label>
                                 <input data-cy="name" type="text" name="name" id="name" required class="form-control"
-                                        readonly
+                                       readonly
                                        value=" {{ form.name.value }}">
 
                             </div>
@@ -101,7 +101,7 @@
                             <div class="col-md-4">
                                 <label for="site_type">Site type </label>
 
-                            <small class="text-info">not editable</small>
+                                <small class="text-info">not editable</small>
 
 
                                 <select data-cy="site_type" name="site_type" id="site_type" required
@@ -178,7 +178,7 @@
     https://stackoverflow.com/a/25537719
     {% endcomment %}
     <script>
-    $("#site_type option:not(:selected)").prop("disabled", true);
+        $("#site_type option:not(:selected)").prop("disabled", true);
     </script>
 {% endblock %}
 

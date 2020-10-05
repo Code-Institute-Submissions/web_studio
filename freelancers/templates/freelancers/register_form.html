@@ -33,67 +33,67 @@
                     <i class="fas fa-feather-alt fa-2x text-info"></i></span>
 
             </div>
-        {% comment %}if user is logged in and clicks on freelancer register page
+            {% comment %}if user is logged in and clicks on freelancer register page
         we won't show the form{% endcomment %}
             {% if not logged_in %}
-            <div class="col-lg-7">
+                <div class="col-lg-7">
 
 
-                <form action="{% url 'register_freelancer' %}" method="POST" id="register_freelancer">
-                    {% csrf_token %}
-                    <label for="name">Your name</label>
-                    <input data-cy="name" type="text" name="name" id="name" required
-                           class="form-control border border-info"
-                           value="{{ form.name.value }}"
-                           autofocus>
+                    <form action="{% url 'register_freelancer' %}" method="POST" id="register_freelancer">
+                        {% csrf_token %}
+                        <label for="name">Your name</label>
+                        <input data-cy="name" type="text" name="name" id="name" required
+                               class="form-control border border-info"
+                               value="{{ form.name.value }}"
+                               autofocus>
 
-                    <label for="email">Your email</label>
-                    <input data-cy="email" type="email" name="email" id="email" required
-                           class="form-control border border-info"
-                           value="{{ form.email.value }}">
+                        <label for="email">Your email</label>
+                        <input data-cy="email" type="email" name="email" id="email" required
+                               class="form-control border border-info"
+                               value="{{ form.email.value }}">
 
-                      <label for="phone_num">Your phone</label>
-                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required
-                           class="form-control border border-info"
-                           value="{{ form.phone_num.value }}">
+                        <label for="phone_num">Your phone</label>
+                        <input data-cy="phone_num" type="text" name="phone_num" id="phone_num" required
+                               class="form-control border border-info"
+                               value="{{ form.phone_num.value }}">
 
-                    <label for="password">Your password</label>
-                    <input data-cy="password" type="password" name="password" id="password"
-                           class="form-control border border-info"
-                           required>
-                    <label for="skills">Your skills</label>
-                    <input data-cy="phone_num" type="text" name="skills" id="skills"
+                        <label for="password">Your password</label>
+                        <input data-cy="password" type="password" name="password" id="password"
+                               class="form-control border border-info"
+                               required>
+                        <label for="skills">Your skills</label>
+                        <input data-cy="phone_num" type="text" name="skills" id="skills"
 
-                           required class="form-control border border-info"
-                           value="{{ form.skills.value }}">
-
-
-                    <hr>
-
-                    <label for="portfolio_link">Portfolio link</label>
-                    <input data-cy="portfolio_link" type="text" name="portfolio_link" id="portfolio_link"
-
-                           required class="form-control border border-info"
-                           value="{{ form.portfolio_link.value }}">
+                               required class="form-control border border-info"
+                               value="{{ form.skills.value }}">
 
 
-                    <hr>
+                        <hr>
+
+                        <label for="portfolio_link">Portfolio link</label>
+                        <input data-cy="portfolio_link" type="text" name="portfolio_link" id="portfolio_link"
+
+                               required class="form-control border border-info"
+                               value="{{ form.portfolio_link.value }}">
 
 
-                    <label for="about">What are you good at</label>
-                    {% comment %} description of freelancer {% endcomment %}
-                    <textarea data-cy="about" name="about" id="about" required
-                              maxlength="500"
-                              cols="30" rows="10"
-                              class="form-control border border-info">{{ form.about.value }}</textarea>
-                    <hr>
-                    <input data-cy="submit" type="submit" value="register"
-                           class="form-control border border-info bg-info text-light">
+                        <hr>
 
 
-                </form>
+                        <label for="about">What are you good at</label>
+                        {% comment %} description of freelancer {% endcomment %}
+                        <textarea data-cy="about" name="about" id="about" required
+                                  maxlength="500"
+                                  cols="30" rows="10"
+                                  class="form-control border border-info">{{ form.about.value }}</textarea>
+                        <hr>
+                        <input data-cy="submit" type="submit" value="register"
+                               class="form-control border border-info bg-info text-light">
 
-            </div>
+
+                    </form>
+
+                </div>
 
             {% endif %}
 

@@ -11,9 +11,11 @@
     font-weight: 800;
     font-size: 1.4rem;
 }
+
 .btn {
     border-radius: 0;
 }
+
 @media screen and ( max-width: 767px ) {
     .index h1 {
         font-size: 2rem;

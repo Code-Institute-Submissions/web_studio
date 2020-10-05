@@ -21,8 +21,3 @@ class TestModels(TestCase):
     def test_project_string_method_returns_project_number(self):
         item = Project.objects.create(project_number='DERFCBHER73465BCVGFERYGFC742386')
         self.assertEqual(str(item), 'DERFCBHER73465BCVGFERYGFC742386')
-
-
-
-
-
