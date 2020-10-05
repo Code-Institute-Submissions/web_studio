@@ -48,14 +48,20 @@
 
                 <div class="card-body border-secondary border">
                     {% if  request.session.freelancer %}
-                        Hi {{ user }}, you will need to logout from your freelancer account, if you want to purchase
-                        anything!
-                        <br>Thanks...;-)
-                    {% endif %}
+                        <p class="lead ">
+                            Hi {{ user }}, <br> <br>
+                            If you would like to purchase anything, please logout and use different email address as you
+                            will
+                            need client's account to manage your consultation.
 
-                    <h3 class="font-weight-bold text-info float-right">
+                        <p class="float-right font-weight-bold"> Thanks...;-)</p>
+                    {% else %}
+
+
+                        <h3 class="font-weight-bold text-info float-right">
                         <span id="total">
                        {{ grand_total }}</span>&euro;</h3>
+                    {% endif %}
                 </div>
             </div>
             {% if not request.session.freelancer %}
@@ -98,7 +104,8 @@
                                     <input type="text" name="project_number" id="project_number" required
                                            autofocus
                                            class="form-control border border-info"
-                                           value="{% if order_form.project_number.value %}{{ order_form.project_number.value }}{% endif %}"
+                                           value="
+                                                   {% if order_form.project_number.value %}{{ order_form.project_number.value }}{% endif %}"
                                     >
 
 

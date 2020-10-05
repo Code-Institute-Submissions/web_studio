@@ -18,9 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from appointments import views
 from checkout.views import validate_project_number
 
 urlpatterns = [
+                  # user needs to make consultation to be able to have an account
+                  # so redirecting to appointment page if he types in accounts/signup/ in the browser
+                  path('accounts/signup/', views.appointments, name='appointments'),
+
                   path('validate_project_number/', validate_project_number,
                        name='validate_project_number'),
                   path('admin/', admin.site.urls),

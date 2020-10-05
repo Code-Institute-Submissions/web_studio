@@ -35,127 +35,141 @@
             </div>
             <div class="col-lg-7">
 
+                {% if request.session.freelancer %}
+                    <p class="lead ">
+                        Hi {{ user }}, <br> <br>
+                        If you would like to book appointment, please logout and use different email address to book an
+                        appointment.
+                    <hr>
+                    <p class="float-right font-weight-bold"> Thanks...;-)</p>
+                    </p>
+                {% else %}
 
-                <form action="{% url 'appointments' %}" method="POST" id="book_appointment">
-                    {% csrf_token %}
-                    <label for="name">Your name</label>
-                    <input type="text" name="name" id="name" required
-                           {% if  request.user.is_authenticated %}readonly{% endif %}
-                           class="form-control border border-info"
-                           value="{% if request.user.is_authenticated %}{{ user }}
+                    <form action="{% url 'appointments' %}" method="POST" id="book_appointment">
+                        {% csrf_token %}
+                        <label for="name">Your name</label>
+                        <input type="text" name="name" id="name" required
+                               {% if  request.user.is_authenticated %}readonly{% endif %}
+                               class="form-control border border-info"
+                               value="{% if request.user.is_authenticated %}{{ user }}
 
                                                {% elif form.name.value is not None %}{{ form.name.value }}
                                                                  {% endif %}"
-                    >
-                    <hr>
-                    <label for="email">Your email</label>
-                    <input type="email" name="email" id="email" required
-                           {% if  request.user.is_authenticated %}readonly{% endif %}
-                           class="form-control border border-info"
-                           value=" {% if request.user.email %}
+                        >
+                        <hr>
+                        <label for="email">Your email</label>
+                        <input type="email" name="email" id="email" required
+                               {% if  request.user.is_authenticated %}readonly{% endif %}
+                               class="form-control border border-info"
+                               value=" {% if request.user.email %}
                                                    {{ request.user.email }}
 
                                {% elif form.email.value is not None %}{{ form.email.value }}
                                                              {% endif %}">
 
-                    <hr>
-                    {% if not  request.user.is_authenticated %}
-                        <label for="password">Your password <br>
-                            <small class="text-info">to manage your account</small></label>
-                    {% endif %}
-                    <input data-cy="password" type="password" name="password" id="password"
-                           minlength="8"
-                            {% if   request.user.is_authenticated %}
-                                {{ ' hidden' }}
+                        <hr>
+                        {% if not  request.user.is_authenticated %}
+                            <label for="password">Your password <br>
+                                <small class="text-info">to manage your account</small></label>
+                        {% endif %}
+                        <input data-cy="password" type="password" name="password" id="password"
+                               minlength="8"
+                                {% if   request.user.is_authenticated %}
+                                    {{ ' hidden' }}
+                                {% else %}
+                                    {{ 'required' }}
+                                {% endif %}
+                               class="form-control border border-info"
+                        >
+                        <hr>
+                        <label for="phone_num">Your phone number</label>
+                        <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
+                               placeholder="+ country code"
+                               required class="form-control border border-info"
+                               value="{{ form.phone_num.value }}">
+
+
+                        <hr>
+                        <label for="time_slot">Best time to contact you</label>
+                        {% comment %} best time to contact {% endcomment %}
+                        <select data-cy="time_slot" name="time_slot" id="time_slot"
+                                class="form-control border border-info"
+                                required>
+                            <option value="">please select time</option>
+                            {% if  form.time_slot.value == "8 am - 12 pm" %}
+                                <option value="8 am - 12 am" selected>8 am - 12 am</option>
+                                <option value="12 am - 4 pm">12 pm - 4 pm</option>
+                                <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                            {% elif  form.time_slot.value == "12 pm - 4 pm" %}
+                                <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                <option value="12 pm - 4 pm" selected>12 am - 4 pm</option>
+                                <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                            {% elif  form.time_slot.value == "4 pm - 8 pm" %}
+                                <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                                <option value="4 pm - 8 pm" selected>4 pm - 8 pm</option>
                             {% else %}
-                                {{ 'required' }}
+                                <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                                <option value="4 pm - 8 pm">4 pm - 8 pm</option>
                             {% endif %}
-                           class="form-control border border-info"
-                    >
-                    <hr>
-                    <label for="phone_num">Your phone number</label>
-                    <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
-                           placeholder="+ country code"
-                           required class="form-control border border-info"
-                           value="{{ form.phone_num.value }}">
+                        </select>
+                        <hr>
+
+                        <label for="site_type">Site type you are interested</label>
+                        {% comment %} type of site  {% endcomment %}
+                        <select data-cy="site_type" name="site_type" id="site_type"
+                                class="form-control border border-info"
+                                required>
+
+                            {% if form.site_type.value == "blog" %}
+                                {% comment %} blog {% endcomment %}
+                                <option value="blog" selected>blog</option>
+                                <option value="website">website</option>
+                                <option value="online_store">online store</option>
+                                <option value="something_else">something else</option>
+                            {% elif  form.site_type.value == "website" %}
+                                {% comment %} website {% endcomment %}
+                                <option value="blog">blog</option>
+                                <option value="website" selected>website</option>
+                                <option value="online_store">online store</option>
+                                <option value="something_else">something else</option>
+                            {% elif   form.site_type.value == "online_store" %}
+                                {% comment %} online store {% endcomment %}
+                                <option value="blog">blog</option>
+                                <option value="website">website</option>
+                                <option value="online_store" selected>online store</option>
+                                <option value="something_else">something else</option>
+                            {% else %}
+                                {% comment %} something else {% endcomment %}
+                                <option value="">please select site type</option>
+                                <option value="blog">blog</option>
+                                <option value="website">website</option>
+                                <option value="online_store">online store</option>
+                                <option value="something_else">something else</option>
+                            {% endif %}
+
+                        </select>
+                        <hr>
+                        <label for="project">Describe your project<br>
+                            <small class="text-info">max 500 characters</small></label>
+                        {% comment %} description of the project {% endcomment %}
+                        <textarea data-cy="project" name="project" id="project" required
+                                  maxlength="500"
+                                  cols="30" rows="10"
+                                  class="form-control border border-info">{{ form.project.value }}</textarea>
+                        <hr>
+                        <textarea data-cy="notes" name="notes" id="notes" hidden
+                                  maxlength="500"
+                                  cols="30" rows="10" class="form-control">&nbsp;</textarea>
+                        <input data-cy="submit" type="submit" value="book"
+                               class="form-control border border-info bg-info text-light">
 
 
-                    <hr>
-                    <label for="time_slot">Best time to contact you</label>
-                    {% comment %} best time to contact {% endcomment %}
-                    <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info"
-                            required>
-                        <option value="">please select time</option>
-                                    {% if  form.time_slot.value == "8 am - 12 pm" %}
-                                        <option value="8 am - 12 am" selected>8 am - 12 am</option>
-                                        <option value="12 am - 4 pm">12 pm - 4 pm</option>
-                                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
-                                    {% elif  form.time_slot.value == "12 pm - 4 pm" %}
-                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
-                                        <option value="12 pm - 4 pm" selected>12 am - 4 pm</option>
-                                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
-                                    {% elif  form.time_slot.value == "4 pm - 8 pm"%}
-                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
-                                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
-                                        <option value="4 pm - 8 pm" selected>4 pm - 8 pm</option>
-                                   {% else %}
-                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
-                                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
-                                        <option value="4 pm - 8 pm" >4 pm - 8 pm</option>
-                                    {% endif %}
-                    </select>
-                    <hr>
+                    </form>
 
-                    <label for="site_type">Site type you are interested</label>
-                    {% comment %} type of site  {% endcomment %}
-                    <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info"
-                            required>
+                {% endif %}
 
-                         {% if form.site_type.value == "blog" %}
-                                        {% comment %} blog {% endcomment %}
-                                        <option value="blog" selected>blog</option>
-                                        <option value="website">website</option>
-                                        <option value="online_store">online store</option>
-                                        <option value="something_else">something else</option>
-                                    {% elif  form.site_type.value == "website" %}
-                                        {% comment %} website {% endcomment %}
-                                        <option value="blog">blog</option>
-                                        <option value="website" selected>website</option>
-                                        <option value="online_store">online store</option>
-                                        <option value="something_else">something else</option>
-                                    {% elif   form.site_type.value == "online_store" %}
-                                        {% comment %} online store {% endcomment %}
-                                        <option value="blog">blog</option>
-                                        <option value="website">website</option>
-                                        <option value="online_store" selected>online store</option>
-                                        <option value="something_else">something else</option>
-                                    {% else %}
-                                        {% comment %} something else {% endcomment %}
-                              <option value="">please select site type</option>
-                                        <option value="blog">blog</option>
-                                        <option value="website">website</option>
-                                        <option value="online_store">online store</option>
-                                        <option value="something_else" >something else</option>
-                                    {% endif %}
-
-                    </select>
-                    <hr>
-                    <label for="project">Describe your project<br>
-                        <small class="text-info">max 500 characters</small></label>
-                    {% comment %} description of the project {% endcomment %}
-                    <textarea data-cy="project" name="project" id="project" required
-                              maxlength="500"
-                              cols="30" rows="10"
-                              class="form-control border border-info">{{ form.project.value }}</textarea>
-                    <hr>
-                    <textarea data-cy="notes" name="notes" id="notes" hidden
-                              maxlength="500"
-                              cols="30" rows="10" class="form-control">&nbsp;</textarea>
-                    <input data-cy="submit" type="submit" value="book"
-                           class="form-control border border-info bg-info text-light">
-
-
-                </form>
 
             </div>
 
