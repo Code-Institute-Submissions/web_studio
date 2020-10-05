@@ -39,6 +39,19 @@ card.addEventListener('change', function (event) {
     }
 });
 
+/*checking project ID validity
+*
+* if it already used, we disable purchase button
+*
+* if it's not existent we disable purchase button
+*
+* if it exists and appointment didn't take place
+* for testing purposes we will display success
+* message and allow purchase
+*
+* but in production, consultation would have to
+* take place, to ensure, that we know what the project
+* is and whether we will do it */
 
 $('#project_number').on('input', function () {
     console.log($(this).val())

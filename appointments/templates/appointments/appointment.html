@@ -44,7 +44,7 @@
                            class="form-control border border-info"
                            value="{% if request.user.is_authenticated %}{{ user }}
 
-                                               {% elif order_form.name.value is not None %}{{ order_form.name.value }}
+                                               {% elif form.name.value is not None %}{{ form.name.value }}
                                                                  {% endif %}"
                     >
                     <hr>
@@ -55,7 +55,7 @@
                            value=" {% if request.user.email %}
                                                    {{ request.user.email }}
 
-                               {% elif order_form.email.value is not None %}{{ order_form.email.value }}
+                               {% elif form.email.value is not None %}{{ form.email.value }}
                                                              {% endif %}">
 
                     <hr>
@@ -64,6 +64,7 @@
                             <small class="text-info">to manage your account</small></label>
                     {% endif %}
                     <input data-cy="password" type="password" name="password" id="password"
+                           minlength="8"
                             {% if   request.user.is_authenticated %}
                                 {{ ' hidden' }}
                             {% else %}
@@ -85,9 +86,23 @@
                     <select data-cy="time_slot" name="time_slot" id="time_slot" class="form-control border border-info"
                             required>
                         <option value="">please select time</option>
-                        <option value="8 am - 12 pm">8 am - 12 pm</option>
-                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
-                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                                    {% if  form.time_slot.value == "8 am - 12 pm" %}
+                                        <option value="8 am - 12 am" selected>8 am - 12 am</option>
+                                        <option value="12 am - 4 pm">12 pm - 4 pm</option>
+                                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                                    {% elif  form.time_slot.value == "12 pm - 4 pm" %}
+                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                        <option value="12 pm - 4 pm" selected>12 am - 4 pm</option>
+                                        <option value="4 pm - 8 pm">4 pm - 8 pm</option>
+                                    {% elif  form.time_slot.value == "4 pm - 8 pm"%}
+                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                                        <option value="4 pm - 8 pm" selected>4 pm - 8 pm</option>
+                                   {% else %}
+                                        <option value="8 am - 12 pm">8 am - 12 pm</option>
+                                        <option value="12 pm - 4 pm">12 pm - 4 pm</option>
+                                        <option value="4 pm - 8 pm" >4 pm - 8 pm</option>
+                                    {% endif %}
                     </select>
                     <hr>
 
@@ -95,11 +110,34 @@
                     {% comment %} type of site  {% endcomment %}
                     <select data-cy="site_type" name="site_type" id="site_type" class="form-control border border-info"
                             required>
-                        <option value="">please select site type</option>
-                        <option value="blog">blog</option>
-                        <option value="website">website</option>
-                        <option value="online_store">online store</option>
-                        <option value="something_else">something else</option>
+
+                         {% if form.site_type.value == "blog" %}
+                                        {% comment %} blog {% endcomment %}
+                                        <option value="blog" selected>blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% elif  form.site_type.value == "website" %}
+                                        {% comment %} website {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website" selected>website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% elif   form.site_type.value == "online_store" %}
+                                        {% comment %} online store {% endcomment %}
+                                        <option value="blog">blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store" selected>online store</option>
+                                        <option value="something_else">something else</option>
+                                    {% else %}
+                                        {% comment %} something else {% endcomment %}
+                              <option value="">please select site type</option>
+                                        <option value="blog">blog</option>
+                                        <option value="website">website</option>
+                                        <option value="online_store">online store</option>
+                                        <option value="something_else" >something else</option>
+                                    {% endif %}
+
                     </select>
                     <hr>
                     <label for="project">Describe your project<br>
@@ -110,7 +148,7 @@
                               cols="30" rows="10"
                               class="form-control border border-info">{{ form.project.value }}</textarea>
                     <hr>
-                    <textarea data-cy="notes" name="notes" id="project" hidden
+                    <textarea data-cy="notes" name="notes" id="notes" hidden
                               maxlength="500"
                               cols="30" rows="10" class="form-control">&nbsp;</textarea>
                     <input data-cy="submit" type="submit" value="book"

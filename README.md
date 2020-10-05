@@ -407,7 +407,9 @@ I have created a Favicon. Favicons save the users time in identifying a website 
   
    ## Version Control
    
-   During development, I was naming my commits in a way, that it would make sense to any developer looking at the work progress. ( hopefully...;-). At some instances where I could only see results on the live server, the 
+   During development, I was naming my commits in a way, that it would make sense to any developer looking at 
+   the work progress. ( hopefully...;-). At some instances where I could only see results of my fixes only 
+   on the live server, mostly when testing webhooks from Stripe, the 
    commits might be a little bit vague...
    
    
@@ -515,7 +517,7 @@ website => 999
 
 online-store => 1999
 
-To be able to receive confirmation emails, you will need to set up an account with MAILGUN https://www.mailgun.com/ services
+If you want to be able to receive confirmation emails, you will need to set up an account with MAILGUN https://www.mailgun.com/ services
 and follow easy instructions on how to use services. Set MAILGUN_KEY variable into environmental variables,
 and use your test URL provided by MAILGUN.
 
@@ -527,8 +529,8 @@ freelancers/views.py
 Please note that, when testing locally, you won't receive a confirmation email after purchase,
 as the app is sending email after webhook from Stripe is sent, confirming the successful payment.
 
-And you will need to mark appointment as paid for from within the admin, as we are marking
-it as paid for after successful webhook from Stripe as well, and localhost is not receiving 
+You will also need to mark appointment as paid for from within the admin, as we are marking
+it as paid for after successful webhook from Stripe, and localhost is not receiving 
 webhooks from Stripe.
 
 

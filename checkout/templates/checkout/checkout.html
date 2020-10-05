@@ -96,11 +96,9 @@
                                         </span>
                                     </label>
                                     <input type="text" name="project_number" id="project_number" required
-
+                                           autofocus
                                            class="form-control border border-info"
-                                           value="
-
-                                                   {% if order_form.project_number.value %}{{ order_form.project_number.value }}{% endif %}"
+                                           value="{% if order_form.project_number.value %}{{ order_form.project_number.value }}{% endif %}"
                                     >
 
 
