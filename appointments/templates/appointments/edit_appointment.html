@@ -43,7 +43,7 @@
                 <div class="card-body">
 
                     {% comment %} form to update consultation {% endcomment %}
-                    <form action="{% url 'edit_appointment' item_id %}" method="POST" id="edit_appointment">
+                    <form action="{% url 'edit_appointment' appointment_id %}" method="POST" id="edit_appointment">
                         {% csrf_token %}
                         <div class="row">
 
@@ -159,6 +159,10 @@
                                 {% comment %} button to update consultation{% endcomment %}
                                 <input data-cy="update_appointment" type="submit" value="update"
                                        class="form-control bg-info text-light">
+                                {% comment %} user can delete consultation {% endcomment %}
+
+
+
                             </div>
 
                         </div>

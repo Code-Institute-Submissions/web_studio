@@ -123,6 +123,15 @@
                                     data-cy="edit_consultation"
                                     class="lead  btn btn-outline-info mb-3"
                                     href="/edit/appointment/{{ consult.id }}"> edit consultation</a>
+                                {% if not consult.paid_for %}
+                                <form action="{% url 'delete_appointment'  consult.id %}">
+                                    <label for="delete_appointment"><small class="text-danger">If you changed your mind,
+                                        you can delete your consultation, as the project is not paid for yet.</small></label>
+                                    <input id="delete_appointment" data-cy="delete_appointment" type="submit"
+                                           value="delete consultation" class="form-control bg-danger text-light">
+
+                                </form>
+                                 {% endif %}
                         </div>
                     {% endfor %}
                 {% endif %}

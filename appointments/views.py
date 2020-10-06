@@ -161,13 +161,26 @@ def edit_appointment(request, appointment_id):
 
     form = AppointmentForm(instance=appointment)
     context = {
+        'paid_for':appointment.paid_for,
         'form': form,
-        'item_id': appointment_id,
+        'appointment_id': appointment_id,
         'email': appointment.email,
         'freelancer': freelancer
     }
     return render(request, 'appointments/edit_appointment.html', context)
 
+# customer deleting appointment
+def delete_appointment(request, appointment_id):
+    try:
+        appointment = get_object_or_404(Appointment, id=appointment_id)
+        appointment.delete()
+        messages.success(request, "Your appointment was deleted successfully!")
+
+    except:
+        messages.error(request, "Appointment does not exist")
+
+    return redirect('profile')
+    #return render(request, 'appointments/profile.html', {})
 
 """
     user can log in to his account to update or delete appointment

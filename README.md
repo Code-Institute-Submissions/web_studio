@@ -42,9 +42,10 @@ Also place for freelance web developers and web designers to sign up and work wi
 
    - [cypress.io](#cypressio)
    - [javascript,HTML,CSS](#javascriptHTMLCSS)
-   - [Python,Django](#PythonFlask)
+   - [Python,Django](#PythonDjango)
    - [Mailgun](#Mailgun)
    - [AWS](#AWS)
+   - [Stripe](#Stripe)
   
    
 
@@ -263,9 +264,34 @@ I'll click through to the end and then click to create a user.
 Now I'll download the CSV file which will contain this users access key and secret access key
 Which I'll use to authenticate him from my Django app.
 To connect Django to the AWS s3 bucket I'll need to install
-boto3 and Django-storages. I need to add some settings in settings.py like AWS_STORAGE_BUCKET_NAME
-and AWS_S3_REGION_NAME which I downloaded from AWS.
+boto3 and Django-storages. I need to add some settings in settings.py like 
+
+    AWS_STORAGE_BUCKET_NAME  <  key >
+    AWS_S3_REGION_NAME  <  key >
+ 
+ which I downloaded from AWS.
 Whenever collectstatic is run. Django will collect static files automatically and upload them to s3
+
+### Stripe
+
+Stripe allows the user to make secure payments.
+To set up Stripe account, navigate to stripe.com, click on Start now, enter your details.
+Once inside your dashboard, click on + New account, give it a name.
+Then click on Developers on the left side navigation, and then click on API Keys.
+You will see your test keys : Publishable key and Secret key. Copy those into your enviroment variables
+section of Heroku account by clicking on your app name on Heroku, then clicking on settings and then
+clicking on Reveal config vars. Then you can add your keys from Stripe.
+
+    STRIPE_PUBLIC_KEY < your key >
+    STRIPE_SECRET_KEY < your key >
+
+To create webhook, in Stripe, click on Webhooks on left side of the navigation, then click on
+add webhook, add URL of your app that is set to receive webhook from Stripe, once saved, click on
+webhook URL in Stripe dashboard, you should see Webhook details and Signing Secret. Click on reveal
+and copy this secret to your Heroku environment variables
+
+    STRIPE_WH_SECRET < your key >
+
 
 
  ## Features
@@ -286,6 +312,7 @@ Whenever collectstatic is run. Django will collect static files automatically an
        -  same as public user plus :
        -  Login after booking the initial appointment to manage his appointment, and see any purchases on the site
        -  update consultation details and comunicate with developer
+       -  delete consultation details if it is not paid for yet
       
  
 - ### Admin 
@@ -333,6 +360,7 @@ I have created a Favicon. Favicons save the users time in identifying a website 
      test_get_add_appointment_page PASS
      test_get_edit_appointment_page PASS
      test_can_create_appointment PASS
+     test_create_edit_delete_appointment PASS
 
  #### checkout
      test_checkout_blog_page PASS
@@ -438,7 +466,10 @@ Then I created remote to GitHub
    ```
 
 Then I created a Heroku app by creating an account on Heroku first and then clicking on a new button in the top right corner
-and selecting create a new app. Then I selected the app name (marcelli) and region Europe. Then I downloaded and installed the Heroku CLI. I set my environmental variables by clicking on settings in the top navigation and then on clicking on reveal config vars and I added my env variables like PORT, IP, SECRET_KEY, STRIPE KEYS, AMAZON KEYS, MAILGUN KEYS... 
+and selecting create a new app. Then I selected the app name (marcelli) and region Europe. 
+Then I downloaded and installed the Heroku CLI. I set my environmental variables by clicking on 
+settings in the top navigation and then on clicking on reveal config vars and I added my env variables 
+like PORT, IP, SECRET_KEY, STRIPE KEYS, AMAZON KEYS, MAILGUN KEYS... 
 
 
 I logged in using
@@ -465,7 +496,10 @@ Then I created Procfile by
 ```cl
   $ echo web:python app.py>Procfile
    ```
+And added 
 
+    web: gunicorn web_studio.wsgi:application
+    
 So that Heroku knows how to run my app.
 
 To start dyno on Heroku I typed
@@ -479,7 +513,8 @@ to Heroku using Heroku remote and then in Heroku, I set the app to deploy from t
 and selecting deployment method as Github and by selecting repository I wanted to deploy from. And from this point, Heroku would
 automatically deploy my app whenever I push new code to my master branch.
 
-Heroku will also allow me to deploy apps from any branch I have created, which is very useful before merging a branch into the master to test it. I can do it by clicking on deploy in navigation and scrolling to the bottom of the page
+Heroku will also allow me to deploy apps from any branch I have created, which is very useful before merging a branch 
+into the master to test it. I can do it by clicking on deploy in navigation and scrolling to the bottom of the page
 and selecting the branch I want to deploy my app from.
  
 Deploying to Heroku also allows me to test my application on multiple devices. 
@@ -523,6 +558,8 @@ online-store => 1999
 If you want to be able to receive confirmation emails, you will need to set up an account with MAILGUN https://www.mailgun.com/ services
 and follow easy instructions on how to use services. Set MAILGUN_KEY variable into environmental variables,
 and use your test URL provided by MAILGUN.
+
+    MAILGUN_API_KEY = < your key>
 
 You will need to create templates with templates_names and variables as per
 checkout/views.py
