@@ -47,7 +47,7 @@
 
                     <form action="{% url 'appointments' %}" method="POST" id="book_appointment">
                         {% csrf_token %}
-                        <label for="name">Your name</label>
+                        <label for="name">Your full name</label>
                         <input type="text" name="name" id="name" required
                                {% if  request.user.is_authenticated %}readonly{% endif %}
                                class="form-control border border-info"
@@ -69,8 +69,8 @@
 
                         <hr>
                         {% if not  request.user.is_authenticated %}
-                            <label for="password">Your password <br>
-                                <small class="text-info">to manage your account</small></label>
+                            <label for="password">Create password <br>
+                                <small class="text-info">to manage your project</small></label>
                         {% endif %}
                         <input data-cy="password" type="password" name="password" id="password"
                                minlength="8"
@@ -83,8 +83,10 @@
                         >
                         <hr>
                         <label for="phone_num">Your phone number</label>
+                        <br>
+                        <small class="text-info">Please, provide your country code, if you're not in Ireland</small>
                         <input data-cy="phone_num" type="text" name="phone_num" id="phone_num"
-                               placeholder="+ country code"
+
                                required class="form-control border border-info"
                                value="{{ form.phone_num.value }}">
 
