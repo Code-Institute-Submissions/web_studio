@@ -348,6 +348,20 @@ I have created a Favicon. Favicons save the users time in identifying a website 
  
  Some front-end testing was done in cypress.io. Test case: Customer creating an appointment, logging in, editing appointment.
  
+ Manual testing was done by me and members of my family.
+ 
+ - tested all page views PASS
+ - tested registration form for freelancer PASS
+ - tested new consultation form PASS
+ - tested logging in as freelancer PASS
+ - freelancer updating project, conversation with client, registration details PASS
+ - client updating conversation with developer PASS
+ - client deleting consultation PASS
+ - client trying to preview project that is not his returns forbidden response PASS
+ - logged in client trying to type freelancer into the browser URL to get to freelancer's dashboard => redirecting back to client's profile PASS
+ - when logged in freelancer trying to make appointment or purchase products , no form is showns, instead of message to log out of freelancers accout is shown PASS
+ - logging out freelancer and client PASS
+ 
   
  All the back end tests were done with TestCase form django.test
  #### Test Cases:
