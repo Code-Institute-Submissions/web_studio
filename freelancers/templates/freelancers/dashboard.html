@@ -55,8 +55,10 @@
 
                                 <input title="" type="checkbox" name="done" id="appointment_done" hidden
                                        value=" {{ appointment.done }}">
-                                <input title="" type="password" name="password" id="password" hidden
-                                       value="dummy_password">
+
+                                   <input title="" type="checkbox" name="paid_for" hidden
+                                   id="paid_for" checked
+                                    >
                                 <br>
                                 <label for="time_slot" class="font-weight-bold text-info">Best time to contact :</label>
                                 <strong>{{ appointment.time_slot }}</strong>
